@@ -23,7 +23,7 @@
     "e2e:watch": "testcafe-live chrome e2e/**/*.e2e-spec.js",
     "e2e:ci": "testcafe all e2e/**/*.e2e-spec.js --app \"yarn dev\" --app-init-delay 4000",
     "postinstall": "npm run build && npm run db",
-    "db": "sequelize db:migrate && sequelize db:seed:all"
+    "db": "sequelize db:create && db:migrate && sequelize db:seed:all"
   },
   "engines": {
     "node": ">=8.0",
@@ -77,6 +77,8 @@
     "passport-google-oauth": "2.0.0",
     "passport-jwt": "4.0.0",
     "passport-local": "1.0.0",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
     "route-cache": "0.4.4",
     "sanitize.css": "10.0.0",
     "sequelize": "5.9.4",

@@ -1,8 +1,9 @@
 {
   "ssrEnabled": true,
   "database": {
-    "dialect": "sqlite",
-    "storage": "./db.sqlite"
+    "dialect": "postgres",
+    "database": "forward_progress_development",
+    "host": "127.0.0.1"
   },
   "Security": {
     "JWT_SECRET": "SECRET",

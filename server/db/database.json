@@ -1,17 +1,17 @@
 {
   "development": {
-    "dialect": "sqlite",
-    "storage": "./db.sqlite",
-    "logging": false
+    "database": "forward_progress_development",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   },
   "test": {
-    "logging": false,
-    "dialect": "sqlite",
-    "storage": ":memory:"
+    "database": "forward_progress_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   },
   "production": {
-    "dialect": "sqlite",
-    "storage": "./db.sqlite",
-    "logging": false
+    "database": "forward_progress_production",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }
