@@ -23,6 +23,9 @@ const serverInfo =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`;
 
+var graphqlHTTP = require('express-graphql');
+var schema = require('./graphql/schema');
+
 global.appConfig = _.merge(
   {},
   require('./server/config.json'),
@@ -82,7 +85,16 @@ const serve = (path, cache) =>
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
   });
 
-app.use(cors());
+app.use('*', cors());
+app.use(
+  '/graphql',
+  cors(),
+  graphqlHTTP({
+    schema: schema,
+    rootValue: global,
+    graphiql: true
+  })
+);
 app.use(helmet());
 app.use(bodyParser.json()); // handle json data
 app.use(bodyParser.urlencoded({ extended: true })); // handle URL-encoded data
@@ -176,15 +188,12 @@ server.listen(port, host, err => {
 
   // Connect to ngrok in dev mode
   if (ngrok) {
-    ngrok.connect(
-      port,
-      (innerErr, url) => {
-        if (innerErr) {
-          return logger.error(innerErr);
-        }
-        return logger.appStarted(port, prettyHost, url);
+    ngrok.connect(port, (innerErr, url) => {
+      if (innerErr) {
+        return logger.error(innerErr);
       }
-    );
+      return logger.appStarted(port, prettyHost, url);
+    });
   } else {
     return logger.appStarted(port, prettyHost);
   }
