@@ -1,6 +1,6 @@
-# Vue Node Fullstack
+# Forward Progress
 
-Fullstack application built using Vue and NodeJs with server side rendering.
+A full service web application for front office NFL execs.
 
 ## Features
 
@@ -79,11 +79,3 @@ npm run e2e # or yarn e2e
 ## watch mode
 npm run e2e:watch # or yarn e2e:watch
 ```
-
-## Credist
-
-Kudos to [vue-hackernews-2.0](https://github.com/vuejs/vue-hackernews-2.0) on which this project is based on.
-
-## License
-
-MIT
