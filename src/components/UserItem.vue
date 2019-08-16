@@ -1,5 +1,5 @@
 <template>
-  <h1>{{user.id}} {{user.firstName}}</h1>
+  <h1><a v-bind:href="'/users/' + user.id">{{user.id}} {{user.firstName}}</a></h1>
 </template>
 
 <script>

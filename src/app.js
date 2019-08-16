@@ -27,6 +27,8 @@ const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 });
 
+Vue.use(VueApollo);
+
 // mixin for handling title
 Vue.mixin(titleMixin);
 // plugins
@@ -48,7 +50,7 @@ export function createApp() {
   // here we inject the router, store and ssr context to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = new Vue({
-    provide: apolloProvider,
+    apolloProvider,
     router,
     store,
     render: h => h(App)
