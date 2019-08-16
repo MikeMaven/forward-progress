@@ -1,12 +1,12 @@
 <template>
   <div class="row">
     <div class="column">
-      <h1>{{ appData.content.app_title }}</h1> 
-      {{ appData.content.app_description }}
+      <h1>Forward Progress</h1>
+      A web based SaaS platform for front office NFL executives.
       <br>
       <div>
-        <router-link 
-          to="about" 
+        <router-link
+          to="about"
           class="button button-outline float-right">More info</router-link>
       </div>
     </div>

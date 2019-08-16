@@ -1,7 +1,7 @@
 <template>
   <footer class="footer">
     <span>
-      {{ appData.content.app_description }}
+      A web based SaaS platform for front office NFL executives.
     </span>
   </footer>
 </template>
