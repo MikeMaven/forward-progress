@@ -9,7 +9,7 @@ const serverTitleMixin = {
   created() {
     const title = getTitle(this);
     if (title) {
-      this.$ssrContext.title = `Vue Node Fullstack | ${title}`;
+      this.$ssrContext.title = `Forward Progress | ${title}`;
     }
   }
 };
@@ -18,7 +18,7 @@ const clientTitleMixin = {
   mounted() {
     const title = getTitle(this);
     if (title) {
-      document.title = `Vue Node Fullstack | ${title}`;
+      document.title = `Forward Progress | ${title}`;
     }
   }
 };
