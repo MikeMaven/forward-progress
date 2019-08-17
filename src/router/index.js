@@ -17,6 +17,9 @@ const NotFoundView = () => import('../views/NotFoundView.vue');
 // All examples
 const ExamplesView = () => import('../views/examples/ExamplesView.vue');
 
+const UsersView = () => import('../views/users/UsersView.vue');
+const UserShow = () => import('../views/users/UserShow.vue');
+
 function createRouter() {
   return new Router({
     mode: 'history',
@@ -40,6 +43,8 @@ function createRouter() {
           { path: 'userpassword', component: ProfilePasswordView }
         ]
       },
+      { path: '/users', component: UsersView },
+      { path: '/users/:id', component: UserShow },
       { path: '*', component: NotFoundView }
     ]
   });

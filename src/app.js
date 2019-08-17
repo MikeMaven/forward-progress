@@ -9,6 +9,26 @@ import { ACCESS_TOKEN } from './constants';
 import titleMixin from './util/title';
 import * as filters from './util/filters';
 
+import VueApollo from 'vue-apollo';
+import fetch from 'node-fetch';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import ApolloClient from 'apollo-client';
+
+const apolloClient = new ApolloClient({
+  link: createHttpLink({
+    uri: 'http://localhost:3000/graphql',
+    fetch: fetch
+  }),
+  cache: new InMemoryCache()
+});
+
+const apolloProvider = new VueApollo({
+  defaultClient: apolloClient
+});
+
+Vue.use(VueApollo);
+
 // mixin for handling title
 Vue.mixin(titleMixin);
 // plugins
@@ -30,6 +50,7 @@ export function createApp() {
   // here we inject the router, store and ssr context to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = new Vue({
+    apolloProvider,
     router,
     store,
     render: h => h(App)
