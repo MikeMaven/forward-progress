@@ -9,7 +9,7 @@ A full service web application for front office NFL execs.
 - Backend (Express)
 - ORM (Sequelize)
 - File upload and attachment via <a href="https://www.npmjs.com/package/sequelize-file">sequelize-file</a>
-- DB (All databases supported by sequelize e.g MySql, MSSql, Sqlite, PostgreSQL)
+- Relational DB via PostgreSQL
 - Login & Registration features
 - JWT based authentication
 - Server Side Rendering
