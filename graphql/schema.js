@@ -27,7 +27,7 @@ const resolvers = {
     users: userModule.users,
     //notes
     note: noteModule.note,
-    notes: notModule.notes
+    notes: noteModule.notes
   },
   Mutation: {
     //users

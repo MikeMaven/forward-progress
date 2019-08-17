@@ -1,4 +1,4 @@
-var NoteModel = require('../server/db/models').Note;
+var NoteModel = require('../../server/db/models').Note;
 
 const noteType = `type Note {
   id: ID!
@@ -11,7 +11,7 @@ const noteType = `type Note {
 const noteQueries = `notes: [Note]
 note(id: Int!) : Note`;
 
-const noterMutations = `addNote (
+const noteMutations = `addNote (
     title: String!
     body: String!
   ): Note
