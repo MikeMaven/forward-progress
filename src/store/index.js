@@ -3,14 +3,16 @@ import Vuex from 'vuex';
 import { router } from '../router';
 import { dataService, decode, sessionService, isBrowser } from '../services';
 import { ACCESS_TOKEN } from '../constants';
-import postsModule from './posts';
+import posts from './posts';
+import notes from './notes/index'
 
 Vue.use(Vuex);
 
 function createStore() {
   return new Vuex.Store({
     modules: {
-      postsModule
+      posts,
+      notes
     },
     state: {
       isAuthenticated: false,

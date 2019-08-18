@@ -23,7 +23,7 @@
     "e2e:watch": "testcafe-live chrome e2e/**/*.e2e-spec.js",
     "e2e:ci": "testcafe all e2e/**/*.e2e-spec.js --app \"yarn dev\" --app-init-delay 4000",
     "postinstall": "npm run build && npm run db",
-    "db": "sequelize db:create && db:migrate && sequelize db:seed:all"
+    "db": "sequelize db:migrate && sequelize db:seed:all"
   },
   "engines": {
     "node": ">=8.0",
@@ -57,6 +57,8 @@
     "axios": "0.19.0",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.19.0",
+    "bootstrap": "^4.3.1",
+    "bootstrap-vue": "^2.0.0-rc.28",
     "chalk": "2.4.2",
     "compression": "1.7.4",
     "cookie-parser": "1.4.4",
@@ -86,6 +88,7 @@
     "passport-local": "1.0.0",
     "pg": "^7.12.1",
     "pg-hstore": "^2.3.3",
+    "popper.js": "^1.15.0",
     "route-cache": "0.4.4",
     "sanitize.css": "10.0.0",
     "sequelize": "5.9.4",

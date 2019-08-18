@@ -16,9 +16,11 @@ const ProfilePasswordView = () =>
 const NotFoundView = () => import('../views/NotFoundView.vue');
 // All examples
 const ExamplesView = () => import('../views/examples/ExamplesView.vue');
-
+// User views
 const UsersView = () => import('../views/users/UsersView.vue');
 const UserShow = () => import('../views/users/UserShow.vue');
+// Note views
+import NotesIndex from '../views/notes/NotesIndex.vue'
 
 function createRouter() {
   return new Router({
@@ -45,6 +47,7 @@ function createRouter() {
       },
       { path: '/users', component: UsersView },
       { path: '/users/:id', component: UserShow },
+      { path: '/notes', component: NotesIndex },
       { path: '*', component: NotFoundView }
     ]
   });
