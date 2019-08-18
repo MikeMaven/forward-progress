@@ -20,6 +20,7 @@ const modules = [
   require('./content.model.js'),
   require('./contenttext.model.js'),
   require('./language.model.js'),
+  require('./note.model.js'),
   require('./role.model.js'),
   require('./user-images.model.js'),
   require('./user.model.js')

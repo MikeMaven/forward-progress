@@ -42,6 +42,7 @@ const userMutations = `addUser (
   ) : User`;
 
 const users = () => {
+  console.log(UserModel);
   const users = UserModel.findAll({
     order: [['createdAt', 'DESC']]
   });
