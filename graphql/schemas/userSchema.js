@@ -1,4 +1,4 @@
-var UserModel = require('../server/db/models').User;
+var UserModel = require('../../server/db/models').User;
 
 const userType = `type User {
   id: ID!
