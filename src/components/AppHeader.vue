@@ -17,7 +17,7 @@
         to="/about">About Us</router-link>
       <router-link
         exact
-        to="/examples">{{ appData.content.app_nav_examples }}</router-link>
+        to="/games">Upcoming Games</router-link>
       <router-link
         v-if="isAuthenticated"
         to="/profile">{{ user.username }}</router-link>

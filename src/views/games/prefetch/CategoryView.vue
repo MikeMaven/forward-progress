@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div 
+    <div
       v-for="post in posts"
       :key="post.id"
       class="card">
@@ -12,11 +12,11 @@
 import PostCard from './PostCard.vue';
 import { mapGetters } from 'vuex';
 const fetchInitialData = (store, route) => {
-  let categoryId = 2;
-  if (route.params.id === 'mobile') {
-    categoryId = 11;
+  let categoryId = 4391;
+  if (route.params.id === 'college') {
+    categoryId = 4479;
   }
-  return store.dispatch('postsModule/updateCategory', categoryId);
+  return store.dispatch('posts/updateCategory', categoryId);
 };
 export default {
   asyncData({ store, route }) {
@@ -26,7 +26,7 @@ export default {
     'app-post-card': PostCard
   },
   computed: {
-    ...mapGetters('postsModule', ['posts'])
+    ...mapGetters('posts', ['posts'])
   },
   watch: {
     $route(to, from) {
