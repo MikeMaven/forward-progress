@@ -2,8 +2,8 @@
   <div id="app">
     <app-header/>
     <div class="container">
-      <transition 
-        name="fade" 
+      <transition
+        name="fade"
         mode="out-in">
         <router-view class="view"/>
       </transition>
@@ -14,6 +14,7 @@
 <script>
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
+
 export default {
   components: {
     'app-header': AppHeader,
@@ -23,4 +24,6 @@ export default {
 </script>
 <style lang="scss">
 @import './styles/index';
+@import '~bootstrap/scss/bootstrap';
+@import '~bootstrap-vue/src/index.scss';
 </style>

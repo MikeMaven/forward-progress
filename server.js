@@ -100,6 +100,7 @@ app.use(bodyParser.json()); // handle json data
 app.use(bodyParser.urlencoded({ extended: true })); // handle URL-encoded data
 app.use(compression({ threshold: 0 }));
 app.use(cookieParser());
+app.use('/notes', serve('./src/packs/notes'));
 app.use(favicon('./public/images/favicon.ico'));
 app.use('/dist', serve('./dist', true));
 app.use('/public', serve('./public', true));

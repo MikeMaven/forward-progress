@@ -10,6 +10,7 @@ import titleMixin from './util/title';
 import * as filters from './util/filters';
 
 import VueApollo from 'vue-apollo';
+import BootstrapVue from 'bootstrap-vue';
 import fetch from 'node-fetch';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
@@ -28,6 +29,7 @@ const apolloProvider = new VueApollo({
 });
 
 Vue.use(VueApollo);
+Vue.use(BootstrapVue);
 
 // mixin for handling title
 Vue.mixin(titleMixin);
