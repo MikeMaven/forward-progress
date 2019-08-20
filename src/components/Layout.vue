@@ -4,7 +4,6 @@
     <div class="container-fluid">
       <router-view/>
     </div>
-    <app-footer/>
   </div>
 </template>
 <script>

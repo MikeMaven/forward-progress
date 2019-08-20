@@ -15,7 +15,7 @@ const ProfilePasswordView = () =>
   import('../views/profile/ProfilePasswordView.vue');
 const NotFoundView = () => import('../views/NotFoundView.vue');
 // All examples
-const ExamplesView = () => import('../views/examples/ExamplesView.vue');
+const GamesView = () => import('../views/games/GamesView.vue');
 // User views
 const UsersView = () => import('../views/users/UsersView.vue');
 const UserShow = () => import('../views/users/UserShow.vue');
@@ -32,8 +32,8 @@ function createRouter() {
       { path: '/', component: HomeView },
       { path: '/about', component: AboutView },
       {
-        path: '/examples',
-        component: ExamplesView
+        path: '/games',
+        component: GamesView
       },
       { path: '/login', component: LoginView },
       { path: '/register', component: RegisterView },

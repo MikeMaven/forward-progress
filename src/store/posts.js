@@ -18,10 +18,10 @@ const actions = {
   updateCategory(context, categoryId) {
     return dataService
       .get(
-        `https://api.fullstackweekly.com/wp-json/wp/v2/posts?categories=${categoryId}&per_page=6`
+        `https://www.thesportsdb.com/api/v1/json/1/eventsnextleague.php?id=${categoryId}`
       )
-      .then(res => {
-        context.commit('updateCategory', { categoryId, posts: res.data });
+      .then(response => {
+        context.commit('updateCategory', { categoryId, posts: response.data.events });
       });
   }
 };

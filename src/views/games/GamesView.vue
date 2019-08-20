@@ -5,13 +5,13 @@
       <div class="column">
         <ul class="sub-nav">
           <li>
-            <router-link to="/examples/category/front-end">Front-end</router-link>
+            <router-link to="/games/category/nfl">Upcoming NFL Games</router-link>
           </li>
           <li>
-            <router-link to="/examples/category/mobile">Mobile</router-link>
+            <router-link to="/games/category/college">Upcoming College Football Games</router-link>
           </li>
           <li>
-            <router-link to="/examples/modal">Modal</router-link>
+            <router-link to="/games/modal">Modal</router-link>
           </li>
         </ul>
       </div>
@@ -20,8 +20,8 @@
     <!-- Header -->
     <div class="row">
       <div class="column">
-        <transition 
-          name="fade" 
+        <transition
+          name="fade"
           mode="out-in">
           <router-view class="view"/>
         </transition>

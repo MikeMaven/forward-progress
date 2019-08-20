@@ -1,16 +1,17 @@
 <template>
   <div>
-    <div class="card-header">
-      {{ post.title.rendered }}
+    <div class="card-header text-dark">
+      {{ post.strEvent }}
     </div>
     <div class="card-body">
-      <span 
-        class="card-text" 
-        v-html="post.excerpt.rendered"/>
+      <span class="card-text">
+        Date:</br>
+        {{ post.dateEvent }}
+      </span>
     </div>
-    <div class="card-footer">
-      <a 
-        :href="post.rest_api_enabler.Link" 
+    <div v-if="post.strThumb" class="card-footer">
+      <img
+        :src="post.strThumb"
         target="_blank">Read More</a>
     </div>
   </div>
