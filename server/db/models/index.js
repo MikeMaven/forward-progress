@@ -23,6 +23,7 @@ const modules = [
   require('./note.model.js'),
   require('./role.model.js'),
   require('./user-images.model.js'),
+  require('./usernote.model.js'),
   require('./user.model.js')
 ];
 
