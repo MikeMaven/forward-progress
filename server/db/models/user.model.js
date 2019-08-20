@@ -123,6 +123,12 @@ module.exports = function(sequelize, DataTypes) {
       through: 'UserRole',
       foreignKey: 'roleid'
     });
+    User.belongsToMany(models.Note, {
+      through: 'Usernotes',
+      as: 'notes',
+      foreignKey: 'UserId',
+      otherKey: 'NoteId'
+    })
   };
 
   return User;
