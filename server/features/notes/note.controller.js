@@ -34,3 +34,29 @@ exports.myNotes = (req, res) => {
     return res.status(401).send({});
   }
 };
+
+exports.newNote = (req, res) => {
+  if (req.user) {
+    const newNote = Object.assign({
+      title: req.body.title,
+      body: req.body.body
+    });
+    Note.create(newNote)
+      .then(newNote => {
+        const newUsernote = Object.assign({
+          UserId: req.user.dataValues.id,
+          NoteId: newNote.id
+        });
+        Usernote.create(newUsernote);
+        return newNote;
+      })
+      .then(note => {
+        res.json(note);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
