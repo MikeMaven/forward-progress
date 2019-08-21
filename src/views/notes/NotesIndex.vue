@@ -30,7 +30,7 @@ export default {
 
   computed: {
     notes(){
-      this.$store.notes.getters.notes
+      this.$store.getters.notes.notes
     }
   },
 
@@ -44,7 +44,7 @@ export default {
   },
 
   mounted() {
-    this.$store.notes.dispatch('getUserNotes')
+    this.$store.dispatch('notes/getUserNotes')
   },
 }
 </script>

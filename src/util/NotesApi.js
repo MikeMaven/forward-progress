@@ -7,5 +7,5 @@ export function getUserNotes() {
 
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {method: 'get', url: url, responseType: 'json'})
 
-  return axios(options).then((response) => CodeApi.unrollApiResponse(response.data))
+  return axios(options).then((response) => CodeApi.unrollApiResponse(response.data.notes))
 }
