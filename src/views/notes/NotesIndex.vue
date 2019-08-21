@@ -29,12 +29,9 @@ export default {
   },
 
   computed: {
-    // computed properties are cached based on their dependencies
-    /*
-    computedProperty() {
-      return 'value'
-    },
-    */
+    notes(){
+      this.$store.getters.notes.notes
+    }
   },
 
   methods: {
@@ -47,7 +44,7 @@ export default {
   },
 
   mounted() {
-    // Invoked when the component loads, good place to fetch data from the API
+    this.$store.dispatch('notes/getUserNotes')
   },
 }
 </script>
