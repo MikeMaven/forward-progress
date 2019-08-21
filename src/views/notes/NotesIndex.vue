@@ -1,14 +1,22 @@
 <template>
   <div>
-    Notes are gonna go here!
+    <note-component
+    v-for="note in notes"
+    :key="note.id"
+    :note="note">
+    </note-component>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'users',
+import NoteComponent from '../../components/NoteComponent.vue';
 
-  components: {},
+export default {
+  name: 'notes',
+
+  components: {
+    NoteComponent
+  },
 
   mixins: [],
 
@@ -24,13 +32,12 @@ export default {
 
   data() {
     return {
-      // field: 'value'
     }
   },
 
   computed: {
     notes(){
-      this.$store.getters.notes.notes
+      return this.$store.getters['notes/notes'];
     }
   },
 

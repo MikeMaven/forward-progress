@@ -19,7 +19,6 @@ exports.getNotes = (req, res) => {
 exports.myNotes = (req, res) => {
   let notes = null;
   if (req.user) {
-    console.log(req);
     User.findByPk(req.user.dataValues.id, {
       include: [
         {
