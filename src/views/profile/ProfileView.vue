@@ -19,6 +19,8 @@
     {{ info }}
     <h4>My Notes: (/api/myNotes)</h4>
     {{myNotes}}
+    <h4>Post some kind of note:</h4>
+    <button v-on:click="postSomething">POST</button>
   </div>
 </template>
 
@@ -43,6 +45,14 @@ export default {
     axios
       .get('/api/myNotes')
       .then(response => (this.myNotes = response.data))
+  },
+  methods: {
+    postSomething: () => {
+      axios.post('/api/newNote', {
+        title: 'Posted Note Title',
+        body: 'Posted Note Body'
+      })
+    }
   }
 }
 </script>

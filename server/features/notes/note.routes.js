@@ -25,4 +25,5 @@ module.exports = app => {
 
   app.route('/api/getNotes').get(notes.getNotes);
   app.route('/api/myNotes').get(notes.myNotes);
+  app.route('/api/newNote').post(notes.newNote);
 };
