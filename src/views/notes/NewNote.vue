@@ -17,7 +17,13 @@
           <button :class="{ 'is-active': isActive.underline() }" @click="commands.underline">Underline</button>
         </div>
       </editor-menu-bar>
-      <editor-content :editor="editor" id="editorBox" class="editor__content" />
+      <div style="height:50vh;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;" className="scrollBox" v-on:click="setFocusToEditor">
+        <editor-content :editor="editor" id="editorBox" class="editor__content" />
+      </div>
+    </div>
+    <div class="buttonRow">
+      <button v-on:click="clearEditor">Clear</button>
+      <button>Submit</button>
     </div>
   </div>
 </template>
@@ -52,6 +58,18 @@ export default {
       editor: null
     }
   },
+  methods: {
+    clearEditor() {
+      this.editor.clearContent(true);
+      this.editor.focus()
+    },
+    saveNote() {
+      console.log(this.editor.content)
+    },
+    setFocusToEditor() {
+      this.editor.focus()
+    }
+  },
   mounted() {
     this.editor = new Editor({
       extensions: [
@@ -80,21 +98,26 @@ export default {
         </ul>
       `
     })
-  },
-  beforeDestroy() {
-    this.editor.destroy();
   }
 }
 </script>
 
 <style>
-#editorBox {
-  border: 1px solid black;
-  padding: 5px;
-  margin-top: 10px;
+.buttonRow {
+  margin-top: 20px;
 }
 
-/* Fixes some of the text box's styling issues: */
+/* CSS here specifically fixed some of the text box's styling issues: */
+#editorBox {
+  padding: 6px;
+  margin-top: 10px;
+  max-height: 70vh;
+}
+
+.ProseMirror-focused:focus, input:focus{
+  outline: none !important;
+}
+
 .editor li p {
   display: inline !important;
 }
