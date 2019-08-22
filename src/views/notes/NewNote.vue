@@ -23,7 +23,7 @@
     </div>
     <div class="buttonRow">
       <button v-on:click="clearEditor">Clear</button>
-      <button>Submit</button>
+      <button v-on:click="saveNote">Save Note</button>
     </div>
   </div>
 </template>
@@ -64,7 +64,7 @@ export default {
       this.editor.focus()
     },
     saveNote() {
-      console.log(this.editor.content)
+      this.$store.dispatch('notes/saveNote');
     },
     setFocusToEditor() {
       this.editor.focus()
