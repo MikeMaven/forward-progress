@@ -13,11 +13,13 @@
         exact
         to="/">Home</router-link>
       <router-link
-        exact
-        to="/notes">My Notes</router-link>
-      <router-link
+        v-if="isAuthenticated"
         exact
         to="/newnote">New Note</router-link>
+      <router-link
+        v-if="isAuthenticated"
+        exact
+        to="/notes">My Notes</router-link>
       <router-link
         exact
         to="/about">About Us</router-link>
