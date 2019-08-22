@@ -64,7 +64,8 @@ export default {
       this.editor.focus()
     },
     saveNote() {
-      this.$store.dispatch('notes/saveNote');
+      // this.$store.dispatch('notes/saveNote');
+      console.log('save note here')
     },
     setFocusToEditor() {
       this.editor.focus()
