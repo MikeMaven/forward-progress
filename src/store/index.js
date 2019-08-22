@@ -4,7 +4,7 @@ import { router } from '../router';
 import { dataService, decode, sessionService, isBrowser } from '../services';
 import { ACCESS_TOKEN } from '../constants';
 import posts from './posts';
-import notes from './notes/index'
+import notes from './notes/index';
 
 Vue.use(Vuex);
 

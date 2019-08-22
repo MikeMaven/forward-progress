@@ -14,6 +14,9 @@
         to="/">Home</router-link>
       <router-link
         exact
+      to="/notes">My Notes</router-link>
+      <router-link
+        exact
         to="/about">About Us</router-link>
       <router-link
         exact

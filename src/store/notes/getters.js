@@ -1,5 +1,5 @@
 export default {
   notes: (state, getters) => {
-    return state.notes.notes
+    return state.notes;
   }
 };
