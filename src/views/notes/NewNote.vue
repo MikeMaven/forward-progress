@@ -2,6 +2,7 @@
   <div>
     <h1>NEW NOTE</h1>
     <div class="editor">
+      <h6>Title:</h6><input v-model="title" type="text"/>
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
         <div class="menubar">
           <button :class="{ 'is-active': isActive.bold() }" @click="commands.bold">Bold</button>
@@ -55,7 +56,9 @@ export default {
   },
   data() {
     return {
-      editor: null
+      editor: null,
+      title: null,
+      body: null
     }
   },
   methods: {
@@ -64,14 +67,15 @@ export default {
       this.editor.focus()
     },
     saveNote() {
-      // this.$store.dispatch('notes/saveNote');
-      console.log('save note here')
+      this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
     },
     setFocusToEditor() {
       this.editor.focus()
     }
   },
   mounted() {
+    const vm = this
+
     this.editor = new Editor({
       extensions: [
         new Blockquote(),
@@ -90,15 +94,13 @@ export default {
         new Underline(),
         new History()
       ],
-      content: `
-        <h1>Headers!</h1>
-        Here are <strong>some tags</strong> oh boy.
-        <ul>
-          <li>fjalsdjfa</li>
-          <li>fjasdlkfj</li>
-        </ul>
-      `
-    })
+      content: this.body,
+      onUpdate: ({getHTML}) => {
+        this.body = getHTML()
+      },
+
+    }),
+    this.editor.setContent(this.body)
   }
 }
 </script>

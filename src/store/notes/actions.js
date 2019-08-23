@@ -12,5 +12,14 @@ export default {
         });
       }
     });
+  },
+
+  saveNote(context, payload) {
+    return new Promise(resolve => {
+      NotesApi.saveNote(payload.title, payload.body).then(note => {
+        context.commit('setNewNote', note);
+        resolve();
+      })
+    })
   }
 };
