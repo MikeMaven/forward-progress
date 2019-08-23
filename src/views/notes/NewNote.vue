@@ -2,21 +2,23 @@
   <div>
     <h1>NEW NOTE</h1>
     <div class="editor">
-      <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
-        <div class="menubar">
-          <button :class="{ 'is-active': isActive.bold() }" @click="commands.bold">Bold</button>
-          <button :class="{ 'is-active': isActive.blockquote() }" @click="commands.blockquote">Blockquote</button>
-          <button :class="{ 'is-active': isActive.code_block() }" @click="commands.code_block">Code Block</button>
-          <button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">Heading 1</button>
-          <button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">Heading 2</button>
-          <button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">Heading 3</button>
-          <button :class="{ 'is-active': isActive.ordered_list() }" @click="commands.ordered_list">Ordered List</button>
-          <button :class="{ 'is-active': isActive.bullet_list() }" @click="commands.bullet_list">Bullet List</button>
-          <button :class="{ 'is-active': isActive.italic() }" @click="commands.italic">Italic</button>
-          <button :class="{ 'is-active': isActive.strike() }" @click="commands.strike">Strike</button>
-          <button :class="{ 'is-active': isActive.underline() }" @click="commands.underline">Underline</button>
-        </div>
-      </editor-menu-bar>
+      <h6>Title:</h6><input v-model="title" type="text"/>
+      <div class="buttonRow">
+        <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
+          <div class="menubar">
+            <button class="textButton" :class="{ 'is-active': isActive.bold() }" @click="commands.bold"><font-awesome-icon icon="bold" size="3x"/></button>
+            <button class="textButton" :class="{ 'is-active': isActive.italic() }" @click="commands.italic"><font-awesome-icon icon="italic" size="3x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.strike() }" @click="commands.strike"><font-awesome-icon icon="strikethrough" size="3x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.underline() }" @click="commands.underline"><font-awesome-icon icon="underline" size="3x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.blockquote() }" @click="commands.blockquote"><font-awesome-icon icon="quote-left" size="3x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })"><font-awesome-icon icon="heading" size="3x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })"><font-awesome-icon icon="heading" size="2x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })"><font-awesome-icon icon="heading" size="1x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.ordered_list() }" @click="commands.ordered_list"><font-awesome-icon icon="list-ol" size="3x" /></button>
+            <button class="textButton" :class="{ 'is-active': isActive.bullet_list() }" @click="commands.bullet_list"><font-awesome-icon icon="list" size="3x" /></button>
+          </div>
+        </editor-menu-bar>
+      </div>
       <div style="height:50vh;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;" className="scrollBox" v-on:click="setFocusToEditor">
         <editor-content :editor="editor" id="editorBox" class="editor__content" />
       </div>
@@ -55,7 +57,9 @@ export default {
   },
   data() {
     return {
-      editor: null
+      editor: null,
+      title: null,
+      body: null
     }
   },
   methods: {
@@ -64,14 +68,15 @@ export default {
       this.editor.focus()
     },
     saveNote() {
-      // this.$store.dispatch('notes/saveNote');
-      console.log('save note here')
+      this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
     },
     setFocusToEditor() {
       this.editor.focus()
     }
   },
   mounted() {
+    const vm = this
+
     this.editor = new Editor({
       extensions: [
         new Blockquote(),
@@ -90,32 +95,42 @@ export default {
         new Underline(),
         new History()
       ],
-      content: `
-        <h1>Headers!</h1>
-        Here are <strong>some tags</strong> oh boy.
-        <ul>
-          <li>fjalsdjfa</li>
-          <li>fjasdlkfj</li>
-        </ul>
-      `
-    })
+      content: this.body,
+      onUpdate: ({getHTML}) => {
+        this.body = getHTML()
+      },
+
+    }),
+    this.editor.setContent(this.body)
   }
 }
 </script>
 
 <style>
+/* CSS Here fixes menu buttons and styling */
+.textButton {
+  width: 5%;
+  font-size: .75em;
+  border-radius: 5px;
+  vertical-align: middle;
+  padding: 6px;
+}
+
 .buttonRow {
-  margin-top: 20px;
+  position: relative;
+  margin: 15px 0 5px 0;
+}
+
+.svg-inline--fa {
+  vertical-align: -webkit-baseline-middle;
 }
 
 /* CSS here specifically fixed some of the text box's styling issues: */
-#editorBox {
+.ProseMirror {
   padding: 6px;
-  margin-top: 10px;
-  max-height: 70vh;
 }
 
-.ProseMirror-focused:focus, input:focus{
+.ProseMirror:focus {
   outline: none !important;
 }
 
