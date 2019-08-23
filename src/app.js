@@ -16,6 +16,17 @@ import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import ApolloClient from 'apollo-client';
 
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faBold,
+  faQuoteLeft,
+  faHeading,
+  faList
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
+library.add(faBold, faQuoteLeft, faHeading, faList);
+
 const apolloClient = new ApolloClient({
   link: createHttpLink({
     uri: 'http://localhost:3000/graphql',
@@ -27,6 +38,9 @@ const apolloClient = new ApolloClient({
 const apolloProvider = new VueApollo({
   defaultClient: apolloClient
 });
+
+Vue.component('font-awesome-icon', FontAwesomeIcon);
+Vue.config.productionTip = false;
 
 Vue.use(VueApollo);
 Vue.use(BootstrapVue);

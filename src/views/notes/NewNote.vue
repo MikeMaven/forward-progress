@@ -5,13 +5,12 @@
       <h6>Title:</h6><input v-model="title" type="text"/>
       <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
         <div class="menubar">
-          <button :class="{ 'is-active': isActive.bold() }" @click="commands.bold">Bold</button>
-          <button :class="{ 'is-active': isActive.blockquote() }" @click="commands.blockquote">Blockquote</button>
-          <button :class="{ 'is-active': isActive.code_block() }" @click="commands.code_block">Code Block</button>
-          <button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })">Heading 1</button>
-          <button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })">Heading 2</button>
-          <button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })">Heading 3</button>
-          <button :class="{ 'is-active': isActive.ordered_list() }" @click="commands.ordered_list">Ordered List</button>
+          <button :class="{ 'is-active': isActive.bold() }" @click="commands.bold"><font-awesome-icon icon="bold" size="3x"/></button>
+          <button :class="{ 'is-active': isActive.blockquote() }" @click="commands.blockquote"><font-awesome-icon icon="quote-left" size="3x" /></button>
+          <button :class="{ 'is-active': isActive.heading({ level: 1 }) }" @click="commands.heading({ level: 1 })"><font-awesome-icon icon="heading" size="3x" /></button>
+          <button :class="{ 'is-active': isActive.heading({ level: 2 }) }" @click="commands.heading({ level: 2 })"><font-awesome-icon icon="heading" size="2x" /></button>
+          <button :class="{ 'is-active': isActive.heading({ level: 3 }) }" @click="commands.heading({ level: 3 })"><font-awesome-icon icon="heading" size="1x" /></button>
+          <button :class="{ 'is-active': isActive.ordered_list() }" @click="commands.ordered_list"><font-awesome-icon icon="list" size="3x" /></button>
           <button :class="{ 'is-active': isActive.bullet_list() }" @click="commands.bullet_list">Bullet List</button>
           <button :class="{ 'is-active': isActive.italic() }" @click="commands.italic">Italic</button>
           <button :class="{ 'is-active': isActive.strike() }" @click="commands.strike">Strike</button>
