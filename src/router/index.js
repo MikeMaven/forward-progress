@@ -20,7 +20,8 @@ const GamesView = () => import('../views/games/GamesView.vue');
 const UsersView = () => import('../views/users/UsersView.vue');
 const UserShow = () => import('../views/users/UserShow.vue');
 // Note views
-import NotesIndex from '../views/notes/NotesIndex.vue'
+import NotesIndex from '../views/notes/NotesIndex.vue';
+import NewNote from '../views/notes/NewNote.vue';
 
 function createRouter() {
   return new Router({
@@ -48,6 +49,7 @@ function createRouter() {
       { path: '/users', component: UsersView },
       { path: '/users/:id', component: UserShow },
       { path: '/notes', component: NotesIndex },
+      { path: '/newnote', component: NewNote },
       { path: '*', component: NotFoundView }
     ]
   });
