@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>{{ note.title }}</h4>
-    <span v-html="note.body"></span>
+    <span v-html="note.body" class="showNoteBody"></span>
   </div>
 </template>
 
@@ -11,3 +11,11 @@ export default {
   props: ['note']
 }
 </script>
+
+<style>
+
+.showNoteBody li p {
+  display: inline !important;
+}
+
+</style>

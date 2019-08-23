@@ -21,11 +21,24 @@ import {
   faBold,
   faQuoteLeft,
   faHeading,
-  faList
+  faList,
+  faListOl,
+  faItalic,
+  faStrikethrough,
+  faUnderline
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faBold, faQuoteLeft, faHeading, faList);
+library.add(
+  faBold,
+  faQuoteLeft,
+  faHeading,
+  faList,
+  faListOl,
+  faItalic,
+  faStrikethrough,
+  faUnderline
+);
 
 const apolloClient = new ApolloClient({
   link: createHttpLink({
