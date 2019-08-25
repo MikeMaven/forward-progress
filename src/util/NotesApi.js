@@ -43,3 +43,19 @@ export function getEditNote(id) {
     return response.data;
   });
 }
+
+export function editNote(title, body, id) {
+  const url = `../api/editNote`;
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    data: { title: title, body: body, id: id }
+  });
+
+  return axios(options).then(response => {
+    console.log(response);
+    return response.data;
+  });
+}

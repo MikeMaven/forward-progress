@@ -79,8 +79,11 @@ export default {
       this.editor.focus()
     },
     saveNote() {
-      alert("title: " + this.title + " body: " + this.body)
-      // this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
+      if (this.editNoteID) {
+        this.$store.dispatch('notes/editNote', {title: this.title, body: this.body, id: this.editNoteID})
+      } else {
+        this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
+      }
     },
     setFocusToEditor() {
       this.editor.focus()

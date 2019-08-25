@@ -36,7 +36,6 @@ exports.myNotes = (req, res) => {
 
 exports.getNote = (req, res) => {
   if (req.user) {
-    console.log(req.params);
     Note.findByPk(req.params.id)
       .then(note => {
         res.json(note);
@@ -66,6 +65,23 @@ exports.newNote = (req, res) => {
       })
       .then(note => {
         res.json(note);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
+exports.editNote = (req, res) => {
+  if (req.user) {
+    Note.update(
+      { title: req.body.title, body: req.body.body },
+      { returning: true, where: { id: req.body.id } }
+    )
+      .then(function([rowsUpdate, [updatedNote]]) {
+        res.json(updatedNote);
       })
       .catch(err => {
         res.status(400).send(err);
