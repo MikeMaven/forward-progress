@@ -51,7 +51,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('notes/getUserNotes')
+    this.$store.dispatch('notes/getUserNotes');
   },
 }
 </script>

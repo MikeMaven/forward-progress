@@ -14,12 +14,24 @@ export default {
     });
   },
 
+  getNote(context, payload) {
+    return new Promise(resolve => {
+      if (context.loaded) {
+        resolve();
+      } else {
+        NotesApi.getEditNote(payload.id).then(response => {
+          context.commit('setNoteToEdit', response);
+        });
+      }
+    });
+  },
+
   saveNote(context, payload) {
     return new Promise(resolve => {
       NotesApi.saveNote(payload.title, payload.body).then(note => {
         context.commit('setNewNote', note);
         resolve();
-      })
-    })
+      });
+    });
   }
 };

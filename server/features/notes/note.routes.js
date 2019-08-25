@@ -24,6 +24,7 @@ module.exports = app => {
   const notes = require('./note.controller');
 
   app.route('/api/getNotes').get(notes.getNotes);
+  app.route('/api/getNote/:id').get(notes.getNote);
   app.route('/api/myNotes').get(notes.myNotes);
   app.route('/api/newNote').post(notes.newNote);
 };

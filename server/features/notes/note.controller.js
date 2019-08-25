@@ -34,6 +34,21 @@ exports.myNotes = (req, res) => {
   }
 };
 
+exports.getNote = (req, res) => {
+  if (req.user) {
+    console.log(req.params);
+    Note.findByPk(req.params.id)
+      .then(note => {
+        res.json(note);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
 exports.newNote = (req, res) => {
   if (req.user) {
     const newNote = Object.assign({

@@ -1,4 +1,8 @@
 export default {
   notes: [],
-  welcomeText: "Welcome to your notes dashboard:"
+  noteToEdit: {
+    title: null,
+    body: null
+  },
+  welcomeText: 'Welcome to your notes dashboard:'
 };
