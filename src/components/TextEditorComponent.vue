@@ -52,25 +52,25 @@ import {
 
 export default {
   title: 'TextEditorComponent',
-  props: [ 'noteTitle', 'noteBody' ],
+  props: [ 'noteTitle', 'noteBody', 'editNoteID' ],
+  watch: {
+    noteTitle: function() {
+      this.title = this.noteTitle;
+    },
+    noteBody: function() {
+      this.body = this.noteBody
+      this.editor.setContent(this.body)
+    }
+  },
   components: {
     EditorMenuBar,
     EditorContent
   },
   data() {
     return {
-      editor: null
-    }
-  },
-  computed: {
-    body() {
-      return this.noteBody
-    },
-    title() {
-      if (this.editor) {
-        this.editor.setContent(this.noteBody)
-      }
-      return this.noteTitle
+      editor: null,
+      body: null,
+      title: null
     }
   },
   methods: {
@@ -79,7 +79,8 @@ export default {
       this.editor.focus()
     },
     saveNote() {
-      this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
+      alert("title: " + this.title + " body: " + this.body)
+      // this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
     },
     setFocusToEditor() {
       this.editor.focus()

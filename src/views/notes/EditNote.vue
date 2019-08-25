@@ -4,7 +4,7 @@
     <text-editor-component
       :noteTitle = "noteToEdit.title"
       :noteBody = "noteToEdit.body"
-      :id = "this.$route.params.id"
+      :editNoteID = "this.$route.params.id"
     ></text-editor-component>
 
   </div>
