@@ -49,7 +49,7 @@ exports.getNote = (req, res) => {
 };
 
 exports.newNote = (req, res) => {
-  if (req.user) {
+  if (req.user && (req.body.title && req.body.body)) {
     const newNote = Object.assign({
       title: req.body.title,
       body: req.body.body

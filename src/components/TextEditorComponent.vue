@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="editor">
-      <h6>Title:</h6><input v-model="title" type="text" />
+      <h6>Title:</h6><input v-model="title" type="text" tabindex="1" />
       <div class="buttonRow">
         <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
           <div class="menubar">
@@ -116,6 +116,7 @@ export default {
       },
 
     }),
+    this.editor.view.props.attributes = { tabindex: "2" };
     this.editor.setContent(this.body)
   }
 }
