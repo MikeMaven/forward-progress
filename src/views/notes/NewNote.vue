@@ -68,7 +68,12 @@ export default {
       this.editor.focus()
     },
     saveNote() {
-      this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
+      if (this.title && this.body) {
+        this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
+      } else {
+        // Add some better error messaging here later instead of the popup
+        alert('You must add a title and body')
+      }
     },
     setFocusToEditor() {
       this.editor.focus()
