@@ -27,6 +27,9 @@ exports.myNotes = (req, res) => {
         }
       ]
     }).then(user => {
+      user.notes = user.notes.sort((earlier, later) => {
+        return later.updatedAt - earlier.updatedAt;
+      });
       res.json(user);
     });
   } else {
