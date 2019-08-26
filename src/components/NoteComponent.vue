@@ -1,7 +1,9 @@
 <template>
-  <div>
+  <div class="noteIndexComponent">
     <h4>{{ note.title }}</h4>
     <span v-html="note.body" class="showNoteBody"></span>
+    <div><a :href="'/EditNote/' + note.id">Edit Note</a> - Delete Note</div>
+    </ul>
   </div>
 </template>
 
@@ -16,6 +18,9 @@ export default {
 
 .showNoteBody li p {
   display: inline !important;
+}
+.noteIndexComponent {
+  margin-bottom: 15px;
 }
 
 </style>

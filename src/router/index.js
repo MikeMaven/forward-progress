@@ -22,6 +22,7 @@ const UserShow = () => import('../views/users/UserShow.vue');
 // Note views
 import NotesIndex from '../views/notes/NotesIndex.vue';
 import NewNote from '../views/notes/NewNote.vue';
+import EditNote from '../views/notes/EditNote.vue';
 
 function createRouter() {
   return new Router({
@@ -50,6 +51,7 @@ function createRouter() {
       { path: '/users/:id', component: UserShow },
       { path: '/notes', component: NotesIndex },
       { path: '/newnote', component: NewNote },
+      { path: '/editnote/:id', component: EditNote },
       { path: '*', component: NotFoundView }
     ]
   });

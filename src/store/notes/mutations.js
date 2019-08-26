@@ -4,6 +4,10 @@ export default {
   },
 
   setNewNote(state, note) {
-    state.notes.push(note)
+    state.notes.push(note);
+  },
+
+  setNoteToEdit(state, noteToEdit) {
+    state.noteToEdit = noteToEdit;
   }
 };

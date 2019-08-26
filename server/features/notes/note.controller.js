@@ -27,6 +27,9 @@ exports.myNotes = (req, res) => {
         }
       ]
     }).then(user => {
+      user.notes = user.notes.sort((earlier, later) => {
+        return later.updatedAt - earlier.updatedAt;
+      });
       res.json(user);
     });
   } else {
@@ -34,8 +37,22 @@ exports.myNotes = (req, res) => {
   }
 };
 
-exports.newNote = (req, res) => {
+exports.getNote = (req, res) => {
   if (req.user) {
+    Note.findByPk(req.params.id)
+      .then(note => {
+        res.json(note);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
+exports.newNote = (req, res) => {
+  if (req.user && (req.body.title && req.body.body)) {
     const newNote = Object.assign({
       title: req.body.title,
       body: req.body.body
@@ -51,6 +68,23 @@ exports.newNote = (req, res) => {
       })
       .then(note => {
         res.json(note);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
+exports.editNote = (req, res) => {
+  if (req.user) {
+    Note.update(
+      { title: req.body.title, body: req.body.body },
+      { returning: true, where: { id: req.body.id } }
+    )
+      .then(function([rowsUpdate, [updatedNote]]) {
+        res.json(updatedNote);
       })
       .catch(err => {
         res.status(400).send(err);
