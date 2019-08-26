@@ -35,6 +35,7 @@ export function getEditNote(id) {
   const url = `../api/getNote/${id}`;
 
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
     url: url,
     responseType: 'json'
   });
