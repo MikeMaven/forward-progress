@@ -32,6 +32,11 @@ export default {
       tag.code = tag.id.toString();
       return tag;
     });
-    state.loadedTags = tagsWithCodes;
+    state.allTags = tagsWithCodes;
+  },
+
+  addNewTag(state, newTag) {
+    state.allTags.push(newTag);
+    state.selectedTags.push(newTag);
   }
 };

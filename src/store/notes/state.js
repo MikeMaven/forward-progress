@@ -5,6 +5,6 @@ export default {
     body: null
   },
   selectedTags: [],
-  loadedTags: [],
+  allTags: [],
   welcomeText: 'Welcome to your notes dashboard:'
 };

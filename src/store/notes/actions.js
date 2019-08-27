@@ -70,5 +70,12 @@ export default {
         resolve();
       });
     });
+  },
+
+  createNewTag(context, newTag) {
+    return new Promise(function(resolve) {
+      context.commit('addNewTag', newTag);
+      resolve();
+    });
   }
 };

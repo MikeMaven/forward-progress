@@ -123,8 +123,7 @@ export default {
         name: newTag,
         code: newTag.substring(0, 2) + Math.floor((Math.random() * 100000000))
       }
-      this.options.push(tag);
-      this.value.push(tag);
+      this.$store.dispatch('notes/createNewTag', tag);
     }
   },
   mounted() {
