@@ -45,5 +45,9 @@ export default {
         resolve();
       });
     });
+  },
+
+  updateTagSelection(context, selections) {
+    context.commit('setSelected', selections);
   }
 };

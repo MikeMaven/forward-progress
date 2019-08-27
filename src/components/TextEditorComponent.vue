@@ -25,7 +25,7 @@
     <div class="tagDiv">
       <h6>Add Tags:</h6>
       <multiselect
-        v-model="value"
+        v-model="selected"
         tag-placeholder="Add this as a new tag"
         placeholder="Search or add a tag"
         label="name"
@@ -33,6 +33,7 @@
         :options="options"
         :taggable="true"
         :multiple="true"
+        @input="updateTagSelection"
         @tag="addTag" />
     </div>
     <div class="buttonRow">
@@ -63,6 +64,7 @@ import {
   History
 } from 'tiptap-extensions';
 import Multiselect from 'vue-multiselect';
+import { mapActions } from 'vuex';
 
 export default {
   title: 'TextEditorComponent',
@@ -86,12 +88,8 @@ export default {
       editor: null,
       body: null,
       title: null,
-      value: [ { name: 'FootballGuy', code: '1' } ],
-      options: [
-        { name: 'FootballGuy2', code: '2' },
-        { name: 'FootballGuy3', code: '3' },
-        { name: 'FootballGuy4', code: '4' }
-      ]
+      selected: this.$store.getters['notes/getSelectedTags'],
+      options: this.$store.getters['notes/getAllTags']
     }
   },
   methods: {
@@ -116,6 +114,9 @@ export default {
       }
       this.options.push(tag);
       this.value.push(tag);
+    },
+    updateTagSelection() {
+      this.$store.dispatch('notes/updateTagSelection', this.selected);
     }
   },
   mounted() {
@@ -143,7 +144,6 @@ export default {
       onUpdate: ({getHTML}) => {
         this.body = getHTML()
       },
-
     }),
     this.editor.view.props.attributes = { tabindex: "2" };
     this.editor.setContent(this.body)
