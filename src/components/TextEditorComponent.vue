@@ -74,7 +74,14 @@ export default {
     },
     noteBody: function() {
       this.body = this.noteBody
-      this.editor.setContent(this.body)
+      this.editor.setContent(this.body);
+    },
+    selectedTags: function() {
+      // These two functions will load in the selected/all tags as props when (if) they're loaded from the parent component
+      // this.selected = this.selectedTags;
+    },
+    allTags: function() {
+      // this.options = this.allTags
     }
   },
   components: {

@@ -5,6 +5,8 @@
       :noteTitle = "noteToEdit.title"
       :noteBody = "noteToEdit.body"
       :editNoteID = "this.$route.params.id"
+      :selectedTags = "[]"
+      :allTags = "[]"
     ></text-editor-component>
 
   </div>
