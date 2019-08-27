@@ -1,5 +1,6 @@
 <template>
   <div>
+    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
     <div class="editor">
       <h6>Title:</h6><input v-model="title" type="text" tabindex="1" />
       <div class="buttonRow">
@@ -21,6 +22,21 @@
       <div style="height:50vh;width:100%;border:1px solid #ccc;font:16px/26px Georgia, Garamond, Serif;overflow:auto;" className="scrollBox" v-on:click="setFocusToEditor">
         <editor-content :editor="editor" id="editorBox" class="editor__content" />
       </div>
+    </div>
+    <div class="tagDiv">
+      <h6>Add Tags:</h6>
+      <!-- <input type="text" class="form-control" name="title"> -->
+      <multiselect
+        v-model="value"
+        tag-placeholder="Add this as a new tag"
+        placeholder="Search or add a tag"
+        label="name"
+        track-by="code"
+        :options="options"
+        :taggable="true"
+        :multiple="true"
+        @tag="addTag" />
+        <!-- <pre class="language-json"><code>{{ value  }}</code></pre> -->
     </div>
     <div class="buttonRow">
       <!-- WHEN EDITING A NOTE, THIS SHOULD CHANGE FROM CLEAR TO CANCEL -->
@@ -48,7 +64,8 @@ import {
   Strike,
   Underline,
   History
-} from 'tiptap-extensions'
+} from 'tiptap-extensions';
+import Multiselect from 'vue-multiselect';
 
 export default {
   title: 'TextEditorComponent',
@@ -64,13 +81,20 @@ export default {
   },
   components: {
     EditorMenuBar,
-    EditorContent
+    EditorContent,
+    Multiselect
   },
   data() {
     return {
       editor: null,
       body: null,
-      title: null
+      title: null,
+      value: [ { name: 'Javascript', code: 'js' } ],
+      options: [
+        { name: 'Vue.js', code: 'vu' },
+        { name: 'Javascript', code: 'js' },
+        { name: 'Open Source', code: 'os' }
+      ]
     }
   },
   methods: {
@@ -87,6 +111,14 @@ export default {
     },
     setFocusToEditor() {
       this.editor.focus()
+    },
+    addTag (newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 100000000))
+      }
+      this.options.push(tag);
+      this.value.push(tag);
     }
   },
   mounted() {
@@ -152,5 +184,10 @@ export default {
 
 .editor li p {
   display: inline !important;
+}
+
+/* STYLES FOR TAGS */
+.tagDiv {
+  margin: 15px 0 100px 0;
 }
 </style>
