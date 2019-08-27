@@ -45,5 +45,19 @@ export default {
         resolve();
       });
     });
+  },
+
+  updateTagSelection(context, selections) {
+    return new Promise(function(resolve) {
+      context.commit('setSelected', selections);
+      resolve();
+    });
+  },
+
+  clearTagSelection(context) {
+    return new Promise(function(resolve) {
+      context.commit('clearSelected');
+      resolve();
+    });
   }
 };

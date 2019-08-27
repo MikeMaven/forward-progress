@@ -9,5 +9,13 @@ export default {
 
   setNoteToEdit(state, noteToEdit) {
     state.noteToEdit = noteToEdit;
+  },
+
+  setSelected(state, newSelections) {
+    state.selectedTags = newSelections;
+  },
+
+  clearSelected(state) {
+    state.selectedTags = [];
   }
 };
