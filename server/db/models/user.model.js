@@ -129,6 +129,7 @@ module.exports = function(sequelize, DataTypes) {
       foreignKey: 'UserId',
       otherKey: 'NoteId'
     })
+    User.belongsTo(models.Tag);
   };
 
   return User;
