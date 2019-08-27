@@ -13,5 +13,9 @@ export default {
 
   setSelected(state, newSelections) {
     state.selectedTags = newSelections;
+  },
+
+  clearSelected(state) {
+    state.selectedTags = [];
   }
 };

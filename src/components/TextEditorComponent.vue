@@ -64,7 +64,6 @@ import {
   History
 } from 'tiptap-extensions';
 import Multiselect from 'vue-multiselect';
-import { mapActions } from 'vuex';
 
 export default {
   title: 'TextEditorComponent',
@@ -94,8 +93,10 @@ export default {
   },
   methods: {
     clearEditor() {
+      this.$store.dispatch('notes/clearSelectedTags');
+      this.selected = [];
       this.editor.clearContent(true);
-      this.editor.focus()
+      this.editor.focus();
     },
     saveNote() {
       if (this.editNoteID) {
@@ -147,12 +148,16 @@ export default {
     }),
     this.editor.view.props.attributes = { tabindex: "2" };
     this.editor.setContent(this.body)
+  },
+  created() {
+    this.$store.dispatch('notes/clearSelectedTags');
+    this.selected = [];
   }
 }
 </script>
 
 <style>
-/* CSS Here fixes menu buttons and styling */
+CSS Here fixes menu buttons and styling
 .textButton {
   width: 5%;
   font-size: .75em;
