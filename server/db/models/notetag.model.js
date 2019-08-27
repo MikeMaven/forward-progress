@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const NoteTag = sequelize.define(
     'NoteTag',
     {
-      note_id: DataTypes.INTEGER,
-      tag_id: DataTypes.INTEGER
+      NoteId: DataTypes.INTEGER,
+      TagId: DataTypes.INTEGER
     },
     {}
   );
