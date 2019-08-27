@@ -22,6 +22,8 @@ export default {
       } else {
         NotesApi.getEditNote(payload.id).then(response => {
           context.commit('setNoteToEdit', response);
+          debugger;
+          context.commit('loadSelectedTags', response.tags);
         });
       }
     });
@@ -58,6 +60,15 @@ export default {
     return new Promise(function(resolve) {
       context.commit('clearSelected');
       resolve();
+    });
+  },
+
+  getAllTags(context) {
+    return new Promise(function(resolve) {
+      NotesApi.getAllTags().then(tags => {
+        context.commit('loadAllTags', tags);
+        resolve();
+      });
     });
   }
 };

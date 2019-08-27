@@ -60,3 +60,17 @@ export function editNote(title, body, id) {
     return response.data;
   });
 }
+
+export function getAllTags() {
+  const url = '../api/myTags';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response =>
+    CodeApi.unrollApiResponse(response.data)
+  );
+}

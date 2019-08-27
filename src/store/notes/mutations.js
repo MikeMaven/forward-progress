@@ -17,5 +17,21 @@ export default {
 
   clearSelected(state) {
     state.selectedTags = [];
+  },
+
+  loadSelectedTags(state, loadedSelections) {
+    let tagsWithCodes = loadedSelections.map(tag => {
+      tag.code = tag.id.toString();
+      return tag;
+    });
+    state.selectedTags = tagsWithCodes;
+  },
+
+  loadAllTags(state, loadedTags) {
+    let tagsWithCodes = loadedTags.map(tag => {
+      tag.code = tag.id.toString();
+      return tag;
+    });
+    state.loadedTags = tagsWithCodes;
   }
 };

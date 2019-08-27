@@ -5,8 +5,6 @@
       :noteTitle = "null"
       :noteBody = "null"
       :editNoteID = "null"
-      :selectedTags = "[]"
-      :allTags = "[]"
     ></text-editor-component>
   </div>
 </template>

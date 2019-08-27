@@ -48,7 +48,6 @@ exports.getNote = (req, res) => {
       ]
     })
       .then(note => {
-        console.log(note);
         res.json(note);
       })
       .catch(err => {
@@ -97,6 +96,18 @@ exports.editNote = (req, res) => {
       .catch(err => {
         res.status(400).send(err);
       });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
+exports.getTags = (req, res) => {
+  if (req.user) {
+    Tag.findAll({
+      userId: null
+    }).then(tags => {
+      res.json(tags);
+    });
   } else {
     return res.status(401).send({});
   }
