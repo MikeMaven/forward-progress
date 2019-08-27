@@ -59,6 +59,8 @@ exports.getNote = (req, res) => {
 };
 
 exports.newNote = (req, res) => {
+  let newNoteScoped = null;
+
   if (req.user && (req.body.title && req.body.body)) {
     // Create new Note
     const newNote = Object.assign({
@@ -73,31 +75,42 @@ exports.newNote = (req, res) => {
           NoteId: newNote.id
         });
         Usernote.create(newUsernote);
+        newNoteScoped = newNote;
         return newNote;
       })
       .then(newNote => {
         // Create all NEW tags
+        let promises = [];
         req.body.newTags.forEach(tag => {
           const newTag = Object.assign({
             name: tag.name,
             UserId: req.user.dataValues.id
           });
-          Tag.create(newTag);
+          let newPromise = Tag.create(newTag);
+          promises.push(newPromise);
         });
-        return newNote;
+        return Promise.all(promises);
+        // req.body.newTags.forEach(tag => {
+        //   const newTag = Object.assign({
+        //     name: tag.name,
+        //     UserId: req.user.dataValues.id
+        //   });
+        //   Tag.create(newTag);
+        // });
+        // return newNote;
       })
       .then(newNote => {
         // Create all TAG/NOTE associations
         req.body.tags.forEach(tag => {
           Tag.findOne({ where: { name: tag.name } }).then(tag => {
             const newNoteTag = Object.assign({
-              NoteId: newNote.id,
+              NoteId: newNoteScoped.id,
               TagId: tag.id
             });
             NoteTag.create(newNoteTag);
           });
         });
-        return newNote;
+        return newNoteScoped;
       })
       .then(note => {
         res.json(note);
