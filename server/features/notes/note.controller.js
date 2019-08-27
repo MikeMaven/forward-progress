@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const _ = require('lodash');
 const DB = require('../../db/models');
-const { Note, User, Usernote } = DB;
+const { Note, User, Usernote, Tag, NoteTag } = DB;
 const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('../users/token');
 const logger = require('../logger');
@@ -39,8 +39,16 @@ exports.myNotes = (req, res) => {
 
 exports.getNote = (req, res) => {
   if (req.user) {
-    Note.findByPk(req.params.id)
+    Note.findByPk(req.params.id, {
+      include: [
+        {
+          model: Tag,
+          as: 'tags'
+        }
+      ]
+    })
       .then(note => {
+        console.log(note);
         res.json(note);
       })
       .catch(err => {

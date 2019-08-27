@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: 'NoteId',
       otherKey: 'UserId'
     });
-    Note.hasOne(models.NoteTag, { foreignKey: 'noteId' });
+
     Note.belongsToMany(models.Tag, {
       through: 'NoteTags',
       as: 'tags',

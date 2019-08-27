@@ -3,8 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const NoteTag = sequelize.define(
     'NoteTag',
     {
-      noteId: DataTypes.INTEGER,
-      tagId: DataTypes.INTEGER
+      note_id: DataTypes.INTEGER,
+      tag_id: DataTypes.INTEGER
     },
     {}
   );
@@ -12,5 +12,5 @@ module.exports = (sequelize, DataTypes) => {
     NoteTag.belongsTo(models.Note);
     NoteTag.belongsTo(models.Tag);
   };
-  return NoteTags;
+  return NoteTag;
 };
