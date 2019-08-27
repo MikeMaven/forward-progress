@@ -90,14 +90,6 @@ exports.newNote = (req, res) => {
           promises.push(newPromise);
         });
         return Promise.all(promises);
-        // req.body.newTags.forEach(tag => {
-        //   const newTag = Object.assign({
-        //     name: tag.name,
-        //     UserId: req.user.dataValues.id
-        //   });
-        //   Tag.create(newTag);
-        // });
-        // return newNote;
       })
       .then(newNote => {
         // Create all TAG/NOTE associations
