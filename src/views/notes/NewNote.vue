@@ -10,30 +10,10 @@
 </template>
 
 <script>
-import { Editor, EditorContent, EditorMenuBar } from 'tiptap';
 import TextEditorComponent from '../../components/TextEditorComponent.vue';
-import {
-  Blockquote,
-  CodeBlock,
-  Heading,
-  OrderedList,
-  BulletList,
-  ListItem,
-  TodoItem,
-  TodoList,
-  Bold,
-  Code,
-  Italic,
-  Link,
-  Strike,
-  Underline,
-  History
-} from 'tiptap-extensions'
 
 export default {
   components: {
-    EditorMenuBar,
-    EditorContent,
     TextEditorComponent
   },
   data() {
@@ -61,33 +41,7 @@ export default {
     }
   },
   mounted() {
-    const vm = this
-
-    this.editor = new Editor({
-      extensions: [
-        new Blockquote(),
-        new CodeBlock(),
-        new Heading({ levels: [1, 2, 3] }),
-        new BulletList(),
-        new OrderedList(),
-        new ListItem(),
-        new TodoItem(),
-        new TodoList(),
-        new Bold(),
-        new Code(),
-        new Italic(),
-        new Link(),
-        new Strike(),
-        new Underline(),
-        new History()
-      ],
-      content: this.body,
-      onUpdate: ({getHTML}) => {
-        this.body = getHTML()
-      },
-
-    }),
-    this.editor.setContent(this.body)
+    this.$store.dispatch('notes/getAllTags');
   }
 }
 </script>
