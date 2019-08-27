@@ -60,17 +60,43 @@ exports.getNote = (req, res) => {
 
 exports.newNote = (req, res) => {
   if (req.user && (req.body.title && req.body.body)) {
+    // Create new Note
     const newNote = Object.assign({
       title: req.body.title,
       body: req.body.body
     });
     Note.create(newNote)
       .then(newNote => {
+        // Create new UserNote association
         const newUsernote = Object.assign({
           UserId: req.user.dataValues.id,
           NoteId: newNote.id
         });
         Usernote.create(newUsernote);
+        return newNote;
+      })
+      .then(newNote => {
+        // Create all NEW tags
+        req.body.newTags.forEach(tag => {
+          const newTag = Object.assign({
+            name: tag.name,
+            UserId: req.user.dataValues.id
+          });
+          Tag.create(newTag);
+        });
+        return newNote;
+      })
+      .then(newNote => {
+        // Create all TAG/NOTE associations
+        req.body.tags.forEach(tag => {
+          Tag.findOne({ where: { name: tag.name } }).then(tag => {
+            const newNoteTag = Object.assign({
+              NoteId: newNote.id,
+              TagId: tag.id
+            });
+            NoteTag.create(newNoteTag);
+          });
+        });
         return newNote;
       })
       .then(note => {

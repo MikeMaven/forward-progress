@@ -30,8 +30,15 @@ export default {
   },
 
   saveNote(context, payload) {
+    let newTags = payload.allTags.filter(tag => tag.new);
+
     return new Promise(resolve => {
-      NotesApi.saveNote(payload.title, payload.body).then(note => {
+      NotesApi.saveNote(
+        payload.title,
+        payload.body,
+        payload.tags,
+        newTags
+      ).then(note => {
         context.commit('setNewNote', note);
         router.push('/notes');
         resolve();

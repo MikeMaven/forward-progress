@@ -112,7 +112,12 @@ export default {
       if (this.editNoteID) {
         this.$store.dispatch('notes/editNote', {title: this.title, body: this.body, id: this.editNoteID})
       } else {
-        this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
+        this.$store.dispatch('notes/saveNote', {
+          title: this.title,
+          body: this.body,
+          tags: this.selected,
+          allTags: this.options
+        });
       }
     },
     setFocusToEditor() {
@@ -121,7 +126,8 @@ export default {
     addTag (newTag) {
       const tag = {
         name: newTag,
-        code: newTag.substring(0, 2) + Math.floor((Math.random() * 100000000))
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 100000000)),
+        new: true
       }
       this.$store.dispatch('notes/createNewTag', tag);
     }

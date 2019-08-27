@@ -30,6 +30,7 @@ export default {
   loadAllTags(state, loadedTags) {
     let tagsWithCodes = loadedTags.map(tag => {
       tag.code = tag.id.toString();
+      tag.new = false;
       return tag;
     });
     state.allTags = tagsWithCodes;
