@@ -28,14 +28,11 @@
         to="/games">Upcoming Games</router-link>
       <router-link
         v-if="isAuthenticated"
-        to="/profile">{{ user.username }}</router-link>
+        to="/profile">&nbsp;&nbsp;&nbsp;{{ user.username }}</router-link>
       <a
         v-if="isAuthenticated"
         href="javascript:void(0)"
         @click="logout()">{{ appData.content.app_nav_logout }}</a>
-      <router-link
-        v-if="!isAuthenticated"
-        to="/register">{{ appData.content.app_nav_register }}</router-link>
       <router-link
         v-if="!isAuthenticated"
         to="/login">{{ appData.content.app_nav_login }}</router-link>

@@ -1,10 +1,10 @@
 <template>
   <div>
-    <button 
-      v-for="provider in providers" 
+    <button
+      v-for="provider in providers"
       :key="provider"
       @click="login(provider)">
-      {{ provider }}
+      Log in with {{ provider }}
     </button>
   </div>
 </template>
