@@ -8,7 +8,7 @@ export default {
   },
 
   getAllTags: (state, getters) => {
-    return state.loadedTags;
+    return state.allTags;
   },
 
   getSelectedTags: (state, getters) => {

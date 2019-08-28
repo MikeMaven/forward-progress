@@ -5,8 +5,6 @@
       :noteTitle = "noteToEdit.title"
       :noteBody = "noteToEdit.body"
       :editNoteID = "this.$route.params.id"
-      :selectedTags = "[]"
-      :allTags = "[]"
     ></text-editor-component>
 
   </div>
@@ -24,11 +22,15 @@ export default {
     return {}
   },
   mounted() {
+    this.$store.dispatch('notes/getAllTags');
     this.$store.dispatch('notes/getNote', { id: this.$route.params.id })
   },
   computed: {
     noteToEdit(){
       return this.$store.getters['notes/noteToEdit'];
+    },
+    selected() {
+      return this.$store.getters['notes/getSelectedTags']
     }
   }
 }

@@ -28,4 +28,5 @@ module.exports = app => {
   app.route('/api/myNotes').get(notes.myNotes);
   app.route('/api/newNote').post(notes.newNote);
   app.route('/api/editNote').post(notes.editNote);
+  app.route('/api/myTags').get(notes.getTags);
 };

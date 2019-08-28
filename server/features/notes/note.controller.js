@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const _ = require('lodash');
 const DB = require('../../db/models');
-const { Note, User, Usernote } = DB;
+const { Note, User, Usernote, Tag, NoteTag } = DB;
 const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('../users/token');
 const logger = require('../logger');
@@ -39,7 +39,14 @@ exports.myNotes = (req, res) => {
 
 exports.getNote = (req, res) => {
   if (req.user) {
-    Note.findByPk(req.params.id)
+    Note.findByPk(req.params.id, {
+      include: [
+        {
+          model: Tag,
+          as: 'tags'
+        }
+      ]
+    })
       .then(note => {
         res.json(note);
       })
@@ -52,19 +59,50 @@ exports.getNote = (req, res) => {
 };
 
 exports.newNote = (req, res) => {
+  let newNoteScoped = null;
+
   if (req.user && (req.body.title && req.body.body)) {
+    // Create new Note
     const newNote = Object.assign({
       title: req.body.title,
       body: req.body.body
     });
     Note.create(newNote)
       .then(newNote => {
+        // Create new UserNote association
         const newUsernote = Object.assign({
           UserId: req.user.dataValues.id,
           NoteId: newNote.id
         });
         Usernote.create(newUsernote);
+        newNoteScoped = newNote;
         return newNote;
+      })
+      .then(newNote => {
+        // Create all NEW tags
+        let promises = [];
+        req.body.newTags.forEach(tag => {
+          const newTag = Object.assign({
+            name: tag.name,
+            UserId: req.user.dataValues.id
+          });
+          let newPromise = Tag.create(newTag);
+          promises.push(newPromise);
+        });
+        return Promise.all(promises);
+      })
+      .then(newNote => {
+        // Create all TAG/NOTE associations
+        req.body.tags.forEach(tag => {
+          Tag.findOne({ where: { name: tag.name } }).then(tag => {
+            const newNoteTag = Object.assign({
+              NoteId: newNoteScoped.id,
+              TagId: tag.id
+            });
+            NoteTag.create(newNoteTag);
+          });
+        });
+        return newNoteScoped;
       })
       .then(note => {
         res.json(note);
@@ -89,6 +127,18 @@ exports.editNote = (req, res) => {
       .catch(err => {
         res.status(400).send(err);
       });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
+exports.getTags = (req, res) => {
+  if (req.user) {
+    Tag.findAll({
+      userId: null
+    }).then(tags => {
+      res.json(tags);
+    });
   } else {
     return res.status(401).send({});
   }

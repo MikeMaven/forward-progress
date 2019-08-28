@@ -22,14 +22,23 @@ export default {
       } else {
         NotesApi.getEditNote(payload.id).then(response => {
           context.commit('setNoteToEdit', response);
+          debugger;
+          context.commit('loadSelectedTags', response.tags);
         });
       }
     });
   },
 
   saveNote(context, payload) {
+    let newTags = payload.allTags.filter(tag => tag.new);
+
     return new Promise(resolve => {
-      NotesApi.saveNote(payload.title, payload.body).then(note => {
+      NotesApi.saveNote(
+        payload.title,
+        payload.body,
+        payload.tags,
+        newTags
+      ).then(note => {
         context.commit('setNewNote', note);
         router.push('/notes');
         resolve();
@@ -57,6 +66,22 @@ export default {
   clearTagSelection(context) {
     return new Promise(function(resolve) {
       context.commit('clearSelected');
+      resolve();
+    });
+  },
+
+  getAllTags(context) {
+    return new Promise(function(resolve) {
+      NotesApi.getAllTags().then(tags => {
+        context.commit('loadAllTags', tags);
+        resolve();
+      });
+    });
+  },
+
+  createNewTag(context, newTag) {
+    return new Promise(function(resolve) {
+      context.commit('addNewTag', newTag);
       resolve();
     });
   }

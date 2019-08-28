@@ -129,6 +129,7 @@ module.exports = function(sequelize, DataTypes) {
       foreignKey: 'UserId',
       otherKey: 'NoteId'
     })
+    // User.hasMany(models.Tag);
   };
 
   return User;

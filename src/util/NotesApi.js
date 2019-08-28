@@ -16,14 +16,14 @@ export function getUserNotes() {
   );
 }
 
-export function saveNote(title, body) {
+export function saveNote(title, body, tags, newTags) {
   const url = 'api/newNote';
 
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {
     method: 'post',
     url: url,
     responseType: 'json',
-    data: { title: title, body: body }
+    data: { title: title, body: body, tags: tags, newTags: newTags }
   });
 
   return axios(options).then(response =>
@@ -59,4 +59,18 @@ export function editNote(title, body, id) {
     console.log(response);
     return response.data;
   });
+}
+
+export function getAllTags() {
+  const url = '../api/myTags';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response =>
+    CodeApi.unrollApiResponse(response.data)
+  );
 }

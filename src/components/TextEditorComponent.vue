@@ -33,7 +33,6 @@
         :options="options"
         :taggable="true"
         :multiple="true"
-        @input="updateTagSelection"
         @tag="addTag" />
     </div>
     <div class="buttonRow">
@@ -75,13 +74,6 @@ export default {
     noteBody: function() {
       this.body = this.noteBody
       this.editor.setContent(this.body);
-    },
-    selectedTags: function() {
-      // These two functions will load in the selected/all tags as props when (if) they're loaded from the parent component
-      // this.selected = this.selectedTags;
-    },
-    allTags: function() {
-      // this.options = this.allTags
     }
   },
   components: {
@@ -93,14 +85,25 @@ export default {
     return {
       editor: null,
       body: null,
-      title: null,
-      selected: this.$store.getters['notes/getSelectedTags'],
-      options: this.$store.getters['notes/getAllTags']
+      title: null
+    }
+  },
+  computed: {
+    options() {
+      return this.$store.getters['notes/getAllTags'];
+    },
+    selected: {
+      get: function() {
+        return this.$store.getters['notes/getSelectedTags'];
+      },
+      set: function(updatedTags) {
+        this.$store.dispatch('notes/updateTagSelection', updatedTags);
+      }
     }
   },
   methods: {
     clearEditor() {
-      this.$store.dispatch('notes/clearSelectedTags');
+      this.$store.dispatch('notes/clearTagSelection');
       this.selected = [];
       this.editor.clearContent(true);
       this.editor.focus();
@@ -109,7 +112,12 @@ export default {
       if (this.editNoteID) {
         this.$store.dispatch('notes/editNote', {title: this.title, body: this.body, id: this.editNoteID})
       } else {
-        this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
+        this.$store.dispatch('notes/saveNote', {
+          title: this.title,
+          body: this.body,
+          tags: this.selected,
+          allTags: this.options
+        });
       }
     },
     setFocusToEditor() {
@@ -118,13 +126,10 @@ export default {
     addTag (newTag) {
       const tag = {
         name: newTag,
-        code: newTag.substring(0, 2) + Math.floor((Math.random() * 100000000))
+        code: newTag.substring(0, 2) + Math.floor((Math.random() * 100000000)),
+        new: true
       }
-      this.options.push(tag);
-      this.value.push(tag);
-    },
-    updateTagSelection() {
-      this.$store.dispatch('notes/updateTagSelection', this.selected);
+      this.$store.dispatch('notes/createNewTag', tag);
     }
   },
   mounted() {
@@ -157,7 +162,7 @@ export default {
     this.editor.setContent(this.body)
   },
   created() {
-    this.$store.dispatch('notes/clearSelectedTags');
+    this.$store.dispatch('notes/clearTagSelection');
     this.selected = [];
   }
 }
