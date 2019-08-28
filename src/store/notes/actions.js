@@ -47,8 +47,17 @@ export default {
   },
 
   editNote(context, payload) {
+    let newTags = payload.allTags.filter(tag => tag.new);
+    debugger;
+
     return new Promise(function(resolve) {
-      NotesApi.editNote(payload.title, payload.body, payload.id).then(note => {
+      NotesApi.editNote(
+        payload.title,
+        payload.body,
+        payload.id,
+        payload.tags,
+        newTags
+      ).then(note => {
         context.commit('setNewNote', note);
         router.push('/notes');
         resolve();

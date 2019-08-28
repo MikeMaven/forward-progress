@@ -117,10 +117,15 @@ exports.newNote = (req, res) => {
 
 exports.editNote = (req, res) => {
   if (req.user) {
+    // Update note
     Note.update(
       { title: req.body.title, body: req.body.body },
       { returning: true, where: { id: req.body.id } }
     )
+      // Compare saved associated tags with newly passed tags and look for any missing ones
+      // Delete missing (removed) associations
+      // Create new Tags (if any)
+      // Create connections with any newly added tags
       .then(function([rowsUpdate, [updatedNote]]) {
         res.json(updatedNote);
       })
