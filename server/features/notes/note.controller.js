@@ -116,18 +116,58 @@ exports.newNote = (req, res) => {
 };
 
 exports.editNote = (req, res) => {
+  let updatedNoteScoped = null;
   if (req.user) {
     // Update note
     Note.update(
       { title: req.body.title, body: req.body.body },
       { returning: true, where: { id: req.body.id } }
     )
-      // Compare saved associated tags with newly passed tags and look for any missing ones
-      // Delete missing (removed) associations
-      // Create new Tags (if any)
-      // Create connections with any newly added tags
       .then(function([rowsUpdate, [updatedNote]]) {
-        res.json(updatedNote);
+        updatedNoteScoped = updatedNote;
+        // GET TAGS ASSOCIATED WITH EDITED NOTE
+        let noteWithTags = Note.findByPk(req.body.id, {
+          include: [
+            {
+              model: Tag,
+              as: 'tags'
+            }
+          ]
+        });
+        return noteWithTags;
+      })
+      .then(noteWithTags => {
+        const requestTags = req.body.tags;
+        const oldTags = noteWithTags.tags;
+        let removedNoteTags = [];
+        // Compare saved associated tags with newly passed tags and look for any missing ones
+        oldTags.forEach(tag => {
+          const foundTag = requestTags.find(reqTag => {
+            return reqTag.id === tag.id;
+          });
+          if (!foundTag) {
+            removedNoteTags.push(tag.NoteTags);
+          }
+        });
+
+        // Delete missing (removed) associations
+        let promises = [];
+        removedNoteTags.forEach(noteTag => {
+          let newPromise = NoteTag.destroy({
+            where: {
+              NoteId: noteTag.NoteId,
+              TagId: noteTag.TagId
+            }
+          });
+          promises.push(newPromise);
+        });
+        return Promise.all(promises);
+      })
+      .then(result => {
+        // Create new Tags (if any)
+        // Create connections with any newly added tags
+        console.log(result);
+        return res.json(updatedNoteScoped);
       })
       .catch(err => {
         res.status(400).send(err);
