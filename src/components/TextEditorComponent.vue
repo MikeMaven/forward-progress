@@ -110,7 +110,13 @@ export default {
     },
     saveNote() {
       if (this.editNoteID) {
-        this.$store.dispatch('notes/editNote', {title: this.title, body: this.body, id: this.editNoteID})
+        this.$store.dispatch('notes/editNote', {
+          title: this.title,
+          body: this.body,
+          id: this.editNoteID,
+          tags: this.selected,
+          allTags: this.options
+        })
       } else {
         this.$store.dispatch('notes/saveNote', {
           title: this.title,

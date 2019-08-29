@@ -45,14 +45,14 @@ export function getEditNote(id) {
   });
 }
 
-export function editNote(title, body, id) {
+export function editNote(title, body, id, tags, newTags) {
   const url = `../api/editNote`;
 
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {
     method: 'post',
     url: url,
     responseType: 'json',
-    data: { title: title, body: body, id: id }
+    data: { title: title, body: body, id: id, tags: tags, newTags: newTags }
   });
 
   return axios(options).then(response => {

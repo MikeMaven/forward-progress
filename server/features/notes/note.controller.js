@@ -116,13 +116,94 @@ exports.newNote = (req, res) => {
 };
 
 exports.editNote = (req, res) => {
+  let updatedNoteScoped = null;
+  let oldTagsScoped = [];
   if (req.user) {
+    // Update note
     Note.update(
       { title: req.body.title, body: req.body.body },
       { returning: true, where: { id: req.body.id } }
     )
       .then(function([rowsUpdate, [updatedNote]]) {
-        res.json(updatedNote);
+        updatedNoteScoped = updatedNote;
+        // GET TAGS ASSOCIATED WITH EDITED NOTE
+        let noteWithTags = Note.findByPk(req.body.id, {
+          include: [
+            {
+              model: Tag,
+              as: 'tags'
+            }
+          ]
+        });
+        return noteWithTags;
+      })
+      .then(noteWithTags => {
+        const requestTags = req.body.tags;
+        const oldTags = noteWithTags.tags;
+        oldTagsScoped = noteWithTags.tags;
+        let removedNoteTags = [];
+        // Compare saved associated tags with newly passed tags and look for any missing ones
+        oldTags.forEach(tag => {
+          const foundTag = requestTags.find(reqTag => {
+            return reqTag.id === tag.id;
+          });
+          if (!foundTag) {
+            removedNoteTags.push(tag.NoteTags);
+          }
+        });
+        // Delete missing (removed) associations
+        let promises = [];
+        removedNoteTags.forEach(noteTag => {
+          let newPromise = NoteTag.destroy({
+            where: {
+              NoteId: noteTag.NoteId,
+              TagId: noteTag.TagId
+            }
+          });
+          promises.push(newPromise);
+        });
+        return Promise.all(promises);
+      })
+      .then(result => {
+        // Create new Tags (if any)
+        let promises = [];
+        req.body.newTags.forEach(tag => {
+          const newTag = Object.assign({
+            name: tag.name,
+            UserId: req.user.dataValues.id
+          });
+          let newPromise = Tag.create(newTag);
+          promises.push(newPromise);
+        });
+        return Promise.all(promises);
+      })
+      .then(returned => {
+        // CREATE AN ARRAY CONTAINING ALL -ADDED- TAGS (combined brand new tags and existing tags that were added to the note)
+        let addedTagsArr = [];
+        req.body.tags.forEach(tag => {
+          let foundTag = oldTagsScoped.find(oldTag => {
+            return oldTag.id === tag.id;
+          });
+          if (!foundTag) {
+            addedTagsArr.push(tag);
+          }
+        });
+
+        // SEARCH OLD TAGS COMPARED WITH TAGS ON REQUEST TO FIND ANY NEW ONES (ADD CONNECTIONS)
+        // CREATE CONNECTIONS WITH NEWLY CREATED TAGS
+        addedTagsArr.forEach(tag => {
+          Tag.findOne({ where: { name: tag.name } }).then(tag => {
+            const newNoteTag = Object.assign({
+              NoteId: req.body.id,
+              TagId: tag.id
+            });
+            NoteTag.create(newNoteTag);
+          });
+        });
+        return updatedNoteScoped;
+      })
+      .then(note => {
+        return res.json(updatedNoteScoped);
       })
       .catch(err => {
         res.status(400).send(err);
