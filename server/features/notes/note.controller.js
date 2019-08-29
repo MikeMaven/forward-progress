@@ -178,9 +178,31 @@ exports.editNote = (req, res) => {
         return Promise.all(promises);
       })
       .then(returned => {
+        // CREATE AN ARRAY CONTAINING ALL -ADDED- TAGS (combined brand new tags and existing tags that were added to the note)
+        let addedTagsArr = [];
+        req.body.tags.forEach(tag => {
+          let foundTag = oldTagsScoped.find(oldTag => {
+            return oldTag.id === tag.id;
+          });
+          if (!foundTag) {
+            addedTagsArr.push(tag);
+          }
+        });
+
         // SEARCH OLD TAGS COMPARED WITH TAGS ON REQUEST TO FIND ANY NEW ONES (ADD CONNECTIONS)
         // CREATE CONNECTIONS WITH NEWLY CREATED TAGS
-        console.log(oldTagsScoped);
+        addedTagsArr.forEach(tag => {
+          Tag.findOne({ where: { name: tag.name } }).then(tag => {
+            const newNoteTag = Object.assign({
+              NoteId: req.body.id,
+              TagId: tag.id
+            });
+            NoteTag.create(newNoteTag);
+          });
+        });
+        return updatedNoteScoped;
+      })
+      .then(note => {
         return res.json(updatedNoteScoped);
       })
       .catch(err => {
