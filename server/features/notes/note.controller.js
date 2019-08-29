@@ -117,6 +117,7 @@ exports.newNote = (req, res) => {
 
 exports.editNote = (req, res) => {
   let updatedNoteScoped = null;
+  let oldTagsScoped = [];
   if (req.user) {
     // Update note
     Note.update(
@@ -139,6 +140,7 @@ exports.editNote = (req, res) => {
       .then(noteWithTags => {
         const requestTags = req.body.tags;
         const oldTags = noteWithTags.tags;
+        oldTagsScoped = noteWithTags.tags;
         let removedNoteTags = [];
         // Compare saved associated tags with newly passed tags and look for any missing ones
         oldTags.forEach(tag => {
@@ -149,7 +151,6 @@ exports.editNote = (req, res) => {
             removedNoteTags.push(tag.NoteTags);
           }
         });
-
         // Delete missing (removed) associations
         let promises = [];
         removedNoteTags.forEach(noteTag => {
@@ -165,8 +166,21 @@ exports.editNote = (req, res) => {
       })
       .then(result => {
         // Create new Tags (if any)
-        // Create connections with any newly added tags
-        console.log(result);
+        let promises = [];
+        req.body.newTags.forEach(tag => {
+          const newTag = Object.assign({
+            name: tag.name,
+            UserId: req.user.dataValues.id
+          });
+          let newPromise = Tag.create(newTag);
+          promises.push(newPromise);
+        });
+        return Promise.all(promises);
+      })
+      .then(returned => {
+        // SEARCH OLD TAGS COMPARED WITH TAGS ON REQUEST TO FIND ANY NEW ONES (ADD CONNECTIONS)
+        // CREATE CONNECTIONS WITH NEWLY CREATED TAGS
+        console.log(oldTagsScoped);
         return res.json(updatedNoteScoped);
       })
       .catch(err => {
