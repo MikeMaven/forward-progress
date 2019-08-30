@@ -213,6 +213,68 @@ exports.editNote = (req, res) => {
   }
 };
 
+exports.deleteNote = (req, res) => {
+  let noteScoped;
+  if (req.user) {
+    // FIND NOTE TO DELETE
+    Note.findByPk(req.body.id, {
+      include: [
+        {
+          model: Tag,
+          as: 'tags'
+        }
+      ]
+    })
+      .then(note => {
+        noteScoped = note;
+        // FIND AND DELETE ASSOCIATED NOTETAGS
+        let promises = [];
+        note.tags.forEach(tag => {
+          let newPromise = NoteTag.destroy({
+            where: {
+              NoteId: tag.NoteTags.NoteId,
+              TagId: tag.NoteTags.TagId
+            }
+          });
+          promises.push(newPromise);
+        });
+        return Promise.all(promises);
+      })
+      .then(promises => {
+        const currentNote = noteScoped;
+        console.log('==========================');
+        console.log(currentNote.id);
+        console.log('==========================');
+        console.log(req.user.dataValues.id);
+        console.log('==========================');
+        Usernote.destroy({
+          where: {
+            UserId: req.user.dataValues.id,
+            NoteId: currentNote.id
+          }
+        });
+        return currentNote;
+      })
+      .then(currentNote => {
+        let noteId = currentNote.id;
+        Note.destroy({
+          where: {
+            id: noteId
+          }
+        });
+        return noteId;
+      })
+      .then(noteId => {
+        return res.json(noteId);
+      })
+      .catch(err => {
+        res.status(401).send({});
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
 exports.getTags = (req, res) => {
   if (req.user) {
     Tag.findAll({

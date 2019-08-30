@@ -3,6 +3,14 @@ export default {
     state.notes = notes;
   },
 
+  removeFromNotesList(state, noteId) {
+    let currentNotes = state.notes;
+    currentNotes = currentNotes.filter(note => {
+      return note.id !== noteId;
+    });
+    state.notes = currentNotes;
+  },
+
   setNewNote(state, note) {
     state.notes.push(note);
   },
