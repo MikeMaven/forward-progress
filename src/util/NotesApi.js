@@ -64,6 +64,8 @@ export function deleteNote(id, source) {
   let url;
   if (source === 'index') {
     url = '/api/deleteNote';
+  } else if (source === 'editor') {
+    url = '../api/deleteNote';
   }
 
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {

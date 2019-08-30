@@ -242,11 +242,6 @@ exports.deleteNote = (req, res) => {
       })
       .then(promises => {
         const currentNote = noteScoped;
-        console.log('==========================');
-        console.log(currentNote.id);
-        console.log('==========================');
-        console.log(req.user.dataValues.id);
-        console.log('==========================');
         Usernote.destroy({
           where: {
             UserId: req.user.dataValues.id,

@@ -68,6 +68,8 @@ export default {
       NotesApi.deleteNote(payload.id, payload.source).then(noteId => {
         if (payload.source === 'index') {
           context.commit('removeFromNotesList', noteId);
+        } else if (payload.source === 'editor') {
+          router.push('/notes');
         }
         resolve();
       });
