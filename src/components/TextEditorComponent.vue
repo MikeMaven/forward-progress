@@ -36,9 +36,10 @@
         @tag="addTag" />
     </div>
     <div class="buttonRow">
-      <!-- WHEN EDITING A NOTE, THIS SHOULD CHANGE FROM CLEAR TO CANCEL -->
-      <button v-on:click="clearEditor">Clear</button>
+      <router-link to="/notes" tag="button" v-if="this.editNoteID">Cancel</router-link>
+      <button v-on:click="clearEditor" v-if="!this.editNoteID">Clear</button>
       <button v-on:click="saveNote">Save Note</button>
+      <button v-on:click="deleteNote" v-if="this.editNoteID">Delete Note</button>
     </div>
   </div>
 </template>
@@ -136,6 +137,12 @@ export default {
         new: true
       }
       this.$store.dispatch('notes/createNewTag', tag);
+    },
+    deleteNote() {
+      this.$store.dispatch('notes/deleteNote', {
+        id: this.editNoteID,
+        source: 'editor'
+      });
     }
   },
   mounted() {

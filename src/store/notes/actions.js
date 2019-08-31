@@ -22,7 +22,6 @@ export default {
       } else {
         NotesApi.getEditNote(payload.id).then(response => {
           context.commit('setNoteToEdit', response);
-          debugger;
           context.commit('loadSelectedTags', response.tags);
         });
       }
@@ -48,7 +47,6 @@ export default {
 
   editNote(context, payload) {
     let newTags = payload.allTags.filter(tag => tag.new);
-    debugger;
 
     return new Promise(function(resolve) {
       NotesApi.editNote(
@@ -60,6 +58,19 @@ export default {
       ).then(note => {
         context.commit('setNewNote', note);
         router.push('/notes');
+        resolve();
+      });
+    });
+  },
+
+  deleteNote(context, payload) {
+    return new Promise(function(resolve) {
+      NotesApi.deleteNote(payload.id, payload.source).then(noteId => {
+        if (payload.source === 'index') {
+          context.commit('removeFromNotesList', noteId);
+        } else if (payload.source === 'editor') {
+          router.push('/notes');
+        }
         resolve();
       });
     });

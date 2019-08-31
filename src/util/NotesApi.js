@@ -56,7 +56,26 @@ export function editNote(title, body, id, tags, newTags) {
   });
 
   return axios(options).then(response => {
-    console.log(response);
+    return response.data;
+  });
+}
+
+export function deleteNote(id, source) {
+  let url;
+  if (source === 'index') {
+    url = '/api/deleteNote';
+  } else if (source === 'editor') {
+    url = '../api/deleteNote';
+  }
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    data: { id: id }
+  });
+
+  return axios(options).then(response => {
     return response.data;
   });
 }
