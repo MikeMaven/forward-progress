@@ -1,5 +1,6 @@
 export default {
   notes: [],
+  tagsInMyNotes: [],
   noteToEdit: {
     title: null,
     body: null

@@ -8,7 +8,8 @@ export default {
         resolve();
       } else {
         NotesApi.getUserNotes().then(response => {
-          context.commit('setUserNotes', response);
+          context.commit('setUserNotes', response.user.notes);
+          context.commit('setTagsInMyNotes', response.includedTags);
           resolve();
         });
       }
