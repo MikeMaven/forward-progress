@@ -23,7 +23,8 @@ exports.myNotes = (req, res) => {
       include: [
         {
           model: Note,
-          as: 'notes'
+          as: 'notes',
+          include: [{ model: Tag, as: 'tags' }]
         }
       ]
     }).then(user => {
