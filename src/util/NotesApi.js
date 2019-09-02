@@ -12,7 +12,7 @@ export function getUserNotes() {
   });
 
   return axios(options).then(response =>
-    CodeApi.unrollApiResponse(response.data.notes)
+    CodeApi.unrollApiResponse(response.data)
   );
 }
 

@@ -23,14 +23,25 @@ exports.myNotes = (req, res) => {
       include: [
         {
           model: Note,
-          as: 'notes'
+          as: 'notes',
+          include: [{ model: Tag, as: 'tags' }]
         }
       ]
     }).then(user => {
+      // sort the notes from recent -> old
       user.notes = user.notes.sort((earlier, later) => {
         return later.updatedAt - earlier.updatedAt;
       });
-      res.json(user);
+      // generate an array of tags to populate sort dropdown on front end
+      let includedTags = [];
+      user.notes.forEach(note => {
+        includedTags.push(...note.tags);
+      });
+      const response = {
+        user,
+        includedTags
+      };
+      res.json(response);
     });
   } else {
     return res.status(401).send({});

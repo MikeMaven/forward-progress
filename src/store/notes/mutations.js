@@ -3,6 +3,10 @@ export default {
     state.notes = notes;
   },
 
+  setTagsInMyNotes(state, tags) {
+    state.tagsInMyNotes = tags;
+  },
+
   removeFromNotesList(state, noteId) {
     let currentNotes = state.notes;
     currentNotes = currentNotes.filter(note => {
