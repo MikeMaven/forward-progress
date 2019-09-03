@@ -16,6 +16,13 @@ export default {
     });
   },
 
+  setSelectedTagsInMyNotes(context, updatedTagSelection) {
+    return new Promise(function(resolve) {
+      context.commit('selectedTagFilter', updatedTagSelection);
+      resolve();
+    });
+  },
+
   getNote(context, payload) {
     return new Promise(resolve => {
       if (context.loaded) {

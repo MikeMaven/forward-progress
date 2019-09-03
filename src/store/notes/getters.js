@@ -7,6 +7,10 @@ export default {
     return state.tagsInMyNotes;
   },
 
+  getSelectedTagsInMyNotes: (state, getters) => {
+    return state.selectedTagsInMyNotes;
+  },
+
   noteToEdit: (state, getters) => {
     return state.noteToEdit;
   },
