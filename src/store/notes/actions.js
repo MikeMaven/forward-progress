@@ -10,6 +10,7 @@ export default {
         NotesApi.getUserNotes().then(response => {
           context.commit('setUserNotes', response.user.notes);
           context.commit('setTagsInMyNotes', response.includedTags);
+          context.commit('setSearchObject', response.searchObject);
           resolve();
         });
       }

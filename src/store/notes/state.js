@@ -1,6 +1,7 @@
 export default {
   notes: [],
   allNotes: [],
+  searchObject: [],
   tagsInMyNotes: [],
   filterType: 1,
   selectedTagsInMyNotes: [],

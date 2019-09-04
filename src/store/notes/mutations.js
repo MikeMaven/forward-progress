@@ -8,24 +8,21 @@ export default {
     state.tagsInMyNotes = tags;
   },
 
+  setSearchObject(state, searchObject) {
+    state.searchObject = searchObject;
+  },
+
   selectedTagFilter(state, tags) {
     state.selectedTagsInMyNotes = tags;
-    let filteredNotes = [];
-    state.allNotes.forEach(note => {
-      let tagScore = 0;
-      tags.forEach(tag => {
-        if (
-          note.tags.find(noteTag => {
-            return noteTag.id === tag.id;
-          })
-        ) {
-          tagScore++;
-        }
-      });
-      if (tagScore === tags.length) {
-        filteredNotes.push(note);
+    let filteredNotes = new Set([]);
+    tags.forEach(tag => {
+      if (state.searchObject.tagLookUpObject[tag.name]) {
+        state.searchObject.tagLookUpObject[tag.name].forEach(id => {
+          filteredNotes.add(state.searchObject.noteLookUpObject[id]);
+        });
       }
     });
+    filteredNotes = Array.from(filteredNotes);
     state.notes = filteredNotes;
   },
 
