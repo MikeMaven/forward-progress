@@ -23,6 +23,12 @@ export default {
     });
   },
 
+  setFilterType(context, filterType) {
+    return new Promise(function(resolve) {
+      context.commit('filterType', filterType);
+    });
+  },
+
   getNote(context, payload) {
     return new Promise(resolve => {
       if (context.loaded) {

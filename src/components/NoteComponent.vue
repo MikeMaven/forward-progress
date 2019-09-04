@@ -21,8 +21,14 @@ export default {
   components: {
     TagComponent
   },
-  mounted() {
-    debugger;
+  mounted() {},
+  methods: {
+    deleteNote() {
+      this.$store.dispatch('notes/deleteNote', {
+        id: this.note.id,
+        source: 'index'
+      });
+    }
   }
 }
 </script>

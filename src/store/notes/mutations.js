@@ -29,6 +29,10 @@ export default {
     state.notes = filteredNotes;
   },
 
+  filterType(state, filterType) {
+    state.filterType = filterType;
+  },
+
   removeFromNotesList(state, noteId) {
     let currentNotes = state.notes;
     currentNotes = currentNotes.filter(note => {

@@ -7,6 +7,10 @@ export default {
     return state.tagsInMyNotes;
   },
 
+  getFilterType: (state, getters) => {
+    return state.filterType;
+  },
+
   getSelectedTagsInMyNotes: (state, getters) => {
     return state.selectedTagsInMyNotes;
   },

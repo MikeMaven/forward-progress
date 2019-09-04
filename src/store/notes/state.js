@@ -2,6 +2,7 @@ export default {
   notes: [],
   allNotes: [],
   tagsInMyNotes: [],
+  filterType: 1,
   selectedTagsInMyNotes: [],
   noteToEdit: {
     title: null,

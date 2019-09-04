@@ -13,12 +13,16 @@
         :multiple="true"
         @tag="addFilterTag"
       />
+      <b-form-radio-group label="Filter How:">
+        <b-form-radio v-model="filterHow" name="allSelected" value="1">All Selected Tags</b-form-radio>
+        <b-form-radio v-model="filterHow" name="anySelected" value="2">Any Selected Tag</b-form-radio>
+      </b-form-radio-group>
     </div>
     <div>
       <note-component
       v-for="note in notes"
       :key="note.id"
-      :note="note" />
+      :note="note">
       </note-component>
     </div>
   </div>
@@ -50,7 +54,7 @@ export default {
 
   data() {
     return {
-    }
+    };
   },
 
   computed: {
@@ -67,6 +71,14 @@ export default {
       set: function(updatedTags) {
         this.$store.dispatch('notes/setSelectedTagsInMyNotes', updatedTags);
       }
+    },
+    filterHow: {
+      get: function() {
+        return this.$store.getters['notes/getFilterType'];
+      },
+      set: function(updatedFilter) {
+        this.$store.dispatch('notes/setFilterType', updatedFilter);
+      }
     }
   },
 
@@ -79,8 +91,8 @@ export default {
 
   mounted() {
     this.$store.dispatch('notes/getUserNotes');
-  },
-}
+  }
+};
 </script>
 
 <style>
