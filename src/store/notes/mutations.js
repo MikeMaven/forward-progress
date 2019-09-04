@@ -1,6 +1,7 @@
 export default {
   setUserNotes(state, notes) {
     state.notes = notes;
+    state.allNotes = notes;
   },
 
   setTagsInMyNotes(state, tags) {
@@ -9,6 +10,23 @@ export default {
 
   selectedTagFilter(state, tags) {
     state.selectedTagsInMyNotes = tags;
+    let filteredNotes = [];
+    state.allNotes.forEach(note => {
+      let tagScore = 0;
+      tags.forEach(tag => {
+        if (
+          note.tags.find(noteTag => {
+            return noteTag.id === tag.id;
+          })
+        ) {
+          tagScore++;
+        }
+      });
+      if (tagScore === tags.length) {
+        filteredNotes.push(note);
+      }
+    });
+    state.notes = filteredNotes;
   },
 
   removeFromNotesList(state, noteId) {

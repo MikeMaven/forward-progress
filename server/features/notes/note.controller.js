@@ -35,7 +35,6 @@ exports.myNotes = (req, res) => {
       // generate an array of tags to populate sort dropdown on front end
       let includedTags = [];
       user.notes.forEach(note => {
-        // includedTags.push(...note.tags);
         note.tags.forEach(tag => {
           if (!includedTags.find(arrayTag => tag.id === arrayTag.id)) {
             includedTags.push(tag);

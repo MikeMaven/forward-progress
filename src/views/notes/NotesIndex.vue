@@ -18,7 +18,7 @@
       <note-component
       v-for="note in notes"
       :key="note.id"
-      :note="note">
+      :note="note" />
       </note-component>
     </div>
   </div>
