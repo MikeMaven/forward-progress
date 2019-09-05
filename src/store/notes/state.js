@@ -3,7 +3,7 @@ export default {
   allNotes: [],
   searchObject: [],
   tagsInMyNotes: [],
-  filterType: 1,
+  filterType: 'allTags',
   selectedTagsInMyNotes: [],
   noteToEdit: {
     title: null,

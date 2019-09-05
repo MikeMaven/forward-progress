@@ -14,8 +14,8 @@
         @tag="addFilterTag"
       />
       <b-form-radio-group label="Filter How:">
-        <b-form-radio v-model="filterHow" name="allSelected" value="1">All Selected Tags</b-form-radio>
-        <b-form-radio v-model="filterHow" name="anySelected" value="2">Any Selected Tag</b-form-radio>
+        <b-form-radio v-model="filterHow" name="allSelected" value="allTags">All Selected Tags</b-form-radio>
+        <b-form-radio v-model="filterHow" name="anySelected" value="anyTags">Any Selected Tag</b-form-radio>
       </b-form-radio-group>
     </div>
     <div>
