@@ -20,13 +20,10 @@ export default function tagFiltering(state, tags) {
           } else {
             tagScore[state.searchObject.noteLookUpObject[id].id] = 1;
           }
+          if (tagScore[id] === selectedTagLength) {
+            filteredNotes.add(state.searchObject.noteLookUpObject[id]);
+          }
         });
-      }
-    });
-    const noteIdArray = Object.keys(tagScore);
-    noteIdArray.forEach(noteId => {
-      if (tagScore[noteId] === selectedTagLength) {
-        filteredNotes.add(state.searchObject.noteLookUpObject[noteId]);
       }
     });
     filteredNotes = Array.from(filteredNotes);
