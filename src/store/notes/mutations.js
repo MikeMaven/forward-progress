@@ -1,10 +1,27 @@
+import tagFiltering from './helpers/tagFiltering';
+
 export default {
   setUserNotes(state, notes) {
     state.notes = notes;
+    state.allNotes = notes;
   },
 
   setTagsInMyNotes(state, tags) {
     state.tagsInMyNotes = tags;
+  },
+
+  setSearchObject(state, searchObject) {
+    state.searchObject = searchObject;
+  },
+
+  selectedTagFilter(state, tags) {
+    state.selectedTagsInMyNotes = tags;
+    state.notes = tagFiltering(state, tags);
+  },
+
+  filterType(state, filterType) {
+    state.filterType = filterType;
+    state.notes = tagFiltering(state, state.selectedTagsInMyNotes);
   },
 
   removeFromNotesList(state, noteId) {

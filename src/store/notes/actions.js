@@ -10,9 +10,23 @@ export default {
         NotesApi.getUserNotes().then(response => {
           context.commit('setUserNotes', response.user.notes);
           context.commit('setTagsInMyNotes', response.includedTags);
+          context.commit('setSearchObject', response.searchObject);
           resolve();
         });
       }
+    });
+  },
+
+  setSelectedTagsInMyNotes(context, updatedTagSelection) {
+    return new Promise(function(resolve) {
+      context.commit('selectedTagFilter', updatedTagSelection);
+      resolve();
+    });
+  },
+
+  setFilterType(context, filterType) {
+    return new Promise(function(resolve) {
+      context.commit('filterType', filterType);
     });
   },
 

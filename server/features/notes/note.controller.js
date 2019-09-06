@@ -34,12 +34,35 @@ exports.myNotes = (req, res) => {
       });
       // generate an array of tags to populate sort dropdown on front end
       let includedTags = [];
+      let noteLookUpObject = {};
+      let tagLookUpObject = {};
       user.notes.forEach(note => {
-        includedTags.push(...note.tags);
+        noteLookUpObject[note.id] = note;
+        note.tags.forEach(tag => {
+          if (typeof tagLookUpObject[tag.name] !== 'object') {
+            tagLookUpObject[tag.name] = new Set([note.id]);
+          } else {
+            tagLookUpObject[tag.name].add(note.id);
+          }
+
+          if (!includedTags.find(arrayTag => tag.id === arrayTag.id)) {
+            includedTags.push(tag);
+          }
+        });
       });
+
+      tagLookUpObjectKeys = Object.keys(tagLookUpObject);
+      tagLookUpObjectKeys.forEach(key => {
+        tagLookUpObject[key] = Array.from(tagLookUpObject[key]);
+      });
+
       const response = {
         user,
-        includedTags
+        includedTags,
+        searchObject: {
+          noteLookUpObject,
+          tagLookUpObject
+        }
       };
       res.json(response);
     });

@@ -1,6 +1,10 @@
 export default {
   notes: [],
+  allNotes: [],
+  searchObject: [],
   tagsInMyNotes: [],
+  filterType: 'allTags',
+  selectedTagsInMyNotes: [],
   noteToEdit: {
     title: null,
     body: null
