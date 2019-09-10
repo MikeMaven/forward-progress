@@ -61,7 +61,8 @@ import {
   Link,
   Strike,
   Underline,
-  History
+  History,
+  Image
 } from 'tiptap-extensions';
 import Multiselect from 'vue-multiselect';
 
@@ -164,7 +165,8 @@ export default {
         new Link(),
         new Strike(),
         new Underline(),
-        new History()
+        new History(),
+        new Image()
       ],
       content: this.body,
       onUpdate: ({getHTML}) => {

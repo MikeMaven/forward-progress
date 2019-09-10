@@ -154,6 +154,16 @@ async function render(req, res) {
   });
 }
 
+//AWS S3 Storage Config
+
+const { signedUrl } = require('./middleware/s3');
+const awsConfig = {
+  accessKeyId: process.env.AWS_S3_ACCESS_KEY,
+  secretAccessKey: process.env.AWS_S3_SECRET_KEY,
+  bucket: process.env.AWS_S3_BUCKET
+};
+app.use('/signed-url', signedUrl(awsConfig));
+
 app.get(
   '*',
   isProd
