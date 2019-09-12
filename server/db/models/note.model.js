@@ -4,7 +4,8 @@ module.exports = (sequelize, DataTypes) => {
     'Note',
     {
       title: DataTypes.STRING,
-      body: DataTypes.STRING
+      body: DataTypes.STRING,
+      starred: DataTypes.BOOLEAN
     },
     {}
   );

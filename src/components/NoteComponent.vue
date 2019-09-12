@@ -1,6 +1,10 @@
 <template>
   <div class="noteIndexComponent">
     <h4>{{ note.title }}</h4>
+    <div id="star">
+      <img v-if="!note.starred" src="/public/images/star-off.png">
+      <img v-else src="/public/images/star-on.png">
+    </div>
     <span v-html="note.body" class="showNoteBody"></span>
     <tag-component
     v-for="tag in note.tags"
@@ -39,7 +43,10 @@ export default {
   display: inline !important;
 }
 .noteIndexComponent {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
+#star {
+  float: left;
+}
 </style>
