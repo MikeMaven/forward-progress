@@ -92,6 +92,30 @@ exports.getNote = (req, res) => {
   }
 };
 
+exports.starToggle = (req, res) => {
+  console.log(req.body.starred);
+  if (req.user) {
+    let changeTo;
+    if (req.body.starred) {
+      changeTo = false;
+    } else {
+      changeTo = true;
+    }
+    Note.update(
+      { starred: changeTo },
+      { returning: true, where: { id: req.body.id } }
+    )
+      .then(function([rowsUpdate, [updatedNote]]) {
+        res.json(updatedNote);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
 exports.newNote = (req, res) => {
   let newNoteScoped = null;
 

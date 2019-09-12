@@ -30,6 +30,17 @@ export default {
     });
   },
 
+  starToggle(context, starData) {
+    return new Promise(function(resolve) {
+      NotesApi.starToggle(starData.id, starData.starred).then(note => {
+        // context.commit('setNewNote', note);
+        // router.push('/notes');
+        console.log(note);
+        resolve();
+      });
+    });
+  },
+
   getNote(context, payload) {
     return new Promise(resolve => {
       if (context.loaded) {
