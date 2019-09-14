@@ -1,22 +1,22 @@
 <template>
   <div>
     <h1>Edit Note</h1>
-    <text-editor-component
+    <text-editor-component-v2
       :noteTitle = "noteToEdit.title"
       :noteBody = "noteToEdit.body"
       :editNoteID = "this.$route.params.id"
-    ></text-editor-component>
+    ></text-editor-component-v2>
 
   </div>
 </template>
 
 <script>
-import TextEditorComponent from '../../components/TextEditorComponent.vue';
+import TextEditorComponentV2 from '../../components/TextEditorComponentV2.vue';
 
 export default {
   name: 'editnote',
   components: {
-    TextEditorComponent
+    TextEditorComponentV2
   },
   data() {
     return {}
