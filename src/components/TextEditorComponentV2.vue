@@ -1,8 +1,8 @@
 <template>
   <div>
     <h6>Title:</h6><input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" />
-    <vue-editor v-model="content" ref="editor"></vue-editor>
-    <div class="editorTagDiv">
+    <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="content" ref="editor"></vue-editor>
+    <div class="tagDiv">
       <h6>Add Tags:</h6>
       <multiselect
         v-model="selected"
@@ -26,6 +26,7 @@
 
 <script>
 import Multiselect from 'vue-multiselect';
+import axios from 'axios';
 
 export default {
   name: 'TextEditorComponentV2',
@@ -107,6 +108,20 @@ export default {
         event.preventDefault();
         this.$refs.editor.quill.focus();
       }
+    },
+    handleImageAdded(file, Editor, cursorLocation, resetUploader) {
+      var formData = new FormData();
+      formData.append('image', file)
+      axios({
+        url: '/api/fileupload',
+        method: 'POST',
+        data: formData
+      })
+        .then(response => {
+            let url = response.data.imageUrl    
+            Editor.insertEmbed(cursorLocation, "image", url);
+            resetUploader();
+        })
     }
   },
 

@@ -19,6 +19,7 @@ const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 const ngrok = process.env.ENABLE_TUNNEL ? require('ngrok') : false;
 const useMicroCache = process.env.MICRO_CACHE !== 'false';
+require('dotenv').config();
 const serverInfo =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`;

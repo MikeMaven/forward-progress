@@ -20,7 +20,8 @@ import {
   faListOl,
   faItalic,
   faStrikethrough,
-  faUnderline
+  faUnderline,
+  faImages
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -32,7 +33,8 @@ library.add(
   faListOl,
   faItalic,
   faStrikethrough,
-  faUnderline
+  faUnderline,
+  faImages
 );
 
 if (process.browser) {
