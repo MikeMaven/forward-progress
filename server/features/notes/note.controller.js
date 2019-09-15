@@ -29,9 +29,9 @@ exports.myNotes = (req, res) => {
       ]
     }).then(user => {
       // sort the notes from recent -> old
-      user.notes = user.notes.sort((earlier, later) => {
-        return later.updatedAt - earlier.updatedAt;
-      });
+      // user.notes = user.notes.sort((earlier, later) => {
+      //   return later.updatedAt - earlier.createdAt;
+      // });
       // generate an array of tags to populate sort dropdown on front end
       let includedTags = [];
       let noteLookUpObject = {};
