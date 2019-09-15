@@ -1,44 +1,27 @@
 <template>
   <div>
     <h1>NEW NOTE</h1>
-    <text-editor-component
+    <text-editor-component-v2
       :noteTitle = "null"
       :noteBody = "null"
       :editNoteID = "null"
-    ></text-editor-component>
+    ></text-editor-component-v2>
   </div>
 </template>
 
 <script>
-import TextEditorComponent from '../../components/TextEditorComponent.vue';
+import TextEditorComponentV2 from '../../components/TextEditorComponentV2.vue';
 
 export default {
   components: {
-    TextEditorComponent
+    TextEditorComponentV2
   },
   data() {
     return {
-      editor: null,
-      title: null,
-      body: null
     }
   },
   methods: {
-    clearEditor() {
-      this.editor.clearContent(true);
-      this.editor.focus()
-    },
-    saveNote() {
-      if (this.title && this.body) {
-        this.$store.dispatch('notes/saveNote', {title: this.title, body: this.body});
-      } else {
-        // Add some better error messaging here later instead of the popup
-        alert('You must add a title and body')
-      }
-    },
-    setFocusToEditor() {
-      this.editor.focus()
-    }
+
   },
   mounted() {
     this.$store.dispatch('notes/getAllTags');

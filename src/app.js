@@ -40,6 +40,12 @@ library.add(
   faUnderline
 );
 
+if (process.browser) {
+  const VueEditor = require('vue2-editor').VueEditor;
+  Vue.use(VueEditor);
+  Vue.component('vue-editor', VueEditor);
+}
+
 const apolloClient = new ApolloClient({
   link: createHttpLink({
     uri: 'http://localhost:3000/graphql',
