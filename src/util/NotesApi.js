@@ -26,9 +26,9 @@ export function starToggle(id, starred) {
     data: { id, starred }
   });
 
-  return axios(options).then(response =>
-    CodeApi.unrollApiResponse(response.data.message)
-  );
+  return axios(options).then(response => {
+    return response.data;
+  });
 }
 
 export function saveNote(title, body, tags, newTags) {

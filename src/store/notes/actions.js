@@ -32,10 +32,8 @@ export default {
 
   starToggle(context, starData) {
     return new Promise(function(resolve) {
-      NotesApi.starToggle(starData.id, starData.starred).then(note => {
-        // context.commit('setNewNote', note);
-        // router.push('/notes');
-        console.log(note);
+      NotesApi.starToggle(starData.id, starData.starred).then(response => {
+        context.commit('setStarredNote', response);
         resolve();
       });
     });
