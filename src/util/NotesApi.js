@@ -16,6 +16,21 @@ export function getUserNotes() {
   );
 }
 
+export function starToggle(id, starred) {
+  const url = '/api/starToggle';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    data: { id, starred }
+  });
+
+  return axios(options).then(response => {
+    return response.data;
+  });
+}
+
 export function saveNote(title, body, tags, newTags) {
   const url = 'api/newNote';
 

@@ -29,9 +29,9 @@ exports.myNotes = (req, res) => {
       ]
     }).then(user => {
       // sort the notes from recent -> old
-      user.notes = user.notes.sort((earlier, later) => {
-        return later.updatedAt - earlier.updatedAt;
-      });
+      // user.notes = user.notes.sort((earlier, later) => {
+      //   return later.updatedAt - earlier.createdAt;
+      // });
       // generate an array of tags to populate sort dropdown on front end
       let includedTags = [];
       let noteLookUpObject = {};
@@ -83,6 +83,30 @@ exports.getNote = (req, res) => {
     })
       .then(note => {
         res.json(note);
+      })
+      .catch(err => {
+        res.status(400).send(err);
+      });
+  } else {
+    return res.status(401).send({});
+  }
+};
+
+exports.starToggle = (req, res) => {
+  console.log(req.body.starred);
+  if (req.user) {
+    let changeTo;
+    if (req.body.starred) {
+      changeTo = false;
+    } else {
+      changeTo = true;
+    }
+    Note.update(
+      { starred: changeTo },
+      { returning: true, where: { id: req.body.id } }
+    )
+      .then(function([rowsUpdate, [updatedNote]]) {
+        res.json(updatedNote);
       })
       .catch(err => {
         res.status(400).send(err);

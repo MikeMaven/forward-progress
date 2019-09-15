@@ -1,6 +1,10 @@
 <template>
   <div class="noteIndexComponent">
     <h4>{{ note.title }}</h4>
+    <div id="star">
+      <img v-if="!note.starred" src="/public/images/star-off.png" v-on:click="starToggle">
+      <img v-else src="/public/images/star-on.png" v-on:click="starToggle">
+    </div>
     <span v-html="note.body" class="showNoteBody"></span>
     <tag-component
     v-for="tag in note.tags"
@@ -28,6 +32,12 @@ export default {
         id: this.note.id,
         source: 'index'
       });
+    },
+    starToggle() {
+      this.$store.dispatch('notes/starToggle', {
+        id: this.note.id,
+        starred: this.note.starred
+      });
     }
   }
 }
@@ -39,7 +49,10 @@ export default {
   display: inline !important;
 }
 .noteIndexComponent {
-  margin-bottom: 15px;
+  margin-bottom: 25px;
 }
 
+#star {
+  float: left;
+}
 </style>
