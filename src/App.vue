@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <app-header/>
-    <div class="container">
+    <div class="container" id="mainContainer">
       <transition
         name="fade"
         mode="out-in">
