@@ -11,5 +11,8 @@ export default {
   },
   selectedTags: [],
   allTags: [],
-  welcomeText: 'Welcome to your notes dashboard:'
+  welcomeText: 'Welcome to your notes dashboard:',
+  notesIndexNavigation: {
+    filterTagsOpen: false
+  }
 };

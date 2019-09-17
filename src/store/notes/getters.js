@@ -25,5 +25,9 @@ export default {
 
   getSelectedTags: (state, getters) => {
     return state.selectedTags;
+  },
+
+  getFilterToggle: (state, getters) => {
+    return state.notesIndexNavigation.filterTagsOpen;
   }
 };

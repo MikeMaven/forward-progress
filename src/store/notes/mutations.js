@@ -50,6 +50,10 @@ export default {
     state.notes = currentNotes;
   },
 
+  filterToggle(state, newValue) {
+    state.notesIndexNavigation.filterTagsOpen = newValue;
+  },
+
   setNewNote(state, note) {
     state.notes.push(note);
   },
