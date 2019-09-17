@@ -1,29 +1,43 @@
 <template>
   <div>
-    <div class="tagDiv">
-      <h4>Filter notes by tag:</h4>
-      <multiselect
-        v-model="selected"
-        tag-placeholder=""
-        placeholder="Search for your tagged notes"
-        label="name"
-        track-by="id"
-        :options="options"
-        :taggable="true"
-        :multiple="true"
-        @tag="addFilterTag"
-      />
-      <b-form-radio-group label="Filter How:">
-        <b-form-radio v-model="filterHow" name="allSelected" value="allTags">All Selected Tags</b-form-radio>
-        <b-form-radio v-model="filterHow" name="anySelected" value="anyTags">Any Selected Tag</b-form-radio>
-      </b-form-radio-group>
-    </div>
-    <div>
-      <note-component
-      v-for="note in notes"
-      :key="note.id"
-      :note="note">
-      </note-component>
+    <div id="sideBar">
+        <div class="tagDiv">
+            <div id="titleRow">
+                <img src="/public/images/icon1-white.png">
+                <h1>My Notes</h1>
+            </div>
+            <div id="filterRow">
+                <div id="filterToggleLink" v-on:click="this.changeFilterToggle">
+                    <h4>Filter notes by tag:</h4>
+                    <span v-if="!this.filterOptionsToggle" class="arrow arrowRight">&#9654</span>
+                    <span v-if="this.filterOptionsToggle" class="arrow arrowRight">&#9660</span>
+                </div>
+                <div id="selectZone" v-if="this.filterOptionsToggle">
+                    <multiselect
+                        v-model="selected"
+                        tag-placeholder=""
+                        placeholder="Search for your tagged notes"
+                        label="name"
+                        track-by="id"
+                        :options="options"
+                        :taggable="true"
+                        :multiple="true"
+                        @tag="addFilterTag"
+                    />
+                    <b-form-radio-group label="Filter How:">
+                        <b-form-radio v-model="filterHow" name="allSelected" value="allTags">All Selected Tags</b-form-radio>
+                        <b-form-radio v-model="filterHow" name="anySelected" value="anyTags">Any Selected Tag</b-form-radio>
+                    </b-form-radio-group>
+                </div>
+            </div>
+        </div>
+        <div id="notesList">
+            <note-component
+            v-for="note in notes"
+            :key="note.id"
+            :note="note">
+            </note-component>
+        </div>
     </div>
   </div>
 </template>
@@ -79,6 +93,11 @@ export default {
       set: function(updatedFilter) {
         this.$store.dispatch('notes/setFilterType', updatedFilter);
       }
+    },
+    filterOptionsToggle: {
+        get: function() {
+            return this.$store.getters['notes/getFilterToggle']
+        }
     }
   },
 
@@ -86,6 +105,13 @@ export default {
     addFilterTag(){
       // we can add a more specific, non-tag related sort here if we want
       return null;
+    },
+    changeFilterToggle(){
+        if (this.filterOptionsToggle) {
+            this.$store.dispatch('notes/setFilterToggle', false)
+        } else {
+            this.$store.dispatch('notes/setFilterToggle', true)
+        }
     }
   },
 
@@ -96,13 +122,88 @@ export default {
 </script>
 
 <style>
-/* STYLES FOR FIXING TAGS */
+/* Custom Styling */
+#mainContainer {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.view {
+    margin: 0;
+    max-width: 100%;
+}
+
+/* Sidebar */
+
+#sideBar {
+  max-width: 25%;
+  background-color: #e1e1e1;
+  overflow-y: scroll;
+  height: 100vh;
+}
+
+/* Sidebar Top Panel */
+#sidebar .tagDiv {
+  margin: 0 0 15px 0;
+}
+
 .tagDiv {
-  margin: 15px 0 15px 0;
+    background-color: #013369;
+    padding: 0 20px 0 20px;
+}
+
+.titleRow {
+    position: relative;
+}
+
+#titleRow img {
+    width: 10%;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#titleRow h1 {
+    font-family: paralucent, sans-serif;
+    vertical-align: bottom;
+    color: white;
+    font-weight: 700;
+    font-style: italic;
+    font-size: 3em;
+    display: inline-block;
+    letter-spacing: .025em;
+}
+
+#filterRow {
+    padding-bottom: 15px;
+}
+
+.tagDiv h4 {
+    display: inline-block;
+    margin-top: 15px;
+    color: white;
+    font-family: paralucent, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.8em;
+    letter-spacing: .05em;
+}
+
+.tagDiv .arrow {
+    margin-left: 5px;
+    color: white;
+    font-size: 1.8em;
 }
 
 .multiselect__input {
   border: none !important;
+}
+
+/* Sidebar Bottom Panel */
+
+#notesList {
+    padding: 0 20px 0 20px;
 }
 
 /*

@@ -30,6 +30,12 @@ export default {
     });
   },
 
+  setFilterToggle(context, newValue) {
+    return new Promise(function(resolve) {
+      context.commit('filterToggle', newValue);
+    });
+  },
+
   starToggle(context, starData) {
     return new Promise(function(resolve) {
       NotesApi.starToggle(starData.id, starData.starred).then(response => {
