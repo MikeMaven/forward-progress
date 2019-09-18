@@ -24,10 +24,12 @@
                         :multiple="true"
                         @tag="addFilterTag"
                     />
-                    <b-form-radio-group label="Filter How:">
-                        <b-form-radio v-model="filterHow" name="allSelected" value="allTags">All Selected Tags</b-form-radio>
-                        <b-form-radio v-model="filterHow" name="anySelected" value="anyTags">Any Selected Tag</b-form-radio>
-                    </b-form-radio-group>
+                    <div class="filterButtonRow">
+                        <b-dropdown id="filterDropdown" text="Filter By:" class="m-md 2">
+                            <b-dropdown-item v-on:click="changeFilter('allTags')" name="allSelected">All Selected Tags</b-dropdown-item>
+                            <b-dropdown-item v-on:click="changeFilter('anyTags')" name="anySelected">Any Selected Tags</b-dropdown-item>
+                        </b-dropdown>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,9 +92,6 @@ export default {
       get: function() {
         return this.$store.getters['notes/getFilterType'];
       },
-      set: function(updatedFilter) {
-        this.$store.dispatch('notes/setFilterType', updatedFilter);
-      }
     },
     filterOptionsToggle: {
         get: function() {
@@ -105,6 +104,9 @@ export default {
     addFilterTag(){
       // we can add a more specific, non-tag related sort here if we want
       return null;
+    },
+    changeFilter(updatedFilter){
+        this.$store.dispatch('notes/setFilterType', updatedFilter);
     },
     changeFilterToggle(){
         if (this.filterOptionsToggle) {
@@ -198,6 +200,11 @@ export default {
 
 .multiselect__input {
   border: none !important;
+}
+
+#filterDropdown {
+    margin-top: 10px;
+    width: 100%;
 }
 
 /* Sidebar Bottom Panel */
