@@ -25,7 +25,7 @@
                         @tag="addFilterTag"
                     />
                     <div class="filterButtonRow">
-                        <b-dropdown id="filterDropdown" text="Filter By:" class="m-md 2">
+                        <b-dropdown id="filterDropdown" text="Filter By:" right size="lg">
                             <b-dropdown-item v-on:click="changeFilter('allTags')" name="allSelected">All Selected Tags</b-dropdown-item>
                             <b-dropdown-item v-on:click="changeFilter('anyTags')" name="anySelected">Any Selected Tags</b-dropdown-item>
                         </b-dropdown>
@@ -34,25 +34,25 @@
             </div>
         </div>
         <div id="notesList">
-            <note-component
+            <note-list-component
             v-for="note in notes"
             :key="note.id"
             :note="note">
-            </note-component>
+            </note-list-component>
         </div>
     </div>
   </div>
 </template>
 
 <script>
-import NoteComponent from '../../components/NoteComponent.vue';
+import NoteListComponent from '../../components/NoteListComponent.vue';
 import Multiselect from 'vue-multiselect';
 
 export default {
   name: 'notes',
 
   components: {
-    NoteComponent,
+    NoteListComponent,
     Multiselect
   },
 
@@ -181,6 +181,12 @@ export default {
     padding-bottom: 15px;
 }
 
+.dropdown-menu.show {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1.5em;
+    width: 100%;
+}
+
 .tagDiv h4 {
     display: inline-block;
     margin-top: 15px;
@@ -210,7 +216,7 @@ export default {
 /* Sidebar Bottom Panel */
 
 #notesList {
-    padding: 0 20px 0 20px;
+    padding: 0;
 }
 
 /*
