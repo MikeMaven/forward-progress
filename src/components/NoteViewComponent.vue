@@ -8,10 +8,14 @@
       </ul>
     </div>
     <div id="noteBody">
-      <p v-html="selectedNote.body"></p>
+      <div v-html="selectedNote.body"></div>
     </div>
     <div>
-      {{ selectedNote.tags }}
+      <tag-component
+      v-for="tag in selectedNote.tags"
+      :key="tag.id"
+      :tag="tag">
+      </tag-component>
     </div>
   </div>
 </template>
@@ -83,8 +87,24 @@ export default {
   color: #d50a0a;
 }
 
-#noteBody p {
+#noteBody {
+  margin-top: 20px;
+}
+
+#noteBody {
   font-family: 'Open Sans', sans-serif;
-  font-size: 1.25em;
+  font-size: 1.35em;
+}
+
+#noteBody li {
+  display: block;
+  padding-left: 5px;
+}
+
+#noteBody li::before {
+  content: "\2022";  /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color: black; /* Change the color */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  padding-right: 20px;
 }
 </style>
