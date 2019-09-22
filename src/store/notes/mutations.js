@@ -100,5 +100,27 @@ export default {
   addNewTag(state, newTag) {
     state.allTags.push(newTag);
     state.selectedTags.push(newTag);
+  },
+
+  updateSelectedUponDeletion(state, id) {
+    const currentNoteIndex = state.notes.findIndex(note => {
+      return note.id === id;
+    });
+    if (currentNoteIndex !== 0) {
+      state.notesIndexNavigation.selectedNote =
+        state.notes[currentNoteIndex - 1];
+    } else if (currentNoteIndex === 0 && state.notes.length > 0) {
+      state.notesIndexNavigation.selectedNote = state.notes[0];
+    } else {
+      state.notesIndexNavigation.selectedNote = {
+        body: '',
+        createdAt: '',
+        id: '',
+        starred: false,
+        tags: [],
+        title: '',
+        updatedAt: ''
+      };
+    }
   }
 };

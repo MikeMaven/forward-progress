@@ -16,15 +16,6 @@
   </div>
 </template>
 
-
-//     <tag-component
-//     v-for="tag in note.tags"
-//     :key="tag.id"
-//     :tag="tag">
-//     </tag-component>
-
-//     <div><a :href="'/EditNote/' + note.id">Edit Note</a> - <a v-on:click="deleteNote">Delete Note</a></div>
-
 <script>
 import TagComponent from './TagComponent.vue';
 import previewTextGenerator from '../store/notes/helpers/previewTextGenerator'
@@ -45,12 +36,6 @@ export default {
     },
   },
   methods: {
-    deleteNote() {
-      this.$store.dispatch('notes/deleteNote', {
-        id: this.note.id,
-        source: 'index'
-      });
-    },
     starToggle() {
       this.$store.dispatch('notes/starToggle', {
         id: this.note.id,
