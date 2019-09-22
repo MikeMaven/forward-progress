@@ -45,6 +45,12 @@ export default {
     });
   },
 
+  selectNote(context, note) {
+    return new Promise(function(resolve) {
+      context.commit('selectNote', note);
+    });
+  },
+
   getNote(context, payload) {
     return new Promise(resolve => {
       if (context.loaded) {

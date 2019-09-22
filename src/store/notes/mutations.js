@@ -6,6 +6,7 @@ export default {
     const sortedNotes = starSort(notes);
     state.notes = sortedNotes;
     state.allNotes = sortedNotes;
+    state.notesIndexNavigation.selectedNote = sortedNotes[0];
   },
 
   setTagsInMyNotes(state, tags) {
@@ -52,6 +53,10 @@ export default {
 
   filterToggle(state, newValue) {
     state.notesIndexNavigation.filterTagsOpen = newValue;
+  },
+
+  selectNote(state, note) {
+    state.notesIndexNavigation.selectedNote = note;
   },
 
   setNewNote(state, note) {
