@@ -13,6 +13,15 @@ export default {
   allTags: [],
   welcomeText: 'Welcome to your notes dashboard:',
   notesIndexNavigation: {
-    filterTagsOpen: false
+    filterTagsOpen: false,
+    selectedNote: {
+      body: '',
+      createdAt: '',
+      id: '',
+      starred: false,
+      tags: [],
+      title: '',
+      updatedAt: ''
+    }
   }
 };

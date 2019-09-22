@@ -41,11 +41,16 @@
             </note-list-component>
         </div>
     </div>
+    <div>
+        <note-view-component>
+        </note-view-component>
+    </div>
   </div>
 </template>
 
 <script>
 import NoteListComponent from '../../components/NoteListComponent.vue';
+import NoteViewComponent from '../../components/NoteViewComponent.vue';
 import Multiselect from 'vue-multiselect';
 
 export default {
@@ -53,7 +58,8 @@ export default {
 
   components: {
     NoteListComponent,
-    Multiselect
+    Multiselect,
+    NoteViewComponent
   },
 
   mixins: [],
@@ -143,7 +149,9 @@ export default {
   max-width: 25%;
   background-color: #e1e1e1;
   overflow-y: scroll;
-  height: 100vh;
+  height: calc(100vh - 55px); 
+  /* subtract height of top nav bar */
+  float: left;
 }
 
 /* Sidebar Top Panel */
@@ -164,6 +172,10 @@ export default {
     width: 10%;
     display: inline-block;
     margin-right: 10px;
+}
+
+#noteViewDiv {
+    display: inline-block;
 }
 
 #titleRow h1 {
@@ -211,6 +223,19 @@ export default {
 #filterDropdown {
     margin-top: 10px;
     width: 100%;
+}
+
+#filterDropdown button {
+    font-family: paralucent, sans-serif;
+    font-style: 'normal';
+    font-weight: 400;
+    font-size: 1.5em;
+    letter-spacing: 0.2em;
+    color: #d50a0a;
+    background-color: white;
+    padding: 15px 20px 15px 20px;
+    text-transform: uppercase;
+    padding: 5px 0 5px 0;
 }
 
 /* Sidebar Bottom Panel */
