@@ -99,6 +99,13 @@ export default {
     });
   },
 
+  updateSelectionUponDeletion(context, id) {
+    return new Promise(function(resolve) {
+      context.commit('updateSelectedUponDeletion', id);
+      resolve();
+    });
+  },
+
   deleteNote(context, payload) {
     return new Promise(function(resolve) {
       NotesApi.deleteNote(payload.id, payload.source).then(noteId => {
