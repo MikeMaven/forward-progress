@@ -7,8 +7,8 @@
         <a v-on:click="deleteNote"><li>Delete</li></a>
       </ul>
     </div>
-    <div>
-      <p>{{ selectedNote.body }}</p>
+    <div id="noteBody">
+      <p v-html="selectedNote.body"></p>
     </div>
     <div>
       {{ selectedNote.tags }}
@@ -81,5 +81,10 @@ export default {
 #noteHeader li {
   padding: 10px 25px 10px 25px;
   color: #d50a0a;
+}
+
+#noteBody p {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.25em;
 }
 </style>
