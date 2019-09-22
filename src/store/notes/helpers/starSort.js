@@ -10,11 +10,11 @@ export default function starSort(notes) {
   });
 
   starredNotes = starredNotes.sort((earlier, later) => {
-    return later.createdAt - earlier.createdAt;
+    return new Date(later.createdAt) - new Date(earlier.createdAt);
   });
 
   unStarredNotes = unStarredNotes.sort((earlier, later) => {
-    return later.createdAt - earlier.createdAt;
+    return new Date(later.createdAt) - new Date(earlier.createdAt);
   });
 
   return starredNotes.concat(unStarredNotes);
