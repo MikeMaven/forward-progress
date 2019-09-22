@@ -19,12 +19,17 @@ export default {
 
   selectedTagFilter(state, tags) {
     state.selectedTagsInMyNotes = tags;
-    state.notes = tagFiltering(state, tags);
+    const unsortedFilteredNotes = tagFiltering(state, tags);
+    state.notes = starSort(unsortedFilteredNotes);
   },
 
   filterType(state, filterType) {
     state.filterType = filterType;
-    state.notes = tagFiltering(state, state.selectedTagsInMyNotes);
+    const unsortedFilteredNotes = tagFiltering(
+      state,
+      state.selectedTagsInMyNotes
+    );
+    state.notes = starSort(unsortedFilteredNotes);
   },
 
   setStarredNote(state, updatedNote) {
