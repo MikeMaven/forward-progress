@@ -27,12 +27,13 @@
         </span>
         <span class="logButtons">
           <router-link
+          class="profileLink"
           v-if="isAuthenticated"
           to="/profile">&nbsp;&nbsp;&nbsp;{{ user.username }}</router-link>
           <a
           v-if="isAuthenticated"
           href="javascript:void(0)"
-          @click="logout()">{{ appData.content.app_nav_logout }}</a>
+          @click="logout()" class="logButton">{{ appData.content.app_nav_logout }}</a>
           <router-link
           class="logButton"
           v-if="!isAuthenticated"
@@ -102,7 +103,7 @@ export default {
   float: right;
 }
 
-.logButtons a {
+.logButtons .logButton {
   margin-right: 0;
   font-family: paralucent, sans-serif;
   font-style: 'normal';
@@ -115,4 +116,7 @@ export default {
   text-transform: uppercase;
 }
 
+.logButtons .profileLink {
+  margin-right: 10px;
+}
 </style>

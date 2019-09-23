@@ -6,6 +6,7 @@ export default {
     const sortedNotes = starSort(notes);
     state.notes = sortedNotes;
     state.allNotes = sortedNotes;
+    state.notesIndexNavigation.selectedNote = sortedNotes[0];
   },
 
   setTagsInMyNotes(state, tags) {
@@ -18,12 +19,17 @@ export default {
 
   selectedTagFilter(state, tags) {
     state.selectedTagsInMyNotes = tags;
-    state.notes = tagFiltering(state, tags);
+    const unsortedFilteredNotes = tagFiltering(state, tags);
+    state.notes = starSort(unsortedFilteredNotes);
   },
 
   filterType(state, filterType) {
     state.filterType = filterType;
-    state.notes = tagFiltering(state, state.selectedTagsInMyNotes);
+    const unsortedFilteredNotes = tagFiltering(
+      state,
+      state.selectedTagsInMyNotes
+    );
+    state.notes = starSort(unsortedFilteredNotes);
   },
 
   setStarredNote(state, updatedNote) {
@@ -48,6 +54,14 @@ export default {
       return note.id !== noteId;
     });
     state.notes = currentNotes;
+  },
+
+  filterToggle(state, newValue) {
+    state.notesIndexNavigation.filterTagsOpen = newValue;
+  },
+
+  selectNote(state, note) {
+    state.notesIndexNavigation.selectedNote = note;
   },
 
   setNewNote(state, note) {
@@ -86,5 +100,27 @@ export default {
   addNewTag(state, newTag) {
     state.allTags.push(newTag);
     state.selectedTags.push(newTag);
+  },
+
+  updateSelectedUponDeletion(state, id) {
+    const currentNoteIndex = state.notes.findIndex(note => {
+      return note.id === id;
+    });
+    if (currentNoteIndex !== 0) {
+      state.notesIndexNavigation.selectedNote =
+        state.notes[currentNoteIndex - 1];
+    } else if (currentNoteIndex === 0 && state.notes.length > 0) {
+      state.notesIndexNavigation.selectedNote = state.notes[0];
+    } else {
+      state.notesIndexNavigation.selectedNote = {
+        body: '',
+        createdAt: '',
+        id: '',
+        starred: false,
+        tags: [],
+        title: '',
+        updatedAt: ''
+      };
+    }
   }
 };

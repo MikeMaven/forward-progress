@@ -30,12 +30,24 @@ export default {
     });
   },
 
+  setFilterToggle(context, newValue) {
+    return new Promise(function(resolve) {
+      context.commit('filterToggle', newValue);
+    });
+  },
+
   starToggle(context, starData) {
     return new Promise(function(resolve) {
       NotesApi.starToggle(starData.id, starData.starred).then(response => {
         context.commit('setStarredNote', response);
         resolve();
       });
+    });
+  },
+
+  selectNote(context, note) {
+    return new Promise(function(resolve) {
+      context.commit('selectNote', note);
     });
   },
 
@@ -84,6 +96,13 @@ export default {
         router.push('/notes');
         resolve();
       });
+    });
+  },
+
+  updateSelectionUponDeletion(context, id) {
+    return new Promise(function(resolve) {
+      context.commit('updateSelectedUponDeletion', id);
+      resolve();
     });
   },
 

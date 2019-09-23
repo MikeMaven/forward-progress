@@ -22,7 +22,7 @@
         <editor-content :editor="editor" id="editorBox" class="editor__content" />
       </div>
     </div>
-    <div class="tagDiv">
+    <div class="editorTagDiv">
       <h6>Add Tags:</h6>
       <multiselect
         v-model="selected"
@@ -214,7 +214,7 @@ CSS Here fixes menu buttons and styling
 }
 
 /* STYLES FOR FIXING TAGS */
-.tagDiv {
+.editorTagDiv {
   margin: 15px 0 15px 0;
 }
 

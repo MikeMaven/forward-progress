@@ -2,7 +2,7 @@
   <div>
     <h6>Title:</h6><input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" />
     <vue-editor v-model="content" ref="editor"></vue-editor>
-    <div class="tagDiv">
+    <div class="editorTagDiv">
       <h6>Add Tags:</h6>
       <multiselect
         v-model="selected"
@@ -123,7 +123,7 @@ export default {
   }
 
   /* STYLES FOR FIXING TAGS */
-  .tagDiv {
+  .editorTagDiv {
     margin: 15px 0 15px 0;
   }
 
