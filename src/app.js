@@ -9,12 +9,8 @@ import { ACCESS_TOKEN } from './constants';
 import titleMixin from './util/title';
 import * as filters from './util/filters';
 
-import VueApollo from 'vue-apollo';
 import BootstrapVue from 'bootstrap-vue';
 import fetch from 'node-fetch';
-import { createHttpLink } from 'apollo-link-http';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import ApolloClient from 'apollo-client';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
@@ -46,22 +42,9 @@ if (process.browser) {
   Vue.component('vue-editor', VueEditor);
 }
 
-const apolloClient = new ApolloClient({
-  link: createHttpLink({
-    uri: 'http://localhost:3000/graphql',
-    fetch: fetch
-  }),
-  cache: new InMemoryCache()
-});
-
-const apolloProvider = new VueApollo({
-  defaultClient: apolloClient
-});
-
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
-Vue.use(VueApollo);
 Vue.use(BootstrapVue);
 
 // mixin for handling title
@@ -85,7 +68,6 @@ export function createApp() {
   // here we inject the router, store and ssr context to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = new Vue({
-    apolloProvider,
     router,
     store,
     render: h => h(App)

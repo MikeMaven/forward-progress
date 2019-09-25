@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { GET_USER_BY_ID } from '../../constants/graphQLUser.js';
+// import { GET_USER_BY_ID } from '../../constants/graphQLUser.js';
 
 export default {
   name: 'ShowUser',

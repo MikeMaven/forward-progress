@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import gql from 'graphql-tag';
-import UserItem from '../../components/UserItem.vue';
-import { GET_USERS } from '../../constants/graphQLUser.js';
+// import gql from 'graphql-tag';
+// import UserItem from '../../components/UserItem.vue';
+// import { GET_USERS } from '../../constants/graphQLUser.js';
 
 export default {
   name: 'UserList',

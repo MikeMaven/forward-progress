@@ -23,9 +23,6 @@ const serverInfo =
   `express/${require('express/package.json').version} ` +
   `vue-server-renderer/${require('vue-server-renderer/package.json').version}`;
 
-var graphqlHTTP = require('express-graphql');
-var schema = require('./graphql/schema');
-
 global.appConfig = _.merge(
   {},
   require('./server/config.json'),
@@ -86,15 +83,6 @@ const serve = (path, cache) =>
   });
 
 app.use('*', cors());
-app.use(
-  '/graphql',
-  cors(),
-  graphqlHTTP({
-    schema: schema,
-    rootValue: global,
-    graphiql: true
-  })
-);
 app.use(helmet());
 app.use(bodyParser.json()); // handle json data
 app.use(bodyParser.urlencoded({ extended: true })); // handle URL-encoded data
