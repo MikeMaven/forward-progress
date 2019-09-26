@@ -1,21 +1,21 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('NoteTags', {
+    return queryInterface.createTable('note_tags', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      noteId: {
+      noteid: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Notes',
           key: 'id'
         }
       },
-      tagId: {
+      tagid: {
         type: Sequelize.INTEGER,
         references: {
           model: 'Tags',
@@ -33,6 +33,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('NoteTags');
+    return queryInterface.dropTable('note_tags');
   }
 };

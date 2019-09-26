@@ -1,6 +1,6 @@
 module.exports = (sequelize, DataTypes) => {
   const ContentText = sequelize.define(
-    'ContentText',
+    'content_text',
     {
       text: DataTypes.STRING
     },

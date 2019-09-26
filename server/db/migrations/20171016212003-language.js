@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Languages', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('languages', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -15,5 +15,5 @@ module.exports = {
     description: Sequelize.STRING,
   }),
 
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Languages'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('languages'),
 };

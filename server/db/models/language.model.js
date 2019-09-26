@@ -2,7 +2,7 @@
 
 module.exports = function (sequelize, DataTypes) {
   const Language = sequelize.define(
-    'Language', {
+    'language', {
       locale: {
         type: DataTypes.STRING,
         allowNulls: false,

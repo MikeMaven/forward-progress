@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('ContentTexts', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('content_texts', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -29,5 +29,5 @@ module.exports = {
     },
   }),
 
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('ContentTexts'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('content_texts'),
 };

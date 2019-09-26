@@ -2,7 +2,7 @@
 
 module.exports = function (sequelize, DataTypes) {
   const Content = sequelize.define(
-    'Content', {
+    'content', {
       key: DataTypes.STRING,
     },
     {

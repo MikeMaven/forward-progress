@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Roles', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('roles', {
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -15,5 +15,5 @@ module.exports = {
       type: Sequelize.STRING,
     },
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Roles'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('roles'),
 };

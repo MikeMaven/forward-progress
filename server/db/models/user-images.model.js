@@ -2,7 +2,7 @@
 
 module.exports = function (sequelize, DataTypes) {
   const UserImage = sequelize.define(
-    'UserImage',
+    'user_image',
     {
       contentType: DataTypes.STRING,
       data: DataTypes.BLOB,

@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable(
-    'Contents', {
+    'contents', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -24,5 +24,5 @@ module.exports = {
     }
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Contents'),
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('contents'),
 };

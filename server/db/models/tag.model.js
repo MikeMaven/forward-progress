@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Tag = sequelize.define(
-    'Tag',
+    'tag',
     {
       name: DataTypes.STRING,
       UserId: DataTypes.INTEGER
@@ -10,10 +10,10 @@ module.exports = (sequelize, DataTypes) => {
   );
   Tag.associate = function(models) {
     Tag.belongsToMany(models.Note, {
-      through: 'NoteTags',
+      through: 'note_tags',
       as: 'notes',
-      foreignKey: 'TagId',
-      otherKey: 'NoteId'
+      foreignKey: 'tagid',
+      otherKey: 'noteid'
     });
   };
   return Tag;

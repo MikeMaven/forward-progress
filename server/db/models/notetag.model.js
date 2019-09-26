@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const NoteTag = sequelize.define(
-    'NoteTag',
+    'note_tag',
     {
       NoteId: DataTypes.INTEGER,
       TagId: DataTypes.INTEGER
