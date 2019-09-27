@@ -18,11 +18,13 @@ const clientTitleMixin = {
   mounted() {
     const title = getTitle(this);
     if (title) {
-      document.title = `Forward Progress | ${title}`;
+      if (typeof window !== 'undefined') {
+        document.title = `Forward Progress | ${title}`;
+      }
     }
   }
 };
 
-export default (process.env.VUE_ENV === 'server'
+export default process.env.VUE_ENV === 'server'
   ? serverTitleMixin
-  : clientTitleMixin);
+  : clientTitleMixin;
