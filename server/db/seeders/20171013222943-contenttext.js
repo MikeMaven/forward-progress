@@ -1,7 +1,7 @@
 /* eslint-disable */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('ContentTexts', [
+    return queryInterface.bulkInsert('content_texts', [
       // English
       { languageid: 1, contentid: 1, text: 'Forward Progress' },
       { languageid: 1, contentid: 2, text: 'A web based SaaS platform for front office NFL executives.' },
@@ -27,5 +27,5 @@ module.exports = {
     ], {}).catch(e => Promise.resolve());
   },
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('ContentTexts', null, {}),
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('content_texts', null, {}),
 };

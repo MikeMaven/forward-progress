@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 module.exports = {
   up: (queryInterface, Sequelize) => {
     const salt = bcrypt.genSaltSync();
-    return queryInterface.bulkInsert('Users', [
+    return queryInterface.bulkInsert('users', [
       {
         id: 1,
         email: 'admin@admin.com',
@@ -33,5 +33,5 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) =>
-    queryInterface.bulkDelete('Users', null, {})
+    queryInterface.bulkDelete('users', null, {})
 };

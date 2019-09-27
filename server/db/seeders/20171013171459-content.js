@@ -1,6 +1,6 @@
 /* eslint-disable */
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('Contents', [
+  up: (queryInterface, Sequelize) => queryInterface.bulkInsert('contents', [
     { key: 'app_title' },
     { key: 'app_description' },
     { key: 'app_repo_url' },
@@ -13,5 +13,5 @@ module.exports = {
     { key: 'app_nav_examples' },
   ], {}).catch((e) => Promise.resolve()),
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Contents', null, {}),
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('contents', null, {}),
 };
