@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const _ = require('lodash');
 const DB = require('../../db/models');
-const { User, UserImage } = DB;
+const { user, user_image } = DB;
 const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('./token');
 const logger = require('../logger');
@@ -19,7 +19,8 @@ exports.signup = (req, res) => {
   delete req.body.roles;
 
   const model = Object.assign(req.body, { provider: 'local' });
-  User.create(model)
+  user
+    .create(model)
     .then(user => {
       res.json(user);
     })
@@ -88,11 +89,12 @@ exports.oauthCallback = strategy => (req, res, next) => {
  * Helper function to save or update a OAuth user profile
  */
 exports.saveOAuthUserProfile = (providerUserProfile, done) => {
-  User.findOne({
-    where: {
-      email: providerUserProfile.email
-    }
-  })
+  user
+    .findOne({
+      where: {
+        email: providerUserProfile.email
+      }
+    })
     .then(user => {
       if (user && user.provider === 'local') {
         done('Another user with this email already exist');
@@ -103,16 +105,17 @@ exports.saveOAuthUserProfile = (providerUserProfile, done) => {
         return done(null, user);
       }
 
-      User.create({
-        firstName: providerUserProfile.firstName,
-        lastName: providerUserProfile.lastName,
-        email: providerUserProfile.email,
-        username: providerUserProfile.username,
-        displayName: providerUserProfile.displayName,
-        profileImageURL: getSocialLoginImageUrl(providerUserProfile),
-        provider: providerUserProfile.provider,
-        providerData: providerUserProfile.providerData
-      })
+      user
+        .create({
+          firstName: providerUserProfile.firstName,
+          lastName: providerUserProfile.lastName,
+          email: providerUserProfile.email,
+          username: providerUserProfile.username,
+          displayName: providerUserProfile.displayName,
+          profileImageURL: getSocialLoginImageUrl(providerUserProfile),
+          provider: providerUserProfile.provider,
+          providerData: providerUserProfile.providerData
+        })
         .then(newUser => {
           done(null, newUser);
         })
@@ -182,23 +185,25 @@ exports.updateProfile = (req, res) => {
  * Get profile picture
  */
 exports.getProfilePicture = (req, res) => {
-  UserImage.findOne({
-    where: {
-      id: req.params.id
-    }
-  }).then(
-    userImage => {
-      if (userImage) {
-        res.contentType(userImage.contentType);
-        res.send(userImage.data);
-      } else {
-        res.status(404).send('Not found');
+  user_image
+    .findOne({
+      where: {
+        id: req.params.id
       }
-    },
-    err => {
-      res.status(400).send(errorHandler.formatMessage(err));
-    }
-  );
+    })
+    .then(
+      userImage => {
+        if (userImage) {
+          res.contentType(userImage.contentType);
+          res.send(userImage.data);
+        } else {
+          res.status(404).send('Not found');
+        }
+      },
+      err => {
+        res.status(400).send(errorHandler.formatMessage(err));
+      }
+    );
 };
 
 /**
@@ -276,11 +281,12 @@ exports.forgot = (req, res) => {
     if (err) {
       return res.status(400).send('Unable to create encrypted token');
     }
-    User.findOne({
-      where: {
-        email: req.body.username.toLowerCase()
-      }
-    })
+    user
+      .findOne({
+        where: {
+          email: req.body.username.toLowerCase()
+        }
+      })
       .then(user => {
         if (user.provider !== 'local') {
           return res
@@ -346,14 +352,15 @@ exports.forgot = (req, res) => {
  * Reset password GET from email token
  */
 exports.validateResetToken = (req, res) => {
-  User.findOne({
-    where: {
-      resetPasswordToken: req.params.token,
-      resetPasswordExpires: {
-        $gt: Date.now()
+  user
+    .findOne({
+      where: {
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: {
+          $gt: Date.now()
+        }
       }
-    }
-  })
+    })
     .then(() =>
       res.redirect(`/login/resetpassword?resetToken=${req.params.token}`)
     )
@@ -376,14 +383,15 @@ exports.reset = (req, res) => {
     return res.status(400).send('Reset details are not provided');
   }
 
-  User.findOne({
-    where: {
-      resetPasswordToken: req.params.token,
-      resetPasswordExpires: {
-        $gt: Date.now()
+  user
+    .findOne({
+      where: {
+        resetPasswordToken: req.params.token,
+        resetPasswordExpires: {
+          $gt: Date.now()
+        }
       }
-    }
-  })
+    })
     .then(user => {
       if (passwordDetails.newPassword !== passwordDetails.verifyPassword) {
         return res.status(400).send('Passwords do not match');
@@ -442,11 +450,12 @@ exports.changePassword = (req, res) => {
 
   if (req.user) {
     if (passwordDetails.newPassword) {
-      User.findOne({
-        where: {
-          id: req.user.id
-        }
-      })
+      user
+        .findOne({
+          where: {
+            id: req.user.id
+          }
+        })
         .then(user => {
           if (user.validPassword(passwordDetails.currentPassword)) {
             if (

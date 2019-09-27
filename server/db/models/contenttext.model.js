@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   ContentText.associate = models => {
-    ContentText.belongsTo(models.Language, { foreignKey: 'languageid' });
-    ContentText.belongsTo(models.Content, { foreignKey: 'contentid' });
+    ContentText.belongsTo(models.language, { foreignKey: 'languageid' });
+    ContentText.belongsTo(models.content, { foreignKey: 'contentid' });
   };
 
   return ContentText;

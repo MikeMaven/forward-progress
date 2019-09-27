@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Usernote.associate = function(models) {
-    Usernote.belongsTo(models.User);
-    Usernote.belongsTo(models.Note);
+    Usernote.belongsTo(models.user);
+    Usernote.belongsTo(models.note);
   };
   return Usernote;
 };

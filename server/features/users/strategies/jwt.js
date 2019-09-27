@@ -1,7 +1,7 @@
 const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 const DB = require('../../../db/models');
-const { User } = DB;
+const { user } = DB;
 
 module.exports = () => {
   const opts = {
@@ -10,15 +10,16 @@ module.exports = () => {
   };
   passport.use(
     new Strategy(opts, (payload, done) => {
-      User.findOne({
-        include: [
-          { model: DB.Role },
-          { model: DB.UserImage, attributes: ['id'] }
-        ],
-        where: {
-          id: payload.id
-        }
-      })
+      user
+        .findOne({
+          include: [
+            { model: DB.role },
+            { model: DB.user_image, attributes: ['id'] }
+          ],
+          where: {
+            id: payload.id
+          }
+        })
         .then(user => {
           if (user) {
             return done(null, user);

@@ -1,29 +1,30 @@
 const DB = require('../../db/models');
-const { ContentText, Language } = DB;
+const { content_text, language } = DB;
 
 /**
  * For site display purpose
  */
 const getContent = async req => {
-  const languages = await Language.findAll({});
-  const language = languages.find(
+  const languages = await language.findAll({});
+  const currentLanguage = languages.find(
     l => l.locale === (req.cookies.lang || 'en-US')
   );
-  return ContentText.findAll({
-    include: [
-      {
-        model: DB.Content
+  return content_text
+    .findAll({
+      include: [
+        {
+          model: DB.content
+        }
+      ],
+      where: {
+        languageid: currentLanguage.id
       }
-    ],
-    where: {
-      languageid: language.id
-    }
-  })
+    })
     .then(list => {
       const content = {};
 
       list.forEach(item => {
-        content[item.Content.key] = item.text;
+        content[item.content.key] = item.text;
       });
 
       return {

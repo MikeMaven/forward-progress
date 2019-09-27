@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Tag.associate = function(models) {
-    Tag.belongsToMany(models.Note, {
+    Tag.belongsToMany(models.note, {
       through: 'note_tags',
       as: 'notes',
       foreignKey: 'tagid',

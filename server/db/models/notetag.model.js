@@ -9,8 +9,8 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   NoteTag.associate = function(models) {
-    NoteTag.belongsTo(models.Note);
-    NoteTag.belongsTo(models.Tag);
+    NoteTag.belongsTo(models.note);
+    NoteTag.belongsTo(models.tag);
   };
   return NoteTag;
 };

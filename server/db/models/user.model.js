@@ -3,7 +3,7 @@
 const bcrypt = require('bcrypt-nodejs');
 
 module.exports = function(sequelize, DataTypes) {
-  const User = sequelize.define(
+  const user = sequelize.define(
     'user',
     {
       firstName: DataTypes.STRING,
@@ -107,32 +107,32 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  User.prototype.validPassword = function(password) {
+  user.prototype.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
   };
 
-  User.prototype.encryptPassword = function(password) {
+  user.prototype.encryptPassword = function(password) {
     const salt = bcrypt.genSaltSync();
     return bcrypt.hashSync(password, salt);
   };
 
-  User.associate = function(models) {
-    User.hasOne(models.UserImage, { foreignKey: 'userid' });
-    User.belongsToMany(models.Role, {
+  user.associate = function(models) {
+    user.hasOne(models.user_image, { foreignKey: 'userid' });
+    user.belongsToMany(models.role, {
       timestamps: false,
-      through: 'UserRole',
+      through: 'user_role',
       foreignKey: 'roleid'
     });
-    User.belongsToMany(models.Note, {
-      through: 'Usernotes',
+    user.belongsToMany(models.note, {
+      through: 'usernotes',
       as: 'notes',
-      foreignKey: 'UserId',
-      otherKey: 'NoteId'
+      foreignKey: 'userid',
+      otherKey: 'noteid'
     })
     // User.hasMany(models.Tag);
   };
 
-  return User;
+  return user;
 };
 
 /**

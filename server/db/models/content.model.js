@@ -20,7 +20,7 @@ module.exports = function (sequelize, DataTypes) {
   Content.associate = function (models) {
     // Using additional options like CASCADE etc for demonstration
     // Can also simply do Content.belongsTo(models.User);
-    Content.hasMany(models.ContentText, { foreignKey: 'contentid' });
+    Content.hasMany(models.content_text, { foreignKey: 'contentid' });
   };
 
   return Content;

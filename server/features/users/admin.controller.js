@@ -1,5 +1,5 @@
 const DB = require('../../db/models');
-const { User, Role, UserImage } = DB.User;
+const { User, Role, UserImage } = DB.user;
 const errorHandler = require('../core/errorHandler');
 
 /**

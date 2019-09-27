@@ -15,7 +15,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: 'Languages',
+        model: 'languages',
         key: 'id',
       },
     },
@@ -23,7 +23,7 @@ module.exports = {
       type: Sequelize.INTEGER,
       allowNull: false,
       references: {
-        model: 'Contents',
+        model: 'contents',
         key: 'id',
       },
     },
