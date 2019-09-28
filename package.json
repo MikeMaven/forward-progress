@@ -99,7 +99,6 @@
     "serve-favicon": "2.5.0",
     "socket.io": "2.2.0",
     "socket.io-client": "2.2.0",
-    "sqlite3": "4.0.9",
     "tiptap": "^1.25.0",
     "tiptap-extensions": "^1.27.0",
     "vee-validate": "2.2.12",
