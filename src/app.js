@@ -73,6 +73,30 @@ export function createApp() {
   });
 
   // Initial check for user being logged in or not
+  if (typeof window !== 'undefined') {
+    document.addEventListener('DOMContentLoaded', function(event) {
+      if (
+        window.__PRELOADEDSTATE__ &&
+        window.__PRELOADEDSTATE__[ACCESS_TOKEN]
+      ) {
+        sessionService.set(
+          ACCESS_TOKEN,
+          window.__PRELOADEDSTATE__[ACCESS_TOKEN]
+        );
+        router.push('/');
+      }
+      let token = sessionService.get(ACCESS_TOKEN);
+      if (token) {
+        var decoded = decode(token);
+        var expiration = decoded.exp;
+        var unixTimestamp = new Date().getTime() / 1000;
+        if (expiration !== null && parseInt(expiration) - unixTimestamp > 0) {
+          store.state.isAuthenticated = true;
+          store.state.user = decoded;
+        }
+      }
+    });
+  }
 
   // expose the app, the router and the store.
   // note we are not mounting the app here, since bootstrapping will be
