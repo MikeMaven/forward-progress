@@ -45,7 +45,7 @@ module.exports = {
       {
         test: /\.(sa|sc|c)ss$/,
         use: [
-          isProd ? MiniCssExtractPlugin.loader : 'css-loader',
+          isProd ? MiniCssExtractPlugin.loader : 'vue-style-loader',
           'sass-loader'
         ]
       }
