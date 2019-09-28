@@ -11,37 +11,6 @@ import * as filters from './util/filters';
 
 import BootstrapVue from 'bootstrap-vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import {
-  faBold,
-  faQuoteLeft,
-  faHeading,
-  faList,
-  faListOl,
-  faItalic,
-  faStrikethrough,
-  faUnderline
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-
-library.add(
-  faBold,
-  faQuoteLeft,
-  faHeading,
-  faList,
-  faListOl,
-  faItalic,
-  faStrikethrough,
-  faUnderline
-);
-
-if (process.browser) {
-  const VueEditor = require('vue2-editor').VueEditor;
-  Vue.use(VueEditor);
-  Vue.component('vue-editor', VueEditor);
-}
-
-Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
