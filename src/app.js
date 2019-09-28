@@ -10,7 +10,6 @@ import titleMixin from './util/title';
 import * as filters from './util/filters';
 
 import BootstrapVue from 'bootstrap-vue';
-import fetch from 'node-fetch';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
