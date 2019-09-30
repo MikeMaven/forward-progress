@@ -29,7 +29,7 @@
           <router-link
           class="profileLink"
           v-if="isAuthenticated"
-          to="/profile">&nbsp;&nbsp;&nbsp;{{ user.username }}</router-link>
+          to="/profile">{{ user.firstName }} {{ user.lastName }}</router-link>
           <a
           v-if="isAuthenticated"
           href="javascript:void(0)"
