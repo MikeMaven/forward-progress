@@ -115,7 +115,8 @@ export default {
       axios({
         url: '/api/fileupload',
         method: 'POST',
-        data: formData
+        data: formData,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
       })
         .then(response => {
             let url = response.data.imageUrl    
