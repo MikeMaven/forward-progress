@@ -39,8 +39,8 @@
     "callbackURL": "/api/auth/facebook/callback"
   },
   "google": {
-    "clientID": "50266026751-f06rvv8jbhh4vab9eh02eipql9a9gft9.apps.googleusercontent.com",
-    "clientSecret": "TiFM9eBhW9KQ6sr854DBpCWB",
+    "clientID": "50266026751-85qgcgm6ett21tqe71vtprnjr8d8tof1.apps.googleusercontent.com",
+    "clientSecret": "LBNLpXuPqphlNy9yZ4cWybp3",
     "callbackURL": "/api/auth/google/callback"
   },
   "github": {
