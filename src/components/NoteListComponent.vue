@@ -1,10 +1,10 @@
 <template>
   <div class="noteIndexComponent row" v-on:click="selectNote" id="noteListContainer" v-bind:class="{ noteListSelectedColor: this.note.id === selectedNote.id }">
     <div id="star">
-      <img v-if="!note.starred && this.note.id !== selectedNote.id" src="/public/images/star-off.png" v-on:click="starToggle">
-      <img v-else-if="note.starred && this.note.id !== selectedNote.id" src="/public/images/star-on.png" v-on:click="starToggle">
-      <img v-else-if="!note.starred && this.note.id === selectedNote.id" src="/public/images/star-off-white.png" v-on:click="starToggle">
-      <img v-else-if="note.starred && this.note.id === selectedNote.id" src="/public/images/star-on-white.png" v-on:click="starToggle">
+      <img v-if="!note.starred && this.note.id !== selectedNote.id" src="~public/images/star-off.png" v-on:click="starToggle">
+      <img v-else-if="note.starred && this.note.id !== selectedNote.id" src="~public/images/star-on.png" v-on:click="starToggle">
+      <img v-else-if="!note.starred && this.note.id === selectedNote.id" src="~public/images/star-off-white.png" v-on:click="starToggle">
+      <img v-else-if="note.starred && this.note.id === selectedNote.id" src="~public/images/star-on-white.png" v-on:click="starToggle">
     </div>
     <div id="titleAndPreview">
       <h4>{{ note.title }}</h4>

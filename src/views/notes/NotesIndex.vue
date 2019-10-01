@@ -3,7 +3,7 @@
     <div id="sideBar">
         <div class="tagDiv">
             <div id="titleRow">
-                <img src="/public/images/icon1-white.png">
+                <img src="~public/images/icon1-white.png">
                 <h1>My Notes</h1>
             </div>
             <div id="filterRow">

@@ -23,17 +23,17 @@
     </div>
     <div class="featureSpotlight">
       <div class="featureColumn">
-        <img src="/public/images/icon1.png">
+        <img src="~public/images/icon1.png">
         <h2>Heading One</h2>
         <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium</p>
       </div>
       <div class="featureColumn">
-        <img src="/public/images/icon2.png">
+        <img src="~public/images/icon2.png">
         <h2>Heading Two</h2>
         <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit velit</p>
       </div>
       <div class="featureColumn">
-        <img src="/public/images/icon3.png">
+        <img src="~public/images/icon3.png">
         <h2>Heading Three</h2>
         <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae</p>
       </div>
