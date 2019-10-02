@@ -1,11 +1,30 @@
 <template>
-  <div>
+  <div id="aboutContainer">
     <h1>About Us</h1>
     <ul>
-      <li>Designed for: Mike Tannenbaum</li>
-      <li>Project Coordinator: Sydney Robinson</li>
-      <li>Software Lead: Mike Mathieu</li>
-      <li>Software Engineer: Doug Simon</li>
+      <li><span class="credit-header">Designed for:</span> Mike Tannenbaum</li>
+      <li><span class="credit-header">Project Coordinator:</span> Sydney Robinson</li>
+      <li><span class="credit-header">Software Lead:</span> Mike Mathieu</li>
+      <li><span class="credit-header">Software Engineer:</span> Doug Simon</li>
     </ul>
   </div>
 </template>
+
+<style scoped>
+#aboutContainer {
+  margin: 10px 16% 0 16%;
+}
+
+ul {
+  margin-top: 15px;
+}
+
+li {
+  display: block;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.credit-header {
+  font-weight: bold;
+}
+</style>

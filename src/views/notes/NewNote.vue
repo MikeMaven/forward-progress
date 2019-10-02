@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="newNoteContainer">
     <h1>NEW NOTE</h1>
     <text-editor-component-v2
       :noteTitle = "null"
@@ -30,6 +30,16 @@ export default {
 </script>
 
 <style>
+h1 {
+  font-family: paralucent, sans-serif;
+  font-weight: 400;
+  color: #013369;
+}
+
+#newNoteContainer {
+  margin: 10px 16% 0 16%;
+}
+
 /* CSS Here fixes menu buttons and styling */
 .textButton {
   width: 5%;
