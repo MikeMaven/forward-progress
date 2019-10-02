@@ -13,10 +13,11 @@
       mode="out-in">
       <router-view class="view"/>
     </transition>  
-    <h4>Profile Api: (/api/profile)</h4>
-    {{ profileInfo }}
-    <h4>All Notes Api: (/api/getNotes)</h4>
-    {{ info }}
+    <h4>Your Info</h4>
+    <ul>
+      <li>Name: {{ profileInfo.displayName }}</li>  
+      <li>Email: {{ profileInfo.email }}</li>
+    </ul>
     <h4>My Notes: (/api/myNotes)</h4>
     {{myNotes}}
     <h4>Post some kind of note:</h4>
@@ -56,3 +57,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+li {
+  display: block;
+}
+</style>
