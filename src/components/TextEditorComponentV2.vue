@@ -1,9 +1,10 @@
 <template>
   <div>
-    <h6>Title:</h6><input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" />
+    <h4>Title:</h4>
+    <input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" id="titleEntry" />
     <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="content" ref="editor"></vue-editor>
     <div class="tagDiv">
-      <h6>Add Tags:</h6>
+      <h4>Add Tags:</h4>
       <multiselect
         v-model="selected"
         tag-placeholder="Add this as a new tag"
@@ -132,10 +133,32 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
   .buttonRow {
     position: relative;
     margin: 15px 0 5px 0;
+  }
+
+  h4 {
+      margin-top: 10px;
+      font-family: paralucent, sans-serif;
+      font-size: 1.8em;
+      letter-spacing: 0.05em;
+      color: #013369;
+      font-weight: 300;
+  }
+
+  .quillWrapper {
+      margin-top: 10px;
+  }
+
+  #titleEntry {
+      margin-top: 3px;
+  }
+
+  .tagDiv {
+      padding: 0;
+      background-color: white;
   }
 
   /* STYLES FOR FIXING TAGS */

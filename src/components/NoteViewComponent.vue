@@ -67,7 +67,7 @@ export default {
   display: inline-block;
   font-family: paralucent, sans-serif;
   font-weight: 400;
-  font-size: 3em;
+  font-size: 4em;
   color: #013369;
 }
 
