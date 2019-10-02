@@ -28,7 +28,6 @@ export default function tagFiltering(state, tags) {
     });
     filteredNotes = Array.from(filteredNotes);
   } else if (selectedTagLength === 0) {
-    debugger;
     filteredNotes = state.allNotes;
   }
   return filteredNotes;
