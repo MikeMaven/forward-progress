@@ -111,7 +111,7 @@ exports.saveOAuthUserProfile = (providerUserProfile, done) => {
         displayName: providerUserProfile.displayName,
         profileImageURL: getSocialLoginImageUrl(providerUserProfile),
         provider: providerUserProfile.provider,
-        providerData: providerUserProfile.providerData
+        providerData: providerUserProfile.providerData,
       })
         .then(newUser => {
           done(null, newUser);
@@ -234,6 +234,11 @@ exports.changeProfilePicture = (req, res) => {
  */
 exports.getProfile = (req, res) => {
   let safeUserObject = null;
+  console.log("===================")
+  console.log(req.user)
+  console.log(req.user.roles)
+  console.log(req.user.isAdmin)
+  console.log("===================")
   if (req.user) {
     safeUserObject = {
       displayName: req.user.displayName,
@@ -246,7 +251,8 @@ exports.getProfile = (req, res) => {
       email: req.user.email,
       lastName: req.user.lastName,
       firstName: req.user.firstName,
-      additionalProvidersData: req.user.additionalProvidersData
+      additionalProvidersData: req.user.additionalProvidersData,
+      isAdmin: req.user.isAdmin
     };
   } else {
     return res.status(401).send({});

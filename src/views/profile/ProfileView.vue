@@ -15,13 +15,9 @@
     </transition>  
     <h4>Your Info</h4>
     <ul>
-      <li>Name: {{ profileInfo.displayName }}</li>  
-      <li>Email: {{ profileInfo.email }}</li>
+      <li>Admin: {{ this.isAdmin }}</li>
     </ul>
-    <h4>My Notes: (/api/myNotes)</h4>
-    {{myNotes}}
-    <h4>Post some kind of note:</h4>
-    <button v-on:click="postSomething">POST</button>
+    <img v-if="this.isAdmin" src="/public/images/star-off.png">
   </div>
 </template>
 
@@ -31,18 +27,20 @@ const axios = require('axios');
 export default {
   data () {
     return {
-      profileInfo: {},
       info: {},
       myNotes: {}
     }
   },
+  computed: {
+    isAdmin() {
+      return this.$store.getters['userInfo/isAdmin']
+    }
+  },
   mounted () {
+    this.$store.dispatch('userInfo/fetchProfile');
     axios
       .get('/api/getNotes')
       .then(response => (this.info = response.data))
-    axios
-      .get('/api/profile')
-      .then(response => (this.profileInfo = response.data))
     axios
       .get('/api/myNotes')
       .then(response => (this.myNotes = response.data))
