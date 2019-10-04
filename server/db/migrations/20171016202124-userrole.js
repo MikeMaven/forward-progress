@@ -3,7 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable(
     'UserRole', {
-      userid: {
+      roleid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
@@ -11,7 +11,7 @@ module.exports = {
           key: 'id',
         },
       },
-      roleid: {
+      userid: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
