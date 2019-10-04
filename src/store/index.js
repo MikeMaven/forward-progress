@@ -5,6 +5,7 @@ import { dataService, decode, sessionService, isBrowser } from '../services';
 import { ACCESS_TOKEN } from '../constants';
 import posts from './posts';
 import notes from './notes/index';
+import userInfo from './userInfo/index'
 
 Vue.use(Vuex);
 
@@ -12,7 +13,8 @@ function createStore() {
   return new Vuex.Store({
     modules: {
       posts,
-      notes
+      notes,
+      userInfo
     },
     state: {
       isAuthenticated: false,

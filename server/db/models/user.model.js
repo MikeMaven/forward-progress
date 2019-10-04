@@ -121,7 +121,8 @@ module.exports = function(sequelize, DataTypes) {
     User.belongsToMany(models.Role, {
       timestamps: false,
       through: 'UserRole',
-      foreignKey: 'roleid'
+      foreignKey: 'userid',
+      otherKey: 'roleid'
     });
     User.belongsToMany(models.Note, {
       through: 'Usernotes',
