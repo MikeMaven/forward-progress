@@ -58,7 +58,7 @@ export default {
     ...mapGetters(['isAuthenticated', 'user', 'appData']),
     isAdmin() {
       if (this.user) {
-        return this.user.roles.filter(role => role === 'admin').length
+        return this.user.roles.filter(role => role.id === 1).length
       }
     }
   },
