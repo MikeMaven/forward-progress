@@ -89,9 +89,7 @@ module.exports = function(sequelize, DataTypes) {
           return this.Roles ? this.Roles.map(r => r.name) : [];
         },
         roles() {
-          return this.Roles
-            ? this.Roles.map(r => ({ id: r.id, name: r.name }))
-            : [];
+          return this.Roles ? this.Roles : []
         },
         isAdmin() {
           return (
@@ -119,11 +117,11 @@ module.exports = function(sequelize, DataTypes) {
   User.associate = function(models) {
     User.hasOne(models.UserImage, { foreignKey: 'userid' });
     User.belongsToMany(models.Role, {
+      through: 'Userroles',
+      foreignKey: 'UserId',
+      otherKey: 'RoleId',
       timestamps: false,
-      through: 'UserRole',
-      foreignKey: 'userid',
-      otherKey: 'roleid'
-    });
+    })
     User.belongsToMany(models.Note, {
       through: 'Usernotes',
       as: 'notes',

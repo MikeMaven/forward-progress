@@ -19,6 +19,10 @@
           exact
           to="/notes">My Notes</router-link>
         <router-link
+          v-if="isAdmin"
+          exact
+          to="/allnotes">Admin</router-link>
+        <router-link
           exact
           to="/about">About Us</router-link>
         <router-link
@@ -29,7 +33,7 @@
           <router-link
           class="profileLink"
           v-if="isAuthenticated"
-          to="/profile">{{ user.firstName }} {{ user.lastName }}</router-link>
+          to="/profile">{{ user.displayName }}</router-link>
           <a
           v-if="isAuthenticated"
           href="javascript:void(0)"
@@ -51,7 +55,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'user', 'appData'])
+    ...mapGetters(['isAuthenticated', 'user', 'appData']),
+    isAdmin() {
+      if (this.user) {
+        return this.user.roles.filter(role => role.id === 1).length
+      }
+    }
   },
   methods: {
     ...mapActions({
@@ -60,6 +69,9 @@ export default {
     toggle() {
       this.isOpen = !this.isOpen;
     }
+  },
+  mounted () {
+   
   }
 };
 </script>

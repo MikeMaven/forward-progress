@@ -20,7 +20,7 @@ const GamesView = () => import('../views/games/GamesView.vue');
 const UsersView = () => import('../views/users/UsersView.vue');
 const UserShow = () => import('../views/users/UserShow.vue');
 // Note views
-import NotesIndex from '../views/notes/NotesIndex.vue';
+import NotesIndexWrapper from '../views/notes/NotesIndexWrapper.vue';
 import NewNote from '../views/notes/NewNote.vue';
 import EditNote from '../views/notes/EditNote.vue';
 
@@ -49,7 +49,7 @@ function createRouter() {
       },
       { path: '/users', component: UsersView },
       { path: '/users/:id', component: UserShow },
-      { path: '/notes', component: NotesIndex },
+      { path: '/notes', component: NotesIndexWrapper },
       { path: '/newnote', component: NewNote },
       { path: '/editnote/:id', component: EditNote },
       { path: '*', component: NotFoundView }
