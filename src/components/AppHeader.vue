@@ -21,7 +21,7 @@
         <router-link
           v-if="isAdmin"
           exact
-          to="/allnotes">Admin</router-link>
+          to="/admin">Admin</router-link>
         <router-link
           exact
           to="/about">About Us</router-link>
@@ -57,9 +57,7 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated', 'user', 'appData']),
     isAdmin() {
-      if (this.user) {
-        return this.user.roles.filter(role => role.id === 1).length
-      }
+      return this.$store.getters['isAdmin'];
     }
   },
   methods: {

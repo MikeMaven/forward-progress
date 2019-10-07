@@ -3,6 +3,10 @@ export default {
     return state.notes;
   },
 
+  adminTestNotes: (state, getters) => {
+    return state.adminTestNotes;
+  },
+
   getTagsInMyNotes: (state, getters) => {
     return state.tagsInMyNotes;
   },
