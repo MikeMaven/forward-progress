@@ -9,6 +9,10 @@ export default {
     state.notesIndexNavigation.selectedNote = sortedNotes[0];
   },
 
+  setAdminNotesTest(state, notes) {
+    state.adminTestNotes = notes;
+  },
+
   setTagsInMyNotes(state, tags) {
     state.tagsInMyNotes = tags;
   },

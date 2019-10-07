@@ -29,6 +29,13 @@ function createStore() {
       user: state => {
         return state.user;
       },
+      isAdmin: state => {
+        if (state.user) {
+          return state.user.isAdmin;
+        } else {
+          return false;
+        }
+      },
       appData: state => {
         return state.appData;
       },

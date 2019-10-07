@@ -17,6 +17,14 @@ export default {
     });
   },
 
+  getAdminNotes(context) {
+    return new Promise(resolve => {
+      NotesApi.getAllNotes().then(response => {
+        context.commit('setAdminNotesTest', response);
+      });
+    });
+  },
+
   setSelectedTagsInMyNotes(context, updatedTagSelection) {
     return new Promise(function(resolve) {
       context.commit('selectedTagFilter', updatedTagSelection);

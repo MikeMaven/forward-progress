@@ -9,11 +9,15 @@ const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('../users/token');
 const logger = require('../logger');
 
-exports.getNotes = (req, res) => {
+exports.allNotes = (req, res) => {
   let notes = null;
-  Note.findAll().then(notes => {
-    res.json(notes);
-  });
+  if (req.user.isAdmin) {
+    Note.findAll().then(notes => {
+      res.json(notes);
+    });
+  } else {
+    res.json([]);
+  }
 };
 
 exports.myNotes = (req, res) => {
