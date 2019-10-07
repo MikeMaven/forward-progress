@@ -20,7 +20,7 @@ export default {
   getAdminNotes(context) {
     return new Promise(resolve => {
       NotesApi.getAllNotes().then(response => {
-        context.commit('setAdminNotesTest', response);
+        context.commit('setUserNotes', response);
       });
     });
   },

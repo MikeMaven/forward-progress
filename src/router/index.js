@@ -25,6 +25,7 @@ import NewNote from '../views/notes/NewNote.vue';
 import EditNote from '../views/notes/EditNote.vue';
 // Admin views
 const AdminShow = () => import('../views/AdminDash.vue');
+import NotesIndexAdminWrapper from '../views/notes/NotesIndexAdminWrapper.vue';
 
 function createRouter() {
   return new Router({
@@ -55,6 +56,7 @@ function createRouter() {
       { path: '/newnote', component: NewNote },
       { path: '/editnote/:id', component: EditNote },
       { path: '/admin', component: AdminShow },
+      { path: '/allnotes', component: NotesIndexAdminWrapper },
       { path: '*', component: NotFoundView }
     ]
   });

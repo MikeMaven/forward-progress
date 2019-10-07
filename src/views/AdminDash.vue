@@ -3,12 +3,9 @@
     <div v-if="this.isAdmin">
       <h1>Admin Dashboard</h1>
       <ul>
-        <li>See All Notes</li>
+        <li><router-link to="/allnotes">All Users' Notes Superuser Access</router-link></li>
       </ul>
     </div>
-    {{ this.adminTestNotes }}
-    <br>
-    {{ this.adminTestNotes.length }}
   </div>
 </template>
 
@@ -23,9 +20,7 @@ export default {
     }
   },
   mounted() {
-    // if (this.isAdmin) {
     this.$store.dispatch('notes/getAdminNotes');
-    // }
   }
 }
 </script>
