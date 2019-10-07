@@ -21,7 +21,7 @@
         <router-link
           v-if="isAdmin"
           exact
-          to="/allnotes">All Notes</router-link>
+          to="/allnotes">Admin</router-link>
         <router-link
           exact
           to="/about">About Us</router-link>

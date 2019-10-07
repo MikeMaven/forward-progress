@@ -25,7 +25,6 @@ const noteMutations = `addNote (
   ) : Note`;
 
 const notes = () => {
-  console.log(NoteModel);
   const notes = NoteModel.findAll({
     order: [['createdAt', 'DESC']]
   });

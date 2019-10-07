@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const _ = require('lodash');
 const DB = require('../../db/models');
-const { User, UserImage } = DB;
+const { User, UserImage, Role } = DB;
 const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('./token');
 const logger = require('../logger');
@@ -36,9 +36,22 @@ exports.signin = (req, res, next) => {
     if (err || !user) {
       res.status(400).send(errorHandler.formatMessage('Incorrect credentials'));
     } else {
+      console.log('=================');
+      console.log('=================');
+      User.findByPk(user.id, {
+        include: [
+          {
+            model: Role,
+            as: 'Roles'
+          }
+        ]
+      }).then(user => {
+        console.log('=================');
+        console.log('=================');
+        res.json(getAccessToken(user));
+      });
       // res.json(user);
       // user has authenticated correctly thus we create a JWT token
-      res.json(getAccessToken(user));
     }
   })(req, res, next);
 };
@@ -77,10 +90,24 @@ exports.oauthCallback = strategy => (req, res, next) => {
     if (!user) {
       return res.redirect('/login');
     }
-    const token = getAccessToken(user);
-    // res.locals.token = token;
-    const encodedToken = encodeURIComponent(token);
-    res.redirect(`/?access_token=${encodedToken}`);
+    console.log('=================');
+    console.log('=================');
+    User.findByPk(user.id, {
+      include: [
+        {
+          model: Role,
+          as: 'Roles'
+        }
+      ]
+    }).then(user => {
+      console.log('=================');
+      console.log(user.Roles);
+      console.log('=================');
+      const token = getAccessToken(user);
+      // res.locals.token = token;
+      const encodedToken = encodeURIComponent(token);
+      res.redirect(`/?access_token=${encodedToken}`);
+    });
   })(req, res, next);
 };
 
@@ -111,7 +138,7 @@ exports.saveOAuthUserProfile = (providerUserProfile, done) => {
         displayName: providerUserProfile.displayName,
         profileImageURL: getSocialLoginImageUrl(providerUserProfile),
         provider: providerUserProfile.provider,
-        providerData: providerUserProfile.providerData,
+        providerData: providerUserProfile.providerData
       })
         .then(newUser => {
           done(null, newUser);
@@ -234,11 +261,6 @@ exports.changeProfilePicture = (req, res) => {
  */
 exports.getProfile = (req, res) => {
   let safeUserObject = null;
-  console.log("===================")
-  console.log(req.user)
-  console.log(req.user.roles)
-  console.log(req.user.isAdmin)
-  console.log("===================")
   if (req.user) {
     safeUserObject = {
       displayName: req.user.displayName,
