@@ -154,6 +154,7 @@ export default {
 
   #titleEntry {
       margin-top: 3px;
+      font-size: 25px;
   }
 
   .tagDiv {
