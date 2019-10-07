@@ -2,6 +2,16 @@ import * as NotesApi from '../../util/NotesApi.js';
 import { router } from '../../../src/router';
 
 export default {
+  getAllNotes(context) {
+    return new Promise(resolve => {
+      if (context.loaded) {
+        resolve();
+      } else {
+        NotesApi.getAllNotes();
+      }
+    });
+  },
+
   getUserNotes(context) {
     return new Promise(resolve => {
       if (context.loaded) {

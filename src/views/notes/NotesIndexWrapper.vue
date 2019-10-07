@@ -29,7 +29,7 @@ export default {
   },
 
   computed: {
-    notes(){
+    notes() {
       return this.$store.getters['notes/notes'];
     }
   },
@@ -50,4 +50,5 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <notes-index />
+  <notes-index :notes="notes" />
 </template>
 
 <script>
@@ -29,12 +29,9 @@ export default {
   },
 
   computed: {
-    // computed properties are cached based on their dependencies
-    /*
-    computedProperty() {
-      return 'value'
-    },
-    */
+    notes() {
+      return this.$store.getters['notes/notes'];
+    }
   },
 
   methods: {
