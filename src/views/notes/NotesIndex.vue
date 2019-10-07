@@ -64,15 +64,7 @@ export default {
 
   mixins: [],
 
-  props: {
-    /*
-    property: {
-      type: String|Number|Boolean|Array|Object|Date|Function|Symbol,
-      default: null,
-      required: false
-    },
-    */
-  },
+  props: ['notes'],
 
   data() {
     return {
@@ -80,9 +72,6 @@ export default {
   },
 
   computed: {
-    notes(){
-      return this.$store.getters['notes/notes'];
-    },
     options() {
       return this.$store.getters['notes/getTagsInMyNotes'];
     },
@@ -124,7 +113,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch('notes/getUserNotes');
+    
   }
 };
 </script>
