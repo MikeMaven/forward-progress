@@ -57,7 +57,9 @@ export default {
   computed: {
     ...mapGetters(['isAuthenticated', 'user', 'appData']),
     isAdmin() {
-      return this.$store.getters['userInfo/isAdmin']
+      if (this.user) {
+        return this.user.roles.filter(role => role === 'admin').length
+      }
     }
   },
   methods: {
@@ -69,7 +71,7 @@ export default {
     }
   },
   mounted () {
-    this.$store.dispatch('userInfo/fetchProfile');
+   
   }
 };
 </script>
