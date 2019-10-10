@@ -1,6 +1,6 @@
 <template>
   <div id="newNoteContainer">
-    <h1>Edit Note</h1>
+    <h1>Edit A Note</h1>
     <text-editor-component-v2
       :noteTitle = "noteToEdit.title"
       :noteBody = "noteToEdit.body"

@@ -17,6 +17,15 @@ export default {
     });
   },
 
+  getSharedNotes(context) {
+    return new Promise(resolve => {
+      NotesApi.getSharedNotes().then(response => {
+        context.commit('setSharedNotes', response);
+        resolve();
+      });
+    });
+  },
+
   getAdminNotes(context) {
     return new Promise(resolve => {
       NotesApi.getAllNotes().then(response => {

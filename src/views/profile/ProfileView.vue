@@ -28,7 +28,7 @@ export default {
   data () {
     return {
       info: {},
-      myNotes: {}
+      myNotes: {},
     }
   },
   computed: {
@@ -36,7 +36,7 @@ export default {
       return this.$store.getters['userInfo/isAdmin']
     }
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('userInfo/fetchProfile');
     axios
       .get('/api/getNotes')

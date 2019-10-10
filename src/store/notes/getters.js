@@ -3,6 +3,10 @@ export default {
     return state.notes;
   },
 
+  sharedNotes: (state, getters) => {
+    return state.sharedNotes;
+  },
+
   adminTestNotes: (state, getters) => {
     return state.adminTestNotes;
   },

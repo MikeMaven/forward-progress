@@ -1,6 +1,6 @@
 <template>
   <div id="newNoteContainer">
-    <h1>NEW NOTE</h1>
+    <h1>Create A New Note</h1>
     <text-editor-component-v2
       :noteTitle = "null"
       :noteBody = "null"

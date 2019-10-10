@@ -9,6 +9,24 @@ const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('../users/token');
 const logger = require('../logger');
 
+exports.sharedNotes = (req, res) => {
+  let notes = null;
+  if (req.user) {
+    User.findByPk(req.user.dataValues.id, {
+      include: [
+        {
+          model: Note,
+          as: 'sharednotes'
+        }
+      ]
+    }).then(notes => {
+      res.json(notes);
+    });
+  } else {
+    res.status(401).send([]);
+  }
+};
+
 exports.allNotes = (req, res) => {
   let notes = null;
   if (req.user.isAdmin) {

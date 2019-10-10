@@ -13,6 +13,10 @@ export default {
     state.adminTestNotes = notes;
   },
 
+  setSharedNotes(state, notes) {
+    state.sharedNotes = notes['sharednotes'];
+  },
+
   setTagsInMyNotes(state, tags) {
     state.tagsInMyNotes = tags;
   },
