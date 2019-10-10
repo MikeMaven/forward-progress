@@ -67,9 +67,6 @@ export default {
     toggle() {
       this.isOpen = !this.isOpen;
     }
-  },
-  mounted () {
-   
   }
 };
 </script>
@@ -128,5 +125,146 @@ export default {
 
 .logButtons .profileLink {
   margin-right: 10px;
+}
+
+@media (max-width: 374px) {
+  .header {
+    position: static;
+    height: auto;
+    padding-bottom: 0;
+  }
+
+  .header .inner {
+    margin: 0 3%;
+  }
+
+  #navBarTitle {
+    font-size: 1.5em;
+    float: right;
+  }
+
+  .header a {
+    display: block;
+    line-height: 1em;
+    font-size: 1.5em;
+    margin-bottom: 12px;
+  }
+
+  .logButtons {
+    float: initial;
+    text-align: center;
+  }
+
+  .logButtons .profileLink {
+    text-align: left;
+    margin-bottom: 16px;
+  }
+
+  .logButtons .logButton {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 413px) {
+  .header {
+    position: static;
+    height: auto;
+    padding-bottom: 0;
+  }
+
+  .header .inner {
+    margin: 0 3%;
+  }
+
+  #navBarTitle {
+    font-size: 1.5em;
+    float: right;
+  }
+
+  .header a {
+    display: block;
+    line-height: 1em;
+    font-size: 1.5em;
+    margin-bottom: 12px;
+  }
+
+  .logButtons {
+    float: initial;
+    text-align: center;
+  }
+
+  .logButtons .profileLink {
+    text-align: left;
+    margin-bottom: 16px;
+  }
+
+  .logButtons .logButton {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 414px) and (max-width: 767px) {
+  .header {
+    position: static;
+    height: auto;
+    padding-bottom: 0;
+  }
+
+  .header .inner {
+    margin: 0 3%;
+  }
+
+  #navBarTitle {
+    font-size: 1.5em;
+    float: right;
+  }
+
+  .header a {
+    display: block;
+    line-height: 1em;
+    font-size: 1.5em;
+    margin-bottom: 12px;
+  }
+
+  .logButtons {
+    float: initial;
+    text-align: center;
+  }
+
+  .logButtons .profileLink {
+    text-align: left;
+    margin-bottom: 16px;
+  }
+
+  .logButtons .logButton {
+    margin-bottom: 0;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1365px) {
+  .header {
+    position: static;
+    height: 90px;
+    padding-bottom: 0;
+  }
+
+  .header .inner {
+    margin: 0 7%;
+    position: relative;
+  }
+
+  .logButtons {
+    float: initial;
+    float: right;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1599px) {
+}
+
+@media (min-width: 1600px) and (max-width: 1919px) {
+}
+
+@media (min-width: 1920px) {
 }
 </style>
