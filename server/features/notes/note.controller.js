@@ -16,12 +16,12 @@ exports.sharedNotes = (req, res) => {
       include: [
         {
           model: Note,
-          as: 'sharedNotes'
+          as: 'sharednotes'
         }
       ]
     }).then(user => {
       let sharedNotes = [];
-      user.sharedNotes.forEach(note => {
+      user.sharednotes.forEach(note => {
         note[:creator] = note.creator
         sharedNotes.push[note]
       });
