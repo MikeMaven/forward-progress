@@ -24,6 +24,7 @@ module.exports = app => {
   const notes = require('./note.controller');
 
   app.route('/api/allNotes').get(notes.allNotes);
+  app.route('/api/sharedNotes').get(notes.sharedNotes);
   app.route('/api/getNote/:id').get(notes.getNote);
   app.route('/api/myNotes').get(notes.myNotes);
   app.route('/api/starToggle').post(notes.starToggle);

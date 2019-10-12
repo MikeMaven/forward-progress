@@ -123,6 +123,12 @@ module.exports = function(sequelize, DataTypes) {
       timestamps: false,
     })
     User.belongsToMany(models.Note, {
+      through: 'UserSharedNotes',
+      as: 'sharednotes',
+      foreignKey: 'UserId',
+      otherKey: 'NoteId'
+    })
+    User.belongsToMany(models.Note, {
       through: 'Usernotes',
       as: 'notes',
       foreignKey: 'UserId',

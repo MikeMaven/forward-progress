@@ -10,9 +10,21 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   Note.associate = function(models) {
+    Note.hasOne(models.UserSharedNote, {
+      as: 'creator',
+      foreignKey: 'CreatorId'
+    });
+
     Note.belongsToMany(models.User, {
       through: 'Usernotes',
       as: 'users',
+      foreignKey: 'NoteId',
+      otherKey: 'UserId'
+    });
+
+    Note.belongsToMany(models.User, {
+      through: 'UserSharedNotes',
+      as: 'sharedusers',
       foreignKey: 'NoteId',
       otherKey: 'UserId'
     });
