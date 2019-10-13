@@ -26,7 +26,7 @@ exports.sharedNotes = (req, res) => {
       //   note[:creator] = note.creator
       //   sharedNotes.push[note]
       // });
-      res.json(sharedNotes);
+      res.json(user);
     });
   } else {
     res.json([]);

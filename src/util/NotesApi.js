@@ -16,6 +16,20 @@ export function getUserNotes() {
   );
 }
 
+export function getSharedNotes() {
+  const url = '/api/sharedNotes';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response =>
+    CodeApi.unrollApiResponse(response.data)
+  );
+}
+
 export function getAllNotes() {
   const url = '/api/allNotes';
 

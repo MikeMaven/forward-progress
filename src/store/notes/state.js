@@ -10,6 +10,7 @@ export default {
     title: null,
     body: null
   },
+  sharedNotes: [],
   selectedTags: [],
   allTags: [],
   welcomeText: 'Welcome to your notes dashboard:',
