@@ -1,11 +1,31 @@
-'use strict';
+const User = require('./user.model.js');
+const Note = require('./note.model.js');
+('use strict');
 module.exports = (sequelize, DataTypes) => {
   const UserSharedNote = sequelize.define(
     'UserSharedNote',
     {
-      NoteId: DataTypes.INTEGER,
-      UserId: DataTypes.INTEGER,
-      CreatorId: DataTypes.INTEGER
+      NoteId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: Note,
+          key: 'NoteId'
+        }
+      },
+      UserId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: User,
+          key: 'UserId'
+        }
+      },
+      CreatorId: {
+        type: DataTypes.INTEGER,
+        references: {
+          model: User,
+          key: 'CreatorId'
+        }
+      }
     },
     {}
   );

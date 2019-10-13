@@ -28,7 +28,8 @@ export default {
   data () {
     return {
       info: {},
-      myNotes: {}
+      myNotes: {},
+      sharedNotes: {}
     }
   },
   computed: {
@@ -44,6 +45,9 @@ export default {
     axios
       .get('/api/myNotes')
       .then(response => (this.myNotes = response.data))
+    axios
+      .get('/api/sharedNotes')
+      .then(response => (this.sharedNotes = response.data))
   },
   methods: {
     postSomething: () => {
