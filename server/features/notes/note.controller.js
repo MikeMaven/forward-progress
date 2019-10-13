@@ -20,15 +20,16 @@ exports.sharedNotes = (req, res) => {
         }
       ]
     }).then(user => {
+      console.log(user);
       let sharedNotes = [];
-      user.sharednotes.forEach(note => {
-        note[:creator] = note.creator
-        sharedNotes.push[note]
-      });
-      res.json(sharedNotes)
+      // user.sharednotes.forEach(note => {
+      //   note[:creator] = note.creator
+      //   sharedNotes.push[note]
+      // });
+      res.json(sharedNotes);
     });
   } else {
-    res.json([])
+    res.json([]);
   }
 };
 

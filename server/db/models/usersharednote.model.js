@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const NoteUser = sequelize.define(
+  const UserSharedNote = sequelize.define(
     'UserSharedNote',
     {
       NoteId: DataTypes.INTEGER,
