@@ -4,17 +4,17 @@
       <img src="/public/images/field.jpg" class="landingImage">
     </div>
     <div id="textOverImage">
-      <div class="column titleArea">
+      <div class="col titleArea">
         <h1>Forward<br><span class="logoProgress">Progress</span></h1>
       </div>
     </div>
     <div class="row">
-      <div class="column aboutRow">
+      <div class="col aboutRow">
           <router-link to="about" class="aboutButton infoButton">More info</router-link>
       </div>
     </div>
     <div class="row">
-      <div class="column aboutRow aboutRowSubHeader">
+      <div class="col aboutRow aboutRowSubHeader">
         <p class="subHeader">A web based SaaS platform for front office NFL executives.</p>
       </div>
     </div>
@@ -185,6 +185,54 @@ export default {
   font-family: 'Open Sans', sans-serif;
   margin: 0 15%;
   font-size: 1.5em;
+}
+
+@media (max-width: 374px) {
+  .span-image {
+  }
+
+  .landingImage {
+    height: 75vh;
+  }
+
+  #textOverImage {
+    margin: 0 10%;
+  }
+
+  .titleArea h1 {
+    font-size: 5em;
+  }
+
+  .aboutRow {
+    margin-top: 25px;
+  }
+
+  .featureSpotlight .featureColumn {
+    width: 100%;
+    margin-bottom: 35px;
+  }
+
+  .featureSpotlight .featureColumn img {
+    width: 85%;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 413px) {
+}
+
+@media (min-width: 414px) and (max-width: 767px) {
+}
+
+@media (min-width: 768px) and (max-width: 1365px) {
+}
+
+@media (min-width: 1366px) and (max-width: 1599px) {
+}
+
+@media (min-width: 1600px) and (max-width: 1919px) {
+}
+
+@media (min-width: 1920px) {
 }
 
 </style>
