@@ -249,7 +249,7 @@ export default {
   }
 
   .header .inner {
-    margin: 0 7%;
+    margin: 0 3%;
     position: relative;
   }
 
