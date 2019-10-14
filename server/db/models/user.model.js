@@ -126,8 +126,17 @@ module.exports = function(sequelize, DataTypes) {
       through: 'UserSharedNotes',
       as: 'sharednotes',
       foreignKey: 'UserId',
+      otherKey: 'NoteId',
+      timestamps: false,
+    })
+
+    User.belongsToMany(models.Note, {
+      through: 'UserSharedNotes',
+      as: 'creator',
+      foreignKey: 'CreatorId',
       otherKey: 'NoteId'
     })
+
     User.belongsToMany(models.Note, {
       through: 'Usernotes',
       as: 'notes',
