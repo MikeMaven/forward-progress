@@ -109,11 +109,26 @@ export default {
         } else {
             this.$store.dispatch('notes/setFilterToggle', true)
         }
+    },
+    handleWindowSizeChange() {
+        if (process.browser) {
+            const heightOutput = window.innerHeight;
+            const widthOutput = window.innerWidth;
+            console.log(`height: ${heightOutput}, width: ${widthOutput}`);
+        }
     }
   },
 
   mounted() {
-    
+    if (process.browser) {
+        window.addEventListener('resize', this.handleWindowSizeChange);
+    }
+  },
+
+  destroyed() {
+      if (process.browser) {
+          window.removeEventListener('resize', this.handleWindowSizeChange);
+      }
   }
 };
 </script>
