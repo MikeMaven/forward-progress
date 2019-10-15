@@ -18,6 +18,8 @@
       <li>Admin: {{ this.isAdmin }}</li>
     </ul>
     <img v-if="this.isAdmin" src="/public/images/star-off.png">
+    <h2>Shared Notes:</h2>
+    {{ this.sharedNotes }}
   </div>
 </template>
 
@@ -28,16 +30,20 @@ export default {
   data () {
     return {
       info: {},
-      myNotes: {}
+      myNotes: {},
     }
   },
   computed: {
     isAdmin() {
       return this.$store.getters['userInfo/isAdmin']
+    },
+    sharedNotes() {
+      return this.$store.getters['notes/sharedNotes']
     }
   },
-  mounted () {
+  mounted() {
     this.$store.dispatch('userInfo/fetchProfile');
+    this.$store.dispatch('notes/getSharedNotes');
     axios
       .get('/api/getNotes')
       .then(response => (this.info = response.data))

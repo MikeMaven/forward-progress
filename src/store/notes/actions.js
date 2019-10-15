@@ -17,6 +17,15 @@ export default {
     });
   },
 
+  getSharedNotes(context) {
+    return new Promise(resolve => {
+      NotesApi.getSharedNotes().then(response => {
+        context.commit('setSharedNotes', response);
+        resolve();
+      });
+    });
+  },
+
   getAdminNotes(context) {
     return new Promise(resolve => {
       NotesApi.getAllNotes().then(response => {
@@ -154,6 +163,30 @@ export default {
     return new Promise(function(resolve) {
       context.commit('addNewTag', newTag);
       resolve();
+    });
+  },
+
+  getUsersToShareWith(context) {
+    return new Promise(function(resolve) {
+      NotesApi.getUsersToShareWith().then(response => {
+        context.commit('setUsersToShareWith', response);
+        resolve();
+      });
+    });
+  },
+
+  updateUserSelection(context, updatedUsers) {
+    return new Promise(function(resolve) {
+      context.commit('setSelectedUsers', updatedUsers);
+      resolve();
+    });
+  },
+
+  submitShares(context, sharedUsers, noteId, creatorId) {
+    return new Promise(function(resolve) {
+      NotesApi.submitShares(sharedUsers, noteId, creatorId).then(response => {
+        resolve(response);
+      });
     });
   }
 };

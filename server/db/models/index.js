@@ -27,7 +27,8 @@ const modules = [
   require('./user.model.js'),
   require('./tag.model.js'),
   require('./notetag.model.js'),
-  require('./userrole.model.js')
+  require('./userrole.model.js'),
+  require('./usersharednote.model.js')
 ];
 
 // Initialize models

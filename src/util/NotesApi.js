@@ -16,6 +16,20 @@ export function getUserNotes() {
   );
 }
 
+export function getSharedNotes() {
+  const url = '/api/sharedNotes';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response =>
+    CodeApi.unrollApiResponse(response.data)
+  );
+}
+
 export function getAllNotes() {
   const url = '/api/allNotes';
 
@@ -121,4 +135,33 @@ export function getAllTags() {
   return axios(options).then(response =>
     CodeApi.unrollApiResponse(response.data)
   );
+}
+
+export function getUsersToShareWith() {
+  const url = '../api/usersToShareWith';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response =>
+    CodeApi.unrollApiResponse(response.data)
+  );
+}
+
+export function submitShares(payload) {
+  const url = '/api/shareNote';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    data: payload
+  });
+
+  return axios(options).then(response => {
+    CodeApi.unrollApiResponse(response.data);
+  });
 }

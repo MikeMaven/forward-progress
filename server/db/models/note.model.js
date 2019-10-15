@@ -17,6 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       otherKey: 'UserId'
     });
 
+    Note.belongsToMany(models.User, {
+      through: 'UserSharedNotes',
+      as: 'sharedusers',
+      foreignKey: 'NoteId',
+      otherKey: 'UserId',
+      timestamps: false
+    });
+
     Note.belongsToMany(models.Tag, {
       through: 'NoteTags',
       as: 'tags',

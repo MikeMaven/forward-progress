@@ -97,6 +97,8 @@ module.exports = app => {
     users.changeProfilePicture
   );
   app.get('/api/users/picture/:id', users.getProfilePicture);
+  app.route('/api/usersToShareWith').get(users.getUsersToShareWith);
+  app.route('/api/usersToShareWith').post(users.updateUsersToShareWith);
 
   // Finish by binding the user middleware
   // app.param('userId', users.userByID);

@@ -4,8 +4,9 @@
     <ul>
       <li><span class="credit-header">Designed for:</span> Mike Tannenbaum</li>
       <li><span class="credit-header">Project Coordinator:</span> Sydney Robinson</li>
+      <li><span class="credit-header">Designed by Samurai Software Studio</span></li>
       <li><span class="credit-header">Software Lead:</span> Mike Mathieu</li>
-      <li><span class="credit-header">Software Engineer:</span> Doug Simon</li>
+      <li><span class="credit-header">Engineer:</span> Doug Simon</li>
     </ul>
   </div>
 </template>
