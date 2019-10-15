@@ -10,7 +10,7 @@
     </div>
     <div class="row">
       <div class="col aboutRow">
-          <router-link to="about" class="aboutButton infoButton">More info</router-link>
+          <router-link to="about" class="aboutButton infoButton">Who We Are</router-link>
       </div>
     </div>
     <div class="row">
@@ -19,23 +19,23 @@
       </div>
     </div>
     <div class="row header3">
-      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+      <p>Leading the Way Forward in Football Analysis</p>
     </div>
     <div class="featureSpotlight">
       <div class="featureColumn">
         <img src="~public/images/Icon1.png">
-        <h2>Heading One</h2>
-        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium</p>
+        <h2>Articles</h2>
+        <p>Dedicated analysis from top NFL insiders.</p>
       </div>
       <div class="featureColumn">
         <img src="~public/images/Icon2.png">
-        <h2>Heading Two</h2>
-        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit velit</p>
+        <h2>Data Visualization</h2>
+        <p>Leaders in NFL stats analysis and visualiztion.</p>
       </div>
       <div class="featureColumn">
         <img src="~public/images/Icon3.png">
-        <h2>Heading Three</h2>
-        <p>Eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae</p>
+        <h2>Live Updates</h2>
+        <p>Live updates and insights that only NFL insiders can provide.</p>
       </div>
     </div>
   </div>
