@@ -24,6 +24,8 @@ export default {
       tags: [],
       title: '',
       updatedAt: ''
-    }
+    },
+    usersToShareWith: [],
+    selectedUsers: []
   }
 };

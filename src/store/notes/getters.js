@@ -41,5 +41,13 @@ export default {
 
   getSelectedNote: (state, getters) => {
     return state.notesIndexNavigation.selectedNote;
+  },
+
+  usersToShareWith: (state, getters) => {
+    return state.notesIndexNavigation.usersToShareWith;
+  },
+
+  getSelectedUsers: (state, getters) => {
+    return state.notesIndexNavigation.selectedUsers;
   }
 };

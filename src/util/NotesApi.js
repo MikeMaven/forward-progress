@@ -136,3 +136,32 @@ export function getAllTags() {
     CodeApi.unrollApiResponse(response.data)
   );
 }
+
+export function getUsersToShareWith() {
+  const url = '../api/usersToShareWith';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response =>
+    CodeApi.unrollApiResponse(response.data)
+  );
+}
+
+export function submitShares(sharedUsers) {
+  const url = '../api/usersToShareWith';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'post',
+    url: url,
+    responseType: 'json',
+    data: sharedUsers
+  });
+
+  return axios(options).then(response => {
+    CodeApi.unrollApiResponse(response.data);
+  });
+}

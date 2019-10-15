@@ -16,7 +16,7 @@
       :key="tag.id"
       :tag="tag">
       </tag-component>
-      <b-button v-if="!isShared" variant="success" v-b-modal.share-modal>Share</b-button>
+      <b-button v-if="!isShared" variant="success" v-b-modal.share-modal v-on:click="getUsersToShareWith">Share</b-button>
     </div>
     <b-modal hide-footer id="share-modal" title="Share This Note With Another User">
     <p class="my-4">
@@ -28,7 +28,7 @@
         tag-placeholder="Add this user"
         placeholder="Search users"
         label="username"
-        track-by="code"
+        track-by="id"
         :options="options"
         :taggable="true"
         :multiple="true"
@@ -54,23 +54,24 @@ export default {
     Multiselect
   },
   mounted() {},
-  data(){
-    return {
-      selectedUsers: []
-    }
-  },
   computed: {
     selectedNote() {
       return this.$store.getters['notes/getSelectedNote'];
     },
     currentUser() {
-      return this.$store.state.user
+      return this.$store.state.user;
     },
     options() {
-      // set up a store call that gets all app users public info similar to tags
-      // return this.$store.getters['users/getAllUsers'];
-      return [{username: "mikemaven@gmail.com"}, {username: "dougdougmann@gmail.com"}]
+      return this.$store.getters['notes/usersToShareWith'];
     },
+    selectedUsers: {
+      get: function() {
+        return this.$store.getters['notes/getSelectedUsers'];
+      },
+      set: function(updatedUsers) {
+        this.$store.dispatch('notes/updateUserSelection', updatedUsers);
+      }
+    }
   },
   methods: {
     deleteNote() {
@@ -88,24 +89,13 @@ export default {
       });
     },
     submitShares() {
-      const url = '/api/shareNote';
-      const options = Object.assign({}, CodeApi.config.axiosDefaults, {
-        method: 'post',
-        url: url,
-        responseType: 'json',
-        data: { users: this.selectedUsers, noteId: this.selectedNote.id, creatorId: this.currentUser.id }
-      });
-
-      axios(options).then(response => {
-        //if successful, close the modal
-        this.$root.$emit('bv::hide::modal', 'share-modal')
-      }).catch(response => {
-        //add error handling here later, but for now close the modal
-        this.$root.$emit('bv::hide::modal', 'share-modal')
-      });
+      this.$store.dispatch('notes/submitShares', this.selectedUsers);
     },
-    addUserToSelected(user){
-      this.selectedUsers.push(user)
+    addUserToSelected(user) {
+      this.selectedUsers.push(user);
+    },
+    getUsersToShareWith() {
+      this.$store.dispatch('notes/getUsersToShareWith');
     }
   }
 }

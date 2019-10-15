@@ -521,6 +521,36 @@ exports.changePassword = (req, res) => {
   }
 };
 
+exports.getUsersToShareWith = (req, res) => {
+  if (req.user) {
+    User.findAll()
+      .then(users => {
+        const unProcessedUserData = JSON.parse(JSON.stringify(users));
+        const processedUserData = [];
+        unProcessedUserData.forEach(user => {
+          if (user.id !== req.user.id) {
+            processedUserData.push({
+              id: user.id,
+              username: user.username
+            });
+          }
+        });
+        return res.json(processedUserData);
+      })
+      .catch(err => {
+        res.status(401).send({});
+      });
+  }
+};
+
+exports.updateUsersToShareWith = (req, res) => {
+  console.log('=============================');
+  console.log('Ok!');
+  console.log('=============================');
+  console.log(req.body);
+  console.log('=============================');
+};
+
 function getSocialLoginImageUrl(profileData) {
   return (
     profileData.profileImageURL || profileData.providerData.image.url || ''

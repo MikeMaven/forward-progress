@@ -80,6 +80,7 @@ function createStore() {
           router.push('/');
         }
         state.isAuthenticated = false;
+        state.user = null;
       },
       login(state, token) {
         if (typeof window !== 'undefined') {

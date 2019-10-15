@@ -164,5 +164,30 @@ export default {
       context.commit('addNewTag', newTag);
       resolve();
     });
+  },
+
+  getUsersToShareWith(context) {
+    return new Promise(function(resolve) {
+      NotesApi.getUsersToShareWith().then(response => {
+        context.commit('setUsersToShareWith', response);
+        resolve();
+      });
+    });
+  },
+
+  updateUserSelection(context, updatedUsers) {
+    return new Promise(function(resolve) {
+      context.commit('setSelectedUsers', updatedUsers);
+      resolve();
+    });
+  },
+
+  submitShares(context, sharedUsers) {
+    return new Promise(function(resolve) {
+      NotesApi.submitShares(sharedUsers).then(response => {
+        console.log('OK!');
+        resolve();
+      });
+    });
   }
 };

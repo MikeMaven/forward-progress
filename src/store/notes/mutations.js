@@ -130,5 +130,14 @@ export default {
         updatedAt: ''
       };
     }
+  },
+
+  setUsersToShareWith(state, users) {
+    state.notesIndexNavigation.usersToShareWith = users;
+  },
+
+  setSelectedUsers(state, updatedUsers) {
+    state.notesIndexNavigation.selectedUsers = updatedUsers;
+    console.log(updatedUsers);
   }
 };
