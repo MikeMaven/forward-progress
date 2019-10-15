@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const _ = require('lodash');
 const DB = require('../../db/models');
-const { Note, User, Usernote, Tag, NoteTag, Role } = DB;
+const { Note, User, Usernote, Tag, NoteTag, Role, UserSharedNote } = DB;
 const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('../users/token');
 const logger = require('../logger');
@@ -25,6 +25,17 @@ exports.sharedNotes = (req, res) => {
   } else {
     res.status(401).send([]);
   }
+};
+
+exports.createShares = (req, res) => {
+  req.params.users.forEach(user => {
+    NewShare = Object.assign({
+      UserId: user.id,
+      NoteId: req.params.noteId,
+      CreatorId: req.params.creatorId
+    });
+    UserSharedNote.create(NewShare);
+  });
 };
 
 exports.allNotes = (req, res) => {

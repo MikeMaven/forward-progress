@@ -69,7 +69,7 @@ export default {
     options() {
       // set up a store call that gets all app users public info similar to tags
       // return this.$store.getters['users/getAllUsers'];
-      return [{username: "mikemaven@gmail.com"}, {username: "dougdougmann@gmail.com"}]
+      return [{id: 3, username: "mikemaven@gmail.com"}, {username: "dougdougmann@gmail.com"}]
     },
   },
   methods: {

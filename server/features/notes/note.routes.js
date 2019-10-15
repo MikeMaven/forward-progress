@@ -28,7 +28,7 @@ module.exports = app => {
   app.route('/api/getNote/:id').get(notes.getNote);
   app.route('/api/myNotes').get(notes.myNotes);
   app.route('/api/starToggle').post(notes.starToggle);
-
+  app.route('/api/shareNote').post(notes.createShares);
   app.route('/api/newNote').post(notes.newNote);
   app.route('/api/editNote').post(notes.editNote);
   app.route('/api/deleteNote').post(notes.deleteNote);
