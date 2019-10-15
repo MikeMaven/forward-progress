@@ -151,14 +151,14 @@ export function getUsersToShareWith() {
   );
 }
 
-export function submitShares(sharedUsers) {
-  const url = '../api/usersToShareWith';
+export function submitShares(payload) {
+  const url = '/api/shareNote';
 
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {
     method: 'post',
     url: url,
     responseType: 'json',
-    data: sharedUsers
+    data: payload
   });
 
   return axios(options).then(response => {

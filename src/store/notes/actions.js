@@ -182,11 +182,10 @@ export default {
     });
   },
 
-  submitShares(context, sharedUsers) {
+  submitShares(context, sharedUsers, noteId, creatorId) {
     return new Promise(function(resolve) {
-      NotesApi.submitShares(sharedUsers).then(response => {
-        console.log('OK!');
-        resolve();
+      NotesApi.submitShares(sharedUsers, noteId, creatorId).then(response => {
+        resolve(response);
       });
     });
   }

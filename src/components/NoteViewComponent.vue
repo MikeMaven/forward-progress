@@ -19,21 +19,21 @@
       <b-button v-if="!isShared" variant="success" v-b-modal.share-modal v-on:click="getUsersToShareWith">Share</b-button>
     </div>
     <b-modal hide-footer id="share-modal" title="Share This Note With Another User">
-    <p class="my-4">
-      Search below for a users you would like to share this note with by registered email address.
-      You may choose as many users as you like.
-    </p>
-    <multiselect
-        v-model="selectedUsers"
-        tag-placeholder="Add this user"
-        placeholder="Search users"
-        label="username"
-        track-by="id"
-        :options="options"
-        :taggable="true"
-        :multiple="true"
-        @tag="addUserToSelected" />
-    <b-button class="mt-3" block @click="submitShares">Share Now</b-button>
+      <p class="my-4">
+        Search below for a users you would like to share this note with by registered email address.
+        You may choose as many users as you like.
+      </p>
+      <multiselect
+          v-model="selectedUsers"
+          tag-placeholder="Add this user"
+          placeholder="Search users"
+          label="username"
+          track-by="id"
+          :options="options"
+          :taggable="true"
+          :multiple="true"
+          @tag="addUserToSelected" />
+      <b-button class="mt-3" block @click="submitShares">Share Now</b-button>
   </b-modal>
   </div>
 </template>
@@ -41,8 +41,6 @@
 <script>
 import TagComponent from './TagComponent.vue';
 import previewTextGenerator from '../store/notes/helpers/previewTextGenerator'
-import axios from 'axios';
-import * as CodeApi from '../util/CodeApi.js';
 import Multiselect from 'vue-multiselect';
 require('../util/multiselect.css')
 
@@ -89,7 +87,14 @@ export default {
       });
     },
     submitShares() {
-      this.$store.dispatch('notes/submitShares', this.selectedUsers);
+      let payload = {
+        users: this.selectedUsers,
+        noteId: this.selectedNote.id,
+        creatorId: this.currentUser.id
+      }
+      this.$store.dispatch('notes/submitShares', payload).then(response => {
+        this.$root.$emit('bv::hide::modal', 'share-modal');
+      })
     },
     addUserToSelected(user) {
       this.selectedUsers.push(user);

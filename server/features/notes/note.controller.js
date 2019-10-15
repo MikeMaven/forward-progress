@@ -28,13 +28,15 @@ exports.sharedNotes = (req, res) => {
 };
 
 exports.createShares = (req, res) => {
-  req.params.users.forEach(user => {
+  req.body.users.forEach(user => {
     NewShare = Object.assign({
       UserId: user.id,
-      NoteId: req.params.noteId,
-      CreatorId: req.params.creatorId
+      NoteId: req.body.noteId,
+      CreatorId: req.body.creatorId
     });
-    UserSharedNote.create(NewShare);
+    UserSharedNote.create(NewShare).then(response => {
+      res.json(response);
+    });
   });
 };
 
