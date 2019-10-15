@@ -1,5 +1,5 @@
 <template>
-  <notes-index :notes="notes" />
+  <notes-index :notes="notes" :isShared="isShared" />
 </template>
 
 <script>
@@ -24,7 +24,7 @@ export default {
 
   data() {
     return {
-      // field: 'value'
+      isShared: true
     };
   },
 

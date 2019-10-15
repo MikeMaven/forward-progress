@@ -42,7 +42,7 @@
         </div>
     </div>
     <div>
-        <note-view-component>
+        <note-view-component :isShared="isShared" >
         </note-view-component>
     </div>
   </div>
@@ -64,7 +64,7 @@ export default {
 
   mixins: [],
 
-  props: ['notes'],
+  props: ['notes', 'isShared'],
 
   data() {
     return {

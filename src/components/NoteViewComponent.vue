@@ -16,7 +16,7 @@
       :key="tag.id"
       :tag="tag">
       </tag-component>
-      <b-button variant="success" v-b-modal.share-modal>Share</b-button>
+      <b-button v-if="!isShared" variant="success" v-b-modal.share-modal>Share</b-button>
     </div>
     <b-modal hide-footer id="share-modal" title="Share This Note With Another User">
     <p class="my-4">
@@ -49,7 +49,7 @@ require('../util/multiselect.css')
 
 export default {
   title: 'NoteListComponent',
-  props: ['note'],
+  props: ['note', 'isShared'],
   components: {
     TagComponent,
     Multiselect
