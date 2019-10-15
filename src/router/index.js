@@ -26,6 +26,7 @@ import EditNote from '../views/notes/EditNote.vue';
 // Admin views
 const AdminShow = () => import('../views/AdminDash.vue');
 import NotesIndexAdminWrapper from '../views/notes/NotesIndexAdminWrapper.vue';
+import NotesIndexSharedWrapper from '../views/notes/NotesIndexSharedWrapper.vue';
 
 function createRouter() {
   return new Router({
@@ -57,6 +58,7 @@ function createRouter() {
       { path: '/editnote/:id', component: EditNote },
       { path: '/admin', component: AdminShow },
       { path: '/allnotes', component: NotesIndexAdminWrapper },
+      { path: '/sharednotes', component: NotesIndexSharedWrapper },
       { path: '*', component: NotFoundView }
     ]
   });

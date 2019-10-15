@@ -7,9 +7,6 @@
         <li>
           <router-link to="/games/category/college">Upcoming College Football Games</router-link>
         </li>
-        <li>
-          <router-link to="/games/modal">Modal</router-link>
-        </li>
       </ul>
     <!-- Header -->
     <div class="row">

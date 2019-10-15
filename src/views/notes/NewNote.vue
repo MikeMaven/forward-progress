@@ -1,6 +1,6 @@
 <template>
   <div id="newNoteContainer">
-    <h1>NEW NOTE</h1>
+    <h1>Create A New Note</h1>
     <text-editor-component-v2
       :noteTitle = "null"
       :noteBody = "null"
@@ -43,7 +43,7 @@ h1 {
 /* CSS Here fixes menu buttons and styling */
 .textButton {
   width: 5%;
-  font-size: .75em;
+  font-size: 0.75em;
   border-radius: 5px;
   vertical-align: middle;
   padding: 6px;
@@ -69,5 +69,38 @@ h1 {
 
 .editor li p {
   display: inline !important;
+}
+
+@media (max-width: 374px) {
+  #newNoteContainer {
+    margin: 10px 3% 0 3%;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 413px) {
+  #newNoteContainer {
+    margin: 10px 3% 0 3%;
+  }
+}
+
+@media (min-width: 414px) and (max-width: 767px) {
+  #newNoteContainer {
+    margin: 10px 6% 0 6%;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1365px) {
+  #newNoteContainer {
+    margin: 10px 10% 0 10%;
+  }
+}
+
+@media (min-width: 1366px) and (max-width: 1599px) {
+}
+
+@media (min-width: 1600px) and (max-width: 1919px) {
+}
+
+@media (min-width: 1920px) {
 }
 </style>

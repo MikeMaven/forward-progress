@@ -20,6 +20,9 @@ export default {
 };
 </script>
 <style lang="scss">
+body {
+  padding-top: 0px!important;
+}
 @import './styles/index';
 @import '~bootstrap/scss/bootstrap';
 @import '~bootstrap-vue/src/index.scss';
