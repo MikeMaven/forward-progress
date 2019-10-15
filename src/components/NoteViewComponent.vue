@@ -2,7 +2,7 @@
   <div id="noteViewComponent">
     <div id="noteHeader">
       <h1>{{ selectedNote.title }}</h1>
-      <ul>
+      <ul v-if="!isShared">
         <a :href="'/EditNote/' + selectedNote.id"><li>Edit</li></a>
         <a v-on:click="deleteNote"><li>Delete</li></a>
       </ul>
@@ -22,7 +22,6 @@
     <p class="my-4">
       Search below for a users you would like to share this note with by registered email address.
       You may choose as many users as you like.
-      Shared notes may be edited and re-shared by the users you share them with.
     </p>
     <multiselect
         v-model="selectedUsers"
