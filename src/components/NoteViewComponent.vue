@@ -1,5 +1,5 @@
 <template>
-  <div id="noteViewComponent">
+  <div id="noteViewComponent" v-bind:class="{ noteIndexHiddenSideBar: this.isSidebarHidden, noteIndexVisibleSideBar: !this.isSidebarHidden }">
     <div id="noteHeader">
       <h1>{{ selectedNote.title }}</h1>
       <ul v-if="!isShared">
@@ -69,6 +69,11 @@ export default {
       set: function(updatedUsers) {
         this.$store.dispatch('notes/updateUserSelection', updatedUsers);
       }
+    },
+    isSidebarHidden: {
+      get: function() {
+        return this.$store.getters['notes/getIsSidebarHidden'];
+      }
     }
   },
   methods: {
@@ -109,9 +114,17 @@ export default {
 <style>
 #noteViewComponent {
   float: right;
-  max-width: 75%;
-  width: 75%;
   padding: 25px 35px 25px 25px;
+}
+
+.noteIndexHiddenSideBar {
+  width: 75%;
+  max-width: 75%;
+}
+
+.noteIndexVisibleSideBar {
+  width: 100%;
+  max-width: 100%;
 }
 
 #noteHeader h1 {

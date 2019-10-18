@@ -138,6 +138,7 @@ export default {
   mounted() {
     if (process.browser) {
         window.addEventListener('resize', this.handleWindowSizeChange);
+        this.handleWindowSizeChange();
     }
   },
 
