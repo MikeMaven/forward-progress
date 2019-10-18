@@ -138,7 +138,6 @@ export default {
 
   setSelectedUsers(state, updatedUsers) {
     state.notesIndexNavigation.selectedUsers = updatedUsers;
-    console.log(updatedUsers);
   },
 
   updateWidth(state, newWidth) {

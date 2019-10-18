@@ -33,6 +33,7 @@
                     </div>
                 </div>
                 <div>
+                    {{ this.windowWidth }}
                 </div>
             </div>
         </div>
