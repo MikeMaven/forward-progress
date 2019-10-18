@@ -53,5 +53,9 @@ export default {
 
   getWindowSize: (state, getters) => {
     return state.notesIndexNavigation.windowWidth;
+  },
+
+  getIsSidebarHidden: (state, getters) => {
+    return state.notesIndexNavigation.showSidebar;
   }
 };

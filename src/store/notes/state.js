@@ -27,6 +27,7 @@ export default {
     },
     usersToShareWith: [],
     selectedUsers: [],
-    windowWidth: 1920
+    windowWidth: 1920,
+    showSidebar: true
   }
 };

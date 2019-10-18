@@ -195,5 +195,12 @@ export default {
       context.commit('updateWidth', newWidth);
       resolve();
     });
+  },
+
+  toggleSideBar(context, value) {
+    return new Promise(function(resolve) {
+      context.commit('toggleSideBar', value);
+      resolve();
+    });
   }
 };
