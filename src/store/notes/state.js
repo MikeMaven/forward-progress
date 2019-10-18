@@ -23,6 +23,7 @@ export default {
       tags: [],
       title: '',
       updatedAt: ''
-    }
+    },
+    windowWidth: 1920
   }
 };

@@ -126,5 +126,9 @@ export default {
         updatedAt: ''
       };
     }
+  },
+
+  updateWidth(state, newWidth) {
+    state.notesIndexNavigation.windowWidth = newWidth;
   }
 };

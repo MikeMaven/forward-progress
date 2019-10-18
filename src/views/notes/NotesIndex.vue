@@ -31,6 +31,9 @@
                         </b-dropdown>
                     </div>
                 </div>
+                <div>
+                    {{ this.windowWidth }}
+                </div>
             </div>
         </div>
         <div id="notesList">
@@ -92,6 +95,11 @@ export default {
         get: function() {
             return this.$store.getters['notes/getFilterToggle']
         }
+    },
+    windowWidth: {
+        get: function() {
+            return this.$store.getters['notes/getWindowSize']
+        }
     }
   },
 
@@ -112,9 +120,7 @@ export default {
     },
     handleWindowSizeChange() {
         if (process.browser) {
-            const heightOutput = window.innerHeight;
-            const widthOutput = window.innerWidth;
-            console.log(`height: ${heightOutput}, width: ${widthOutput}`);
+            this.$store.dispatch('notes/updateWindowWidth', window.innerWidth)
         }
     }
   },

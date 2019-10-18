@@ -155,5 +155,12 @@ export default {
       context.commit('addNewTag', newTag);
       resolve();
     });
+  },
+
+  updateWindowWidth(context, newWidth) {
+    return new Promise(function(resolve) {
+      context.commit('updateWidth', newWidth);
+      resolve();
+    });
   }
 };

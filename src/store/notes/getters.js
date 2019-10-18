@@ -37,5 +37,9 @@ export default {
 
   getSelectedNote: (state, getters) => {
     return state.notesIndexNavigation.selectedNote;
+  },
+
+  getWindowSize: (state, getters) => {
+    return state.notesIndexNavigation.windowWidth;
   }
 };
