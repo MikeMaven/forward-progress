@@ -26,6 +26,7 @@ export default {
       updatedAt: ''
     },
     usersToShareWith: [],
-    selectedUsers: []
+    selectedUsers: [],
+    windowWidth: 1920
   }
 };

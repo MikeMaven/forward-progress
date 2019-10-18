@@ -132,6 +132,7 @@ export default {
     }
   },
 
+<<<<<<< HEAD
   setUsersToShareWith(state, users) {
     state.notesIndexNavigation.usersToShareWith = users;
   },
@@ -139,5 +140,9 @@ export default {
   setSelectedUsers(state, updatedUsers) {
     state.notesIndexNavigation.selectedUsers = updatedUsers;
     console.log(updatedUsers);
+=======
+  updateWidth(state, newWidth) {
+    state.notesIndexNavigation.windowWidth = newWidth;
+>>>>>>> 642686b... pausing to rebase
   }
 };
