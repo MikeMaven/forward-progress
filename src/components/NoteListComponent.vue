@@ -11,7 +11,7 @@
       <p v-text="this.previewText" class="showNoteBody"></p>
     </div>
     <div id="arrowButton">
-      <h2>&#9654</h2>
+      <h2 v-if="this.windowSize >= 630">&#9654</h2>
     </div>
   </div>
 </template>
@@ -34,6 +34,9 @@ export default {
     selectedNote() {
       return this.$store.getters['notes/getSelectedNote'];
     },
+    windowSize() {
+      return this.$store.getters['notes/getWindowSize']
+    }
   },
   methods: {
     starToggle() {
@@ -126,5 +129,28 @@ export default {
 
 .noteListSelectedColor #arrowButton {
   color: white;
+}
+
+@media (max-width: 374px) {
+}
+
+@media (min-width: 375px) and (max-width: 413px) {
+}
+
+@media (min-width: 414px) and (max-width: 629px) {
+  .noteIndexComponent {
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  #star {
+    width: 8%;
+  }
+}
+
+@media (min-width: 630px) and (max-width: 767px) {
+}
+
+@media (min-width: 768px) and (max-width: 1255px) {
 }
 </style>

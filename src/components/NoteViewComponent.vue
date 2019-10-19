@@ -1,5 +1,13 @@
 <template>
-  <div id="noteViewComponent" v-bind:class="{ noteIndexHiddenSideBar: this.isSidebarHidden, noteIndexVisibleSideBar: !this.isSidebarHidden }">
+  <div
+    id="noteViewComponent"
+    v-bind:class="{
+      noteIndexVisibleSideBar: this.isSidebarHidden || this.windowWidth > 1256,
+      noteIndexVisibleSideBarSmaller: this.isSidebarHidden && this.windowWidth >= 768 && this.windowWidth < 1256,
+      noteIndexVisibleSideBarSmallerTwo: this.isSidebarHidden && this.windowWidth >= 630 && this.windowWidth < 768,
+      noteIndexHiddenSideBar: !this.isSidebarHidden
+    }"
+  >
     <div id="noteHeader">
       <h1>{{ selectedNote.title }}</h1>
       <ul v-if="!isShared">
@@ -74,6 +82,11 @@ export default {
       get: function() {
         return this.$store.getters['notes/getIsSidebarHidden'];
       }
+    },
+    windowWidth: {
+      get: function() {
+        return this.$store.getters['notes/getWindowSize'];
+      }
     }
   },
   methods: {
@@ -118,13 +131,21 @@ export default {
 }
 
 .noteIndexHiddenSideBar {
+  width: calc(100vw - 50px);
+  max-width: calc(100vw - 50px);
+}
+
+.noteIndexVisibleSideBar {
   width: 75%;
   max-width: 75%;
 }
 
-.noteIndexVisibleSideBar {
-  width: 100%;
-  max-width: 100%;
+.noteIndexVisibleSideBarSmaller {
+  width: 67%;
+}
+
+.noteIndexVisibleSideBarSmallerTwo {
+  width: 34%;
 }
 
 #noteHeader h1 {

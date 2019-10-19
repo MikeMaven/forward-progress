@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div id="sideBar" v-if="this.isSidebarHidden">
+    <div id="sideBar" v-if="this.isSidebarHidden || this.windowWidth > 1365">
         <div class="tagDiv">
             <div id="titleRow">
                 <img src="~public/images/Icon1-white.png">
                 <h1 class="notesIndexTitle">My Notes</h1>
-                <h3 class="hideArrow" v-on:click="this.hideSideBar" v-if="this.windowWidth < 1366">&#9664</h3>
+                <h3 class="hideArrow" v-on:click="this.toggleSideBar" v-if="this.windowWidth < 1366">&#9664</h3>
             </div>
             <div id="filterRow">
                 <div id="filterToggleLink" v-on:click="this.changeFilterToggle">
@@ -32,9 +32,6 @@
                         </b-dropdown>
                     </div>
                 </div>
-                <div>
-                    {{ this.windowWidth }}
-                </div>
             </div>
         </div>
         <div id="notesList">
@@ -44,6 +41,9 @@
             :note="note">
             </note-list-component>
         </div>
+    </div>
+    <div v-if="!this.isSidebarHidden && this.windowWidth < 1366" id="smallSideBar" v-on:click="this.toggleSideBar">
+        <h5>&#9660 Show Notes &#9660</h5>
     </div>
     <div>
         <note-view-component :isShared="isShared" >
@@ -130,8 +130,14 @@ export default {
         }
     },
     
-    hideSideBar() {
-        this.$store.dispatch('notes/toggleSideBar', false)
+    toggleSideBar() {
+        let newValue;
+        if (!this.isSidebarHidden) {
+            newValue = true;
+        } else {
+            newValue = false;
+        }
+        this.$store.dispatch('notes/toggleSideBar', newValue)
     }
   },
 
@@ -170,7 +176,7 @@ export default {
   max-width: 25%;
   background-color: #e1e1e1;
   overflow-y: scroll;
-  height: calc(100vh - 55px); 
+  height: calc(100vh - 49.25px); 
   /* subtract height of top nav bar */
   float: left;
 }
@@ -271,23 +277,63 @@ export default {
     padding: 0;
 }
 
+/* Alternate Sidebar */
+
+#smallSideBar {
+    float: left;
+    height: calc(100vh - 49.25px); 
+    max-width: 30px;
+    width: 30px;
+    background-color: #013369;
+    position: relative;
+    text-align: center;
+}
+
+#smallSideBar h5 {
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: white;
+    -webkit-transform: rotate(270deg);
+    position: absolute;
+    top: 50%;
+    width: 150px;
+    left: -200%;
+}
+
 /* RESPONSIVE STUFF */
 
 @media (max-width: 374px) {
+    #sideBar {
+        max-width: 100%;
+    }
 }
 
 @media (min-width: 375px) and (max-width: 413px) {
+    #sideBar {
+        max-width: 100%;
+    }
 }
 
 @media (min-width: 414px) and (max-width: 629px) {
+    #sideBar {
+        max-width: 100%;
+    }
 }
 
 @media (min-width: 630px) and (max-width: 767px) {
+    #sideBar {
+        max-width: 66%;
+    }
 }
 
-@media (min-width: 768px) and (max-width: 1365px) {
+@media (min-width: 768px) and (max-width: 1255px) {
+    #sideBar {
+        max-width: 33%;
+    }
 }
 
+/* 
 @media (min-width: 1366px) and (max-width: 1599px) {
 }
 
@@ -295,6 +341,6 @@ export default {
 }
 
 @media (min-width: 1920px) {
-}
+} */
 
 </style>
