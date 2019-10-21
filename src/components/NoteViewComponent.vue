@@ -10,37 +10,39 @@
   >
     <div id="noteHeader">
       <h1 v-bind:class="{ tinyNoteView: this.isSidebarHidden }">{{ selectedNote.title }}</h1>
-      <ul v-if="!isShared">
-        <a :href="'/EditNote/' + selectedNote.id"><li>Edit</li></a>
+      <ul v-if="!isShared" v-bind:class="{ tinyNoteView: this.isSidebarHidden }">
+        <a :href="'/EditNote/' + selectedNote.id"><li v-bind:class="{ tinyNoteView: this.isSidebarHidden }">Edit</li></a>
         <a v-on:click="deleteNote"><li>Delete</li></a>
       </ul>
     </div>
-    <div id="noteBody">
+    <div id="noteBody" v-bind:class="{ tinyNoteView: this.isSidebarHidden }">
       <div v-html="selectedNote.body"></div>
     </div>
     <div>
-      <tag-component
-      v-for="tag in selectedNote.tags"
-      :key="tag.id"
-      :tag="tag">
-      </tag-component>
-      <b-button v-if="!isShared" variant="success" v-b-modal.share-modal v-on:click="getUsersToShareWith">Share</b-button>
+      <span v-bind:class="{ tinyNoteView: this.isSidebarHidden }">
+        <tag-component
+        v-for="tag in selectedNote.tags"
+        :key="tag.id"
+        :tag="tag">
+        </tag-component>
+      </span>
+      <b-button v-if="!isShared" variant="success" v-b-modal.share-modal v-on:click="getUsersToShareWith" v-bind:class="{ tinyNoteView: this.isSidebarHidden }">Share</b-button>
     </div>
     <b-modal hide-footer id="share-modal" title="Share This Note With Another User">
       <p class="my-4">
         Search below for a users you would like to share this note with by registered email address.
         You may choose as many users as you like.
       </p>
-      <multiselect
-          v-model="selectedUsers"
-          tag-placeholder="Add this user"
-          placeholder="Search users"
-          label="username"
-          track-by="id"
-          :options="options"
-          :taggable="true"
-          :multiple="true"
-          @tag="addUserToSelected" />
+        <multiselect
+            v-model="selectedUsers"
+            tag-placeholder="Add this user"
+            placeholder="Search users"
+            label="username"
+            track-by="id"
+            :options="options"
+            :taggable="true"
+            :multiple="true"
+            @tag="addUserToSelected" />
       <b-button class="mt-3" block @click="submitShares">Share Now</b-button>
   </b-modal>
   </div>
@@ -208,24 +210,25 @@ export default {
     font-size: 2.5em;
   }
 
-  #noteHeader ul {
+  #noteHeader ul.tinyNoteView {
     display: block;
     float: none;
   }
 
-  #noteHeader li {
+  #noteHeader li.tinyNoteView {
     padding: 0 15px 0 0;
   }
 
-  #noteBody p {
+  #noteBody span.tinyNoteView {
     margin-bottom: 25px;
   }
 
-  .noteIndexTag {
+  .tinyNoteView .noteIndexTag {
+    float: none;
     margin: 3px 0 0 0;
   }
 
-  .btn-success {
+  .btn-success.tinyNoteView {
     margin-top: 20px;
     display: block;
   }
