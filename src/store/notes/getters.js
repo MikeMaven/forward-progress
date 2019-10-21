@@ -49,5 +49,13 @@ export default {
 
   getSelectedUsers: (state, getters) => {
     return state.notesIndexNavigation.selectedUsers;
+  },
+
+  getWindowSize: (state, getters) => {
+    return state.notesIndexNavigation.windowWidth;
+  },
+
+  getIsSidebarHidden: (state, getters) => {
+    return state.notesIndexNavigation.showSidebar;
   }
 };

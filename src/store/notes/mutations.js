@@ -138,6 +138,13 @@ export default {
 
   setSelectedUsers(state, updatedUsers) {
     state.notesIndexNavigation.selectedUsers = updatedUsers;
-    console.log(updatedUsers);
+  },
+
+  updateWidth(state, newWidth) {
+    state.notesIndexNavigation.windowWidth = newWidth;
+  },
+
+  toggleSideBar(state, newValue) {
+    state.notesIndexNavigation.showSidebar = newValue;
   }
 };
