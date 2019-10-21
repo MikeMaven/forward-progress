@@ -5,11 +5,11 @@
       noteIndexVisibleSideBar: this.isSidebarHidden || this.windowWidth > 1256,
       noteIndexVisibleSideBarSmaller: this.isSidebarHidden && this.windowWidth >= 768 && this.windowWidth < 1256,
       noteIndexVisibleSideBarSmallerTwo: this.isSidebarHidden && this.windowWidth >= 630 && this.windowWidth < 768,
-      noteIndexHiddenSideBar: !this.isSidebarHidden
+      noteIndexHiddenSideBar: !this.isSidebarHidden,
     }"
   >
     <div id="noteHeader">
-      <h1>{{ selectedNote.title }}</h1>
+      <h1 v-bind:class="{ tinyNoteView: this.isSidebarHidden }">{{ selectedNote.title }}</h1>
       <ul v-if="!isShared">
         <a :href="'/EditNote/' + selectedNote.id"><li>Edit</li></a>
         <a v-on:click="deleteNote"><li>Delete</li></a>
@@ -191,5 +191,46 @@ export default {
   color: black; /* Change the color */
   display: inline-block; /* Needed to add space between the bullet and the text */
   padding-right: 20px;
+}
+
+@media (max-width: 374px) {
+}
+
+@media (min-width: 375px) and (max-width: 413px) {
+}
+
+@media (min-width: 414px) and (max-width: 629px) {
+}
+
+@media (min-width: 630px) and (max-width: 767px) {
+  #noteHeader h1.tinyNoteView {
+    color: #013369;
+    font-size: 2.5em;
+  }
+
+  #noteHeader ul {
+    display: block;
+    float: none;
+  }
+
+  #noteHeader li {
+    padding: 0 15px 0 0;
+  }
+
+  #noteBody p {
+    margin-bottom: 25px;
+  }
+
+  .noteIndexTag {
+    margin: 3px 0 0 0;
+  }
+
+  .btn-success {
+    margin-top: 20px;
+    display: block;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1255px) {
 }
 </style>

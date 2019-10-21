@@ -36,6 +36,11 @@ export default {
     },
     windowSize() {
       return this.$store.getters['notes/getWindowSize']
+    },
+    isSidebarHidden: {
+        get: function() {
+            return this.$store.getters['notes/getIsSidebarHidden']
+        }
     }
   },
   methods: {
@@ -46,7 +51,19 @@ export default {
       });
     },
     selectNote() {
+      if (this.windowSize <= 767) {
+        this.$store.dispatch('notes/toggleSideBar', false)
+      }
       this.$store.dispatch('notes/selectNote', this.note)
+    },
+    toggleSideBar() {
+      let newValue;
+      if (!this.isSidebarHidden) {
+          newValue = true;
+      } else {
+          newValue = false;
+      }
+      this.$store.dispatch('notes/toggleSideBar', newValue)
     }
   }
 }
@@ -145,6 +162,10 @@ export default {
 
   #star {
     width: 8%;
+  }
+
+  .row {
+    flex-direction: row;
   }
 }
 
