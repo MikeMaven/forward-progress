@@ -17,6 +17,7 @@ if (config.use_env_variable) {
 
 /* eslint global-require: off */
 const modules = [
+  require('./blogpost.model.js'),
   require('./content.model.js'),
   require('./contenttext.model.js'),
   require('./language.model.js'),

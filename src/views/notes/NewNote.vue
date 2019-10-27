@@ -5,6 +5,7 @@
       :noteTitle = "null"
       :noteBody = "null"
       :editNoteID = "null"
+      :type = "'note'"
     ></text-editor-component-v2>
   </div>
 </template>
