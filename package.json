@@ -97,7 +97,7 @@
     "popper.js": "^1.15.0",
     "route-cache": "0.4.4",
     "sanitize.css": "10.0.0",
-    "sequelize": "5.9.4",
+    "sequelize": "5.15.1",
     "sequelize-cli": "5.5.0",
     "serialize-javascript": "1.7.0",
     "serve-favicon": "2.5.0",
