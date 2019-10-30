@@ -201,7 +201,7 @@ export default {
         creatorId: this.currentUser.id
       }
       this.$store.dispatch('notes/submitShares', payload).then(response => {
-        this.$root.$emit('bv::hide::modal', 'share-modal');
+        router.push('/notes')
       })
     },
   },
