@@ -70,7 +70,7 @@ export function saveNote(title, body, tags, newTags) {
   });
 
   return axios(options).then(response =>
-    CodeApi.unrollApiResponse(response.data.note)
+    CodeApi.unrollApiResponse(response.data)
   );
 }
 
