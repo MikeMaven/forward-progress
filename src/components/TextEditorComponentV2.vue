@@ -20,15 +20,36 @@
       <router-link to="/notes" tag="button" v-if="this.editNoteID">Cancel</router-link>
       <button v-on:click="clearEditor" v-if="!this.editNoteID">Clear</button>
       <button v-on:click="saveNote">Save Note</button>
+      <button v-on:click="saveAndShareNote">Save and Share</button>
       <button v-on:click="deleteNote" v-if="this.editNoteID">Delete Note</button>
     </div>
+    <b-modal hide-footer id="share-modal" title="Share This Note With Another User">
+      <p class="my-4">
+        Search below for a users you would like to share this note with by registered email address.
+        You may choose as many users as you like.
+      </p>
+        <multiselect
+            v-model="selectedUsers"
+            tag-placeholder="Add this user"
+            placeholder="Search users"
+            label="username"
+            track-by="id"
+            :options="userOptions"
+            :taggable="true"
+            :multiple="true"
+            @tag="addUserToSelected" />
+      <b-button class="mt-3" block @click="submitShares">Share Now</b-button>
+  </b-modal>
   </div>
 </template>
 
 <script>
+import TagComponent from './TagComponent.vue';
+import previewTextGenerator from '../store/notes/helpers/previewTextGenerator'
 import Multiselect from 'vue-multiselect';
 import axios from 'axios';
 require('../util/multiselect.css')
+import { router } from '../router';
 
 export default {
   name: 'TextEditorComponentV2',
@@ -42,7 +63,8 @@ export default {
   data() {
     return {
       title: null,
-      content: null
+      content: null,
+      shareNoteId: null
     }
   },
   watch: {
@@ -54,8 +76,11 @@ export default {
     }
   },
   computed: {
-   options() {
+    options() {
       return this.$store.getters['notes/getAllTags'];
+    },
+    userOptions() {
+      return this.$store.getters['notes/usersToShareWith'];
     },
     selected: {
       get: function() {
@@ -64,7 +89,18 @@ export default {
       set: function(updatedTags) {
         this.$store.dispatch('notes/updateTagSelection', updatedTags);
       }
-    }
+    },
+    selectedUsers: {
+      get: function() {
+        return this.$store.getters['notes/getSelectedUsers'];
+      },
+      set: function(updatedUsers) {
+        this.$store.dispatch('notes/updateUserSelection', updatedUsers);
+      }
+    },
+    currentUser() {
+      return this.$store.state.user;
+    },
   },
 
   methods: {
@@ -81,6 +117,8 @@ export default {
           id: this.editNoteID,
           tags: this.selected,
           allTags: this.options
+        }).then((response) => {
+          router.push('/notes')
         })
       } else {
         this.$store.dispatch('notes/saveNote', {
@@ -88,7 +126,34 @@ export default {
           body: this.content,
           tags: this.selected,
           allTags: this.options
-        });
+        }).then((response) => {
+          router.push('/notes')
+        })
+      }
+    },
+    saveAndShareNote(){
+      if (this.editNoteID) {
+        this.$store.dispatch('notes/editNote', {
+          title: this.title,
+          body: this.content,
+          id: this.editNoteID,
+          tags: this.selected,
+          allTags: this.options
+        }).then((response) => {
+          this.shareNoteId = response.id
+          this.$root.$emit('bv::show::modal', 'share-modal');
+        })
+      } else {
+        this.$store.dispatch('notes/getUsersToShareWith');
+        this.$store.dispatch('notes/saveNote', {
+          title: this.title,
+          body: this.content,
+          tags: this.selected,
+          allTags: this.options
+        }).then((response) => {
+          this.shareNoteId = response.id
+          this.$root.$emit('bv::show::modal', 'share-modal');
+        })
       }
     },
     addTag (newTag) {
@@ -125,7 +190,20 @@ export default {
             Editor.insertEmbed(cursorLocation, "image", url);
             resetUploader();
         })
-    }
+    },
+    addUserToSelected(user) {
+      this.selectedUsers.push(user);
+    },
+    submitShares() {
+      let payload = {
+        users: this.selectedUsers,
+        noteId: this.shareNoteId,
+        creatorId: this.currentUser.id
+      }
+      this.$store.dispatch('notes/submitShares', payload).then(response => {
+        this.$root.$emit('bv::hide::modal', 'share-modal');
+      })
+    },
   },
 
   mounted() {

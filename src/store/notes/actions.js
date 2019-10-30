@@ -92,8 +92,7 @@ export default {
         newTags
       ).then(note => {
         context.commit('setNewNote', note);
-        router.push('/notes');
-        resolve();
+        resolve(note);
       });
     });
   },
@@ -110,8 +109,7 @@ export default {
         newTags
       ).then(note => {
         context.commit('setNewNote', note);
-        router.push('/notes');
-        resolve();
+        resolve(note);
       });
     });
   },
