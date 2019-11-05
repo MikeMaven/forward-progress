@@ -15,3 +15,18 @@ export function saveBlog(title, body) {
     CodeApi.unrollApiResponse(response.data)
   );
 }
+
+export function getBlogPosts() {
+  const url = '../api/public/getBlogPosts';
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response => {
+    console.log(response);
+    CodeApi.unrollApiResponse(response);
+  });
+}

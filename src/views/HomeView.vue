@@ -46,7 +46,10 @@ import { mapGetters } from 'vuex';
 export default {
   computed: {
     ...mapGetters(['appData'])
-  }
+  },
+  mounted() {
+    this.$store.dispatch('blog/getBlogPosts');
+  },
 };
 </script>
 
