@@ -33,6 +33,19 @@
         v-if="isAdmin"
         exact
         to="/admin">Admin</b-nav-item>
+      <b-nav-item-dropdown v-if="isAdmin" text="Blog">
+        <b-dropdown-item to="/blog/new">
+          New Blog Post
+        </b-dropdown-item>
+        <b-dropdown-item to="/blog/index">
+          Read Blog
+        </b-dropdown-item>
+      </b-nav-item-dropdown>
+      <b-nav-item
+      v-if="!isAdmin"
+      to="/blog/index">
+        Blog
+      </b-nav-item>
       <b-nav-item
         exact
         to="/about">About Us</b-nav-item>

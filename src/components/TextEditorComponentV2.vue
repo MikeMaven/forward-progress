@@ -3,7 +3,7 @@
     <h4>Title:</h4>
     <input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" id="titleEntry" />
     <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="content" ref="editor"></vue-editor>
-    <div class="tagDiv">
+    <div class="tagDiv" v-if="this.type === 'note'">
       <h4>Add Tags:</h4>
       <multiselect
         v-model="selected"
@@ -19,8 +19,9 @@
     <div class="buttonRow">
       <router-link to="/notes" tag="button" v-if="this.editNoteID">Cancel</router-link>
       <button v-on:click="clearEditor" v-if="!this.editNoteID">Clear</button>
-      <button v-on:click="saveNote">Save Note</button>
-      <button v-on:click="saveAndShareNote">Save and Share</button>
+      <button v-on:click="saveNote" v-if="this.type === 'note'">Save Note</button>
+      <button v-on:click="saveAndShareNote" v-if="this.type === 'note'">Save and Share</button>
+      <button v-on:click="saveNote" v-if="this.type === 'blog'">Save Blog</button>
       <button v-on:click="deleteNote" v-if="this.editNoteID">Delete Note</button>
     </div>
     <b-modal hide-footer id="share-modal" title="Share This Note With Another User">
@@ -54,11 +55,11 @@ import { router } from '../router';
 export default {
   name: 'TextEditorComponentV2',
 
-  components: {Multiselect},
+  components: { Multiselect },
 
   mixins: [],
 
-  props: [ 'noteTitle', 'noteBody', 'editNoteID' ],
+  props: [ 'noteTitle', 'noteBody', 'editNoteID', 'type' ],
 
   data() {
     return {
@@ -72,7 +73,7 @@ export default {
       this.title = this.noteTitle;
     },
     noteBody: function() {
-      this.content = this.noteBody
+      this.content = this.noteBody;
     }
   },
   computed: {
@@ -110,25 +111,32 @@ export default {
       this.content = null;
     },
     saveNote() {
-      if (this.editNoteID) {
-        this.$store.dispatch('notes/editNote', {
+      if (this.type === 'note') {
+        if (this.editNoteID) {
+          this.$store.dispatch('notes/editNote', {
+            title: this.title,
+            body: this.content,
+            id: this.editNoteID,
+            tags: this.selected,
+            allTags: this.options
+          }).then((response) => {
+            router.push('/notes');
+          });
+        } else {
+          this.$store.dispatch('notes/saveNote', {
+            title: this.title,
+            body: this.content,
+            tags: this.selected,
+            allTags: this.options
+          }).then((response) => {
+            router.push('/notes');
+          });
+        }
+      } else if (this.type === 'blog') {
+        this.$store.dispatch('blog/saveBlog', {
           title: this.title,
-          body: this.content,
-          id: this.editNoteID,
-          tags: this.selected,
-          allTags: this.options
-        }).then((response) => {
-          router.push('/notes')
-        })
-      } else {
-        this.$store.dispatch('notes/saveNote', {
-          title: this.title,
-          body: this.content,
-          tags: this.selected,
-          allTags: this.options
-        }).then((response) => {
-          router.push('/notes')
-        })
+          body: this.content
+        });
       }
     },
     saveAndShareNote(){
@@ -151,9 +159,9 @@ export default {
           tags: this.selected,
           allTags: this.options
         }).then((response) => {
-          this.shareNoteId = response.id
+          this.shareNoteId = response.id;
           this.$root.$emit('bv::show::modal', 'share-modal');
-        })
+        });
       }
     },
     addTag (newTag) {

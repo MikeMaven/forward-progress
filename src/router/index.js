@@ -23,6 +23,9 @@ const UserShow = () => import('../views/users/UserShow.vue');
 import NotesIndexWrapper from '../views/notes/NotesIndexWrapper.vue';
 import NewNote from '../views/notes/NewNote.vue';
 import EditNote from '../views/notes/EditNote.vue';
+// Blog views
+import BlogIndex from '../views/blog/BlogIndex.vue';
+import NewBlogPost from '../views/blog/NewBlogPost.vue';
 // Admin views
 const AdminShow = () => import('../views/AdminDash.vue');
 import NotesIndexAdminWrapper from '../views/notes/NotesIndexAdminWrapper.vue';
@@ -51,6 +54,8 @@ function createRouter() {
           { path: 'userpassword', component: ProfilePasswordView }
         ]
       },
+      { path: '/blog/index', component: BlogIndex },
+      { path: '/blog/new', component: NewBlogPost },
       { path: '/users', component: UsersView },
       { path: '/users/:id', component: UserShow },
       { path: '/notes', component: NotesIndexWrapper },
