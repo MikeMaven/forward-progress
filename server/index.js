@@ -22,6 +22,7 @@ function apiRoutes(app) {
   // User's feature, this incldues auth middleware as well
   require('./features/users')(app);
   require('./features/notes')(app);
+  require('./features/blog')(app);
   require('./features/fileupload')(app);
   // Content public routes
   require('./features/content/content.routes')(app);

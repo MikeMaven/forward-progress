@@ -5,6 +5,7 @@
       :noteTitle = "noteToEdit.title"
       :noteBody = "noteToEdit.body"
       :editNoteID = "this.$route.params.id"
+      :type = "'note'"
     ></text-editor-component-v2>
   </div>
 </template>
