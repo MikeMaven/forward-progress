@@ -8,6 +8,7 @@ const { User, UserImage, Role } = DB;
 const errorHandler = require('../core/errorHandler');
 const { getAccessToken } = require('./token');
 const logger = require('../logger');
+const whitelist = require('./user.whitelist');
 
 // =================== OAUTH ROUTES ====================
 
@@ -90,24 +91,28 @@ exports.oauthCallback = strategy => (req, res, next) => {
     if (!user) {
       return res.redirect('/login');
     }
-    console.log('=================');
-    console.log('=================');
-    User.findByPk(user.id, {
-      include: [
-        {
-          model: Role,
-          as: 'Roles'
-        }
-      ]
-    }).then(user => {
+    if (whitelist[user.email]) {
       console.log('=================');
-      console.log(user.Roles);
       console.log('=================');
-      const token = getAccessToken(user);
-      // res.locals.token = token;
-      const encodedToken = encodeURIComponent(token);
-      res.redirect(`/?access_token=${encodedToken}`);
-    });
+      User.findByPk(user.id, {
+        include: [
+          {
+            model: Role,
+            as: 'Roles'
+          }
+        ]
+      }).then(user => {
+        console.log('=================');
+        console.log(user.Roles);
+        console.log('=================');
+        const token = getAccessToken(user);
+        // res.locals.token = token;
+        const encodedToken = encodeURIComponent(token);
+        res.redirect(`/?access_token=${encodedToken}`);
+      });
+    } else {
+      return res.redirect(`/login?err=emailnotauthorized`);
+    }
   })(req, res, next);
 };
 
