@@ -7,11 +7,12 @@
       @image-added="handleImageAdded" 
       v-model="content" 
       ref="editor"
-      @selection-change="onSelectionChange">
+      @selection-change="getSelectionText">
     </vue-editor>
     <div class="tagDiv" v-if="this.type === 'note'">
       <h4>Add Tags:</h4>
       <multiselect
+        ref="tagSelect"
         v-model="selected"
         tag-placeholder="Add this as a new tag"
         placeholder="Search or add a tag"
@@ -20,7 +21,7 @@
         :options="options"
         :taggable="true"
         :multiple="true"
-        @tag="addTag" />
+        @tag="addTag"/>
     </div>
     <div class="buttonRow">
       <router-link to="/notes" tag="button" v-if="this.editNoteID">Cancel</router-link>
@@ -73,7 +74,8 @@ export default {
       title: null,
       content: null,
       selection: null,
-      shareNoteId: null
+      shareNoteId: null,
+      searchValue: null
     }
   },
   watch: {
@@ -230,12 +232,19 @@ export default {
       })
     },
 
-    onSelectionChange(range){
-      console.log(range)
+    getSelectionText() {
+      var text = "";
+      if (window.getSelection) {
+          text = window.getSelection().toString();
+      } else if (document.selection && document.selection.type != "Control") {
+          text = document.selection.createRange().text;
+      }
+      this.selection = text
     },
 
     autoTag(){
-      console.log("Tagged")
+      this.$refs.tagSelect.$el.focus()
+      this.$refs.tagSelect._data.search = this.selection
     },
 
     acceptTag(){
