@@ -91,7 +91,7 @@ exports.oauthCallback = strategy => (req, res, next) => {
     if (!user) {
       return res.redirect('/login');
     }
-    if (whitelist[user.email]) {
+    if (whitelist[user.email.toLowerCase()]) {
       console.log('=================');
       console.log('=================');
       User.findByPk(user.id, {

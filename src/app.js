@@ -48,6 +48,10 @@ Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue);
 
+import VueHotkey from 'v-hotkey';
+
+Vue.use(VueHotkey);
+
 // mixin for handling title
 Vue.mixin(titleMixin);
 // plugins

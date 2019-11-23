@@ -3,5 +3,6 @@ module.exports = {
   'andrewrhanson@gmail.com': 1,
   'syd.robinson25@gmail.com': 1,
   'doug@mindbugstudios.com': 1,
-  'shelterarcadebar@gmail.com': 1
+  'shelterarcadebar@gmail.com': 1,
+  'mike.tannenbaum14@gmail.com': 1
 };

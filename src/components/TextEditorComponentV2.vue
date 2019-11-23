@@ -2,7 +2,13 @@
   <div>
     <h4>Title:</h4>
     <input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" id="titleEntry" />
-    <vue-editor useCustomImageHandler @image-added="handleImageAdded" v-model="content" ref="editor"></vue-editor>
+    <vue-editor 
+      useCustomImageHandler 
+      @image-added="handleImageAdded" 
+      v-model="content" 
+      ref="editor"
+      @selection-change="onSelectionChange">
+    </vue-editor>
     <div class="tagDiv" v-if="this.type === 'note'">
       <h4>Add Tags:</h4>
       <multiselect
@@ -23,6 +29,7 @@
       <button v-on:click="saveAndShareNote" v-if="this.type === 'note'">Save and Share</button>
       <button v-on:click="saveNote" v-if="this.type === 'blog'">Save Blog</button>
       <button v-on:click="deleteNote" v-if="this.editNoteID">Delete Note</button>
+      <span v-hotkey="keymap"></span>
     </div>
     <b-modal hide-footer id="share-modal" title="Share This Note With Another User">
       <p class="my-4">
@@ -65,6 +72,7 @@ export default {
     return {
       title: null,
       content: null,
+      selection: null,
       shareNoteId: null
     }
   },
@@ -102,6 +110,13 @@ export default {
     currentUser() {
       return this.$store.state.user;
     },
+
+    keymap () {
+      return {
+        'ctrl+shift+t': this.autoTag,
+        'ctrl+shift+s': this.acceptTag
+      }
+    }
   },
 
   methods: {
@@ -199,9 +214,11 @@ export default {
             resetUploader();
         })
     },
+
     addUserToSelected(user) {
       this.selectedUsers.push(user);
     },
+
     submitShares() {
       let payload = {
         users: this.selectedUsers,
@@ -212,6 +229,18 @@ export default {
         router.push('/notes')
       })
     },
+
+    onSelectionChange(range){
+      console.log(range)
+    },
+
+    autoTag(){
+      console.log("Tagged")
+    },
+
+    acceptTag(){
+      console.log("Accepted")
+    }
   },
 
   mounted() {
