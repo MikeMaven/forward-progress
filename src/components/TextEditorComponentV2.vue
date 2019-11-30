@@ -11,6 +11,7 @@
     </vue-editor>
     <div class="tagDiv" v-if="this.type === 'note'">
       <h4>Add Tags:</h4>
+      <p class="small text-secondary">Press shift + ctrl + t to tag highlighted text.</p>
       <multiselect
         ref="tagSelect"
         v-model="selected"
@@ -243,12 +244,12 @@ export default {
     },
 
     autoTag(){
-      this.$refs.tagSelect.$el.focus()
-      this.$refs.tagSelect._data.search = this.selection
+      this.$refs.tagSelect.$el.focus();
+      this.$refs.tagSelect._data.search = this.selection.trim();
     },
 
     acceptTag(){
-      console.log("Accepted")
+      console.log("Accepted");
     }
   },
 
