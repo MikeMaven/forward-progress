@@ -4,5 +4,11 @@ module.exports = {
   'syd.robinson25@gmail.com': 1,
   'doug@mindbugstudios.com': 1,
   'shelterarcadebar@gmail.com': 1,
-  'mike.tannenbaum14@gmail.com': 1
+  'mike.tannenbaum14@gmail.com': 1,
+  'tharmon@umass.edu': 1,
+  'belsner@umass.edu': 1,
+  'jmhammond@umass.edu': 1,
+  'allenjgaudetiv@gmail.com': 1,
+  'stwise@email.sc.edu': 1,
+  'jansenpetagna@gmail.com': 1
 };
