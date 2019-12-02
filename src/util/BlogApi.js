@@ -2,13 +2,13 @@ import axios from 'axios';
 
 import * as CodeApi from './CodeApi.js';
 
-export function saveBlog(title, body) {
+export function saveBlog(title, body, imageURL) {
   const url = '../api/newBlog';
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {
     method: 'post',
     url: url,
     responseType: 'json',
-    data: { title, body }
+    data: { title, body, imageURL }
   });
 
   return axios(options).then(response =>

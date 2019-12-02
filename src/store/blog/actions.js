@@ -4,9 +4,11 @@ import { router } from '../../../src/router';
 export default {
   saveBlog(context, payload) {
     return new Promise(resolve => {
-      BlogApi.saveBlog(payload.title, payload.body).then(blog => {
-        resolve();
-      });
+      BlogApi.saveBlog(payload.title, payload.body, payload.imageURL).then(
+        blog => {
+          resolve();
+        }
+      );
     });
   },
 
@@ -16,6 +18,13 @@ export default {
         console.log(posts);
         resolve();
       });
+    });
+  },
+
+  setCoverImage(context, imageURL) {
+    return new Promise(function(resolve) {
+      context.commit('setCoverImage', imageURL);
+      resolve();
     });
   }
 };
