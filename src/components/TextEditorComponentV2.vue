@@ -2,6 +2,17 @@
   <div>
     <h4>Title:</h4>
     <input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" id="titleEntry" />
+    <div id="coverImage" v-if="this.type === 'blog' && this.coverImageURL">
+      <img v-bind:src="this.coverImageURL" />
+    </div>
+    <input
+      id="coverImageUpload"
+      ref="fileInput"
+      type="file"
+      accept="image/*"
+      v-if="this.type === 'blog'"
+      @change="uploadCoverImage($event)"
+    />
     <vue-editor 
       useCustomImageHandler 
       @image-added="handleImageAdded" 
@@ -119,6 +130,9 @@ export default {
         'ctrl+shift+t': this.autoTag,
         'ctrl+shift+s': this.acceptTag
       }
+    },
+    coverImageURL() {
+      return this.$store.getters['blog/coverImageURL'];
     }
   },
 
@@ -153,7 +167,8 @@ export default {
       } else if (this.type === 'blog') {
         this.$store.dispatch('blog/saveBlog', {
           title: this.title,
-          body: this.content
+          body: this.content,
+          imageURL: this.coverImageURL
         });
       }
     },
@@ -212,8 +227,12 @@ export default {
         config: { headers: {'Content-Type': 'multipart/form-data' }}
       })
         .then(response => {
-            let url = response.data.imageUrl    
-            Editor.insertEmbed(cursorLocation, "image", url);
+            let url = response.data.imageUrl
+            if (Editor && cursorLocation) {
+              Editor.insertEmbed(cursorLocation, "image", url);
+            } else {
+              this.$store.dispatch('blog/setCoverImage', url);
+            }
             resetUploader();
         })
     },
@@ -250,6 +269,15 @@ export default {
 
     acceptTag(){
       console.log("Accepted");
+    },
+
+    uploadCoverImage($event) {
+      const resetUploader = function() {
+        var uploader = document.getElementById("coverImageUpload");
+        // uploader.value = "";
+      };
+      let file = $event.target.files[0];
+      this.handleImageAdded(file, null, null, resetUploader);
     }
   },
 

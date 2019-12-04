@@ -13,7 +13,8 @@ module.exports = (sequelize, DataTypes) => {
           model: User,
           key: 'id'
         }
-      }
+      },
+      coverImageURL: DataTypes.STRING
     },
     {}
   );

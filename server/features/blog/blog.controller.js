@@ -23,11 +23,11 @@ exports.newBlog = (req, res) => {
     const newBlog = Object.assign({
       title: req.body.title,
       body: req.body.body,
+      coverImageURL: req.body.imageURL,
       Author: req.user.dataValues.id
     });
     BlogPost.create(newBlog).then(blog => {
       const responseBlog = JSON.stringify(blog);
-      console.log(responseBlog);
       res.json(responseBlog);
     });
   } else {
