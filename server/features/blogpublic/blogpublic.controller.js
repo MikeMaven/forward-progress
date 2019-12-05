@@ -27,7 +27,14 @@ exports.getPageOfBlogPosts = (req, res) => {
     return res.status(401).send({});
   } else {
     const currentPageIndex = (req.params.page - 1) * 10;
-    BlogPost.findAll().then(blogPosts => {
+    BlogPost.findAll({
+      include: [
+        {
+          model: User,
+          attributes: ['firstName', 'lastName']
+        }
+      ]
+    }).then(blogPosts => {
       let fetchedPosts = [];
       let postCount = blogPosts.length;
       for (let x = 0; x < 10; x++) {

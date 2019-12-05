@@ -1,19 +1,23 @@
 <template>
   <div>
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
+    <div id="blogPostList">
+      <blog-post-component
+      v-for="post in currentBlogPosts"
+      :key="post.id"
+      :post="post">
+      </blog-post-component>
     </div>
-    {{ numberOfPages }}
-    {{ currentBlogPosts }}
   </div>
 </template>
 
 <script>
+import BlogPostComponent from '../../components/BlogPostComponent.vue';
+
 export default {
+  components: {
+    BlogPostComponent
+  },
+
   computed: {
     currentBlogPosts() {
       return this.$store.getters['blog/getPageOfPosts'];
