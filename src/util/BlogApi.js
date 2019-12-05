@@ -26,7 +26,6 @@ export function getBlogPosts() {
   });
 
   return axios(options).then(response => {
-    console.log(response);
     CodeApi.unrollApiResponse(response);
   });
 }
