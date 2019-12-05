@@ -21,3 +21,23 @@ const logger = require('../logger');
 exports.getBlogPosts = (req, res) => {
   res.json('testing public route');
 };
+
+exports.getPageOfBlogPosts = (req, res) => {
+  if (isNaN(req.params.page) || req.params.page < 1) {
+    return res.status(401).send({});
+  } else {
+    const currentPageIndex = (req.params.page - 1) * 10;
+    BlogPost.findAll().then(blogPosts => {
+      let fetchedPosts = [];
+      let postCount = blogPosts.length;
+      for (postCount = 0; postCount < 10; postCount++) {
+        if (blogPosts[currentPageIndex + postCount]) {
+          fetchedPosts.push(blogPosts[currentPageIndex + postCount]);
+        } else {
+          break;
+        }
+      }
+      res.json({ fetchedPosts, postCount });
+    });
+  }
+};

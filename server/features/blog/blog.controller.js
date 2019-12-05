@@ -22,8 +22,10 @@ exports.newBlog = (req, res) => {
   if (req.user && (req.body.title && req.body.body)) {
     const newBlog = Object.assign({
       title: req.body.title,
+      subTitle: req.body.subTitle,
       body: req.body.body,
       coverImageURL: req.body.imageURL,
+      isPaid: req.body.isPaid,
       Author: req.user.dataValues.id
     });
     BlogPost.create(newBlog).then(blog => {

@@ -4,11 +4,15 @@ import { router } from '../../../src/router';
 export default {
   saveBlog(context, payload) {
     return new Promise(resolve => {
-      BlogApi.saveBlog(payload.title, payload.body, payload.imageURL).then(
-        blog => {
-          resolve();
-        }
-      );
+      BlogApi.saveBlog(
+        payload.title,
+        payload.body,
+        payload.imageURL,
+        payload.subTitle,
+        payload.isPaid
+      ).then(blog => {
+        resolve();
+      });
     });
   },
 
@@ -16,6 +20,16 @@ export default {
     return new Promise(resolve => {
       BlogApi.getBlogPosts().then(posts => {
         console.log(posts);
+        resolve();
+      });
+    });
+  },
+
+  getPageOfBlogPosts(context, currentPage) {
+    return new Promise(resolve => {
+      BlogApi.getPageOfBlogPosts(currentPage).then(posts => {
+        console.log(posts);
+        // add posts to state here
         resolve();
       });
     });

@@ -37,13 +37,13 @@
         <b-dropdown-item to="/blog/new">
           New Blog Post
         </b-dropdown-item>
-        <b-dropdown-item to="/blog/index">
+        <b-dropdown-item to="/blog/index?page=1">
           Read Blog
         </b-dropdown-item>
       </b-nav-item-dropdown>
       <b-nav-item
       v-if="!isAdmin"
-      to="/blog/index">
+      to="/blog/index?page=1">
         Blog
       </b-nav-item>
       <b-nav-item
