@@ -1,3 +1,5 @@
 export default {
-  coverImageURL: null
+  coverImageURL: null,
+  pageOfBlogPosts: [],
+  numberOfPages: 0
 };

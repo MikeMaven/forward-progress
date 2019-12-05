@@ -30,9 +30,9 @@ exports.getPageOfBlogPosts = (req, res) => {
     BlogPost.findAll().then(blogPosts => {
       let fetchedPosts = [];
       let postCount = blogPosts.length;
-      for (postCount = 0; postCount < 10; postCount++) {
-        if (blogPosts[currentPageIndex + postCount]) {
-          fetchedPosts.push(blogPosts[currentPageIndex + postCount]);
+      for (let x = 0; x < 10; x++) {
+        if (blogPosts[currentPageIndex + x]) {
+          fetchedPosts.push(blogPosts[currentPageIndex + x]);
         } else {
           break;
         }

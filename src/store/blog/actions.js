@@ -27,9 +27,9 @@ export default {
 
   getPageOfBlogPosts(context, currentPage) {
     return new Promise(resolve => {
-      BlogApi.getPageOfBlogPosts(currentPage).then(posts => {
-        console.log(posts);
-        // add posts to state here
+      BlogApi.getPageOfBlogPosts(currentPage).then(result => {
+        context.commit('setPageOfBlogPosts', result.fetchedPosts);
+        context.commit('setNumberOfPages', result.postCount);
         resolve();
       });
     });
