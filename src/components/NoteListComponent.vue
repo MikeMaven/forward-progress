@@ -29,7 +29,7 @@ export default {
   mounted() {},
   computed: {
     previewText() {
-      return previewTextGenerator(this.note);
+      return previewTextGenerator(this.note, 'note');
     },
     selectedNote() {
       return this.$store.getters['notes/getSelectedNote'];

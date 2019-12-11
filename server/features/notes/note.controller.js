@@ -128,7 +128,6 @@ exports.getNote = (req, res) => {
 };
 
 exports.starToggle = (req, res) => {
-  console.log(req.body.starred);
   if (req.user) {
     let changeTo;
     if (req.body.starred) {

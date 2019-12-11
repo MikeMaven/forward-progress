@@ -1,18 +1,24 @@
 <template>
   <div>
     <h4>Title:</h4>
-    <input v-model="title" type="text" tabindex="1" v-on:keydown="focusEditor" id="titleEntry" />
-    <div id="coverImage" v-if="this.type === 'blog' && this.coverImageURL">
-      <img v-bind:src="this.coverImageURL" />
+    <input v-model="title" type="text" tabindex="1" id="titleEntry" />
+    <div v-if="this.type === 'blog'" id="blogFields">
+      <h4>Subtitle:</h4>
+      <input v-model="subTitle" type="text" tabindex="2" v-on:keydown="focusEditor" id="titleEntry" />
+      <h4>Paywall Article?:</h4>
+      <input v-model="isPaid" type="checkbox" id="paywallCheckBox" />
+      <h4>Upload Cover image:</h4>
+      <input
+        id="coverImageUpload"
+        ref="fileInput"
+        type="file"
+        accept="image/*"
+        @change="uploadCoverImage($event)"
+      />
+      <div id="coverImage" v-if="this.coverImageURL">
+        <img v-bind:src="this.coverImageURL" width="50" height="50" />
+      </div>
     </div>
-    <input
-      id="coverImageUpload"
-      ref="fileInput"
-      type="file"
-      accept="image/*"
-      v-if="this.type === 'blog'"
-      @change="uploadCoverImage($event)"
-    />
     <vue-editor 
       useCustomImageHandler 
       @image-added="handleImageAdded" 
@@ -87,7 +93,8 @@ export default {
       content: null,
       selection: null,
       shareNoteId: null,
-      searchValue: null
+      searchValue: null,
+      isPaid: true
     }
   },
   watch: {
@@ -167,8 +174,10 @@ export default {
       } else if (this.type === 'blog') {
         this.$store.dispatch('blog/saveBlog', {
           title: this.title,
+          subTitle: this.subTitle,
           body: this.content,
-          imageURL: this.coverImageURL
+          imageURL: this.coverImageURL,
+          isPaid: this.isPaid
         });
       }
     },

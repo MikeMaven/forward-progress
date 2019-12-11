@@ -14,7 +14,9 @@ module.exports = (sequelize, DataTypes) => {
           key: 'id'
         }
       },
-      coverImageURL: DataTypes.STRING
+      coverImageURL: DataTypes.STRING,
+      subTitle: DataTypes.STRING,
+      isPaid: DataTypes.BOOLEAN
     },
     {}
   );

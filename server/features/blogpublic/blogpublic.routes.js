@@ -24,4 +24,7 @@ module.exports = app => {
   const blog = require('./blogpublic.controller');
 
   app.route('/api/public/getBlogPosts').get(blog.getBlogPosts);
+  app
+    .route('/api/public/getPageOfBlogPosts/:page')
+    .get(blog.getPageOfBlogPosts);
 };
