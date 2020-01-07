@@ -16,7 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       },
       coverImageURL: DataTypes.STRING,
       subTitle: DataTypes.STRING,
-      isPaid: DataTypes.BOOLEAN
+      isPaid: DataTypes.BOOLEAN,
+      photoGallery: DataTypes.ARRAY(DataTypes.STRING)
     },
     {}
   );
