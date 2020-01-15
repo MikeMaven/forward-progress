@@ -49,6 +49,15 @@ A full service web application for front office NFL execs.
 # install dependencies
 npm install # or yarn
 
+#create database
+sequelize db:create
+
+#migrate the database
+sequelize db:migrate
+
+#seed the database
+sequelize db:seed:all
+
 # serve in dev mode, with hot reload at localhost:3000
 npm run dev # or yarn dev
 
