@@ -23,6 +23,6 @@ const clientTitleMixin = {
   }
 };
 
-export default (process.env.VUE_ENV === 'server'
+export default process.env.VUE_ENV === 'server'
   ? serverTitleMixin
-  : clientTitleMixin);
+  : clientTitleMixin;

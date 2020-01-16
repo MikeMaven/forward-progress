@@ -65,7 +65,7 @@ if (isProd) {
   renderer = createRenderer(bundle, {
     template,
     clientManifest
-  })
+  });
 } else {
   // In development: setup the dev server with watch and hot-reload,
   // and create a new renderer on bundle / index template update.
@@ -75,7 +75,7 @@ if (isProd) {
     (bundle, options) => {
       renderer = createRenderer(bundle, options);
     }
-  )
+  );
 }
 
 const serve = (path, cache) => express.static(resolve(path), {
@@ -175,15 +175,12 @@ server.listen(port, host, err => {
   if (ngrok) {
     let url;
     (async function() {
-      console.log('Waiting for ngrok connection')
+      console.log('Waiting for ngrok connection');
       url = await ngrok.connect(port);
-      console.log(1)
-      console.log({ url })
+      console.log({ url });
     })().catch(err => {
-      console.log({ err })
       return logger.error(err);
-    })
-
+    });
     return logger.appStarted(port, prettyHost, url);
   }
   return logger.appStarted(port, prettyHost);

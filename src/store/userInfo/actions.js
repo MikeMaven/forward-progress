@@ -5,9 +5,9 @@ export default {
   fetchProfile(context) {
     return new Promise(resolve => {
       UserInfoApi.getUserProfile().then(response => {
-        context.commit('setUserProfile', response)
+        context.commit('setUserProfile', response);
         resolve();
-      })
-    })
+      });
+    });
   }
 };
