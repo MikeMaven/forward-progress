@@ -1,8 +1,7 @@
 {
     "watch": [
-        "server",
-        "server.js"
+        "server"
     ],
     "ext": "js json",
-    "exec": "node --inspect ./server.js"
+    "exec": "node --inspect ./server"
 }
