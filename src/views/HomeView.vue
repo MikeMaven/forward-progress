@@ -1,27 +1,47 @@
 <template>
-  <div class="container" id="landingContainer">
-    <div class="span-image">
-      <img src="/public/images/field.jpg" class="landingImage">
-    </div>
-    <div id="textOverImage">
-      <div class="col titleArea">
-        <h1>Forward<br><span class="logoProgress">Progress</span></h1>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col aboutRow">
-          <router-link to="about" class="aboutButton infoButton">Who We Are</router-link>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col aboutRow aboutRowSubHeader">
-        <p class="subHeader">A web based SaaS platform for front office NFL executives.</p>
-      </div>
-    </div>
-    <div class="row header3">
+  <div
+id="landingContainer" class="container">
+    <div class="row header3 mb-3">
       <p>Leading the Way Forward in Football Analysis</p>
     </div>
-    <div class="featureSpotlight">
+    <b-row align-h="center">
+      <b-col cols="4">
+        <b-carousel
+          id="landing-page-article-carousel"
+          :interval="4000"
+          fade
+          controls
+          indicators
+          background="#ababab"
+          img-width="100%"
+          img-height="400px"
+        >
+          <b-carousel-slide
+            img-src="https://thenypost.files.wordpress.com/2020/01/tom_brady2.jpg?quality=80&strip=all&w=1200"
+          />
+          <b-carousel-slide
+            img-src="https://sportshub.cbsistatic.com/i/r/2019/12/22/92c8a13e-e2e5-49ff-8232-519806daf2f7/thumbnail/1200x675/2fde3cdfbef8ad83e94a5462a99e017e/tom-brady-patriots.jpg"
+          />
+          <b-carousel-slide
+            img-src="http://media.foxbusiness.com/BrightCove/854081161001/202001/167/854081161001_6120130604001_6120130421001-vs.jpg"
+          />
+        </b-carousel>
+      </b-col>
+      <b-col cols="3">
+        <b-row
+          style="border-top:3px solid red;border-bottom:3px solid red;"
+          align-h="center"
+        >
+          <h1 style="color:red;">
+            LATEST
+          </h1>
+        </b-row>
+      </b-col>
+    </b-row>
+    <div
+      class="featureSpotlight"
+      style="border-top:1px dotted black;padding-top:30px;"
+    >
       <div class="featureColumn">
         <img src="~public/images/Icon1.png">
         <h2>Articles</h2>
@@ -45,16 +65,18 @@
 import { mapGetters } from 'vuex';
 export default {
   computed: {
-    ...mapGetters(['appData'])
+    ...mapGetters(['appData']),
+    latestBlogPosts() {
+      return this.$store.getters['blog/getLatestPosts'];
+    }
   },
   mounted() {
     this.$store.dispatch('blog/getBlogPosts');
-  },
+  }
 };
 </script>
 
 <style>
-
 .row {
   width: 100% !important;
 }
@@ -179,7 +201,7 @@ export default {
   font-weight: 500;
   font-size: 2.1em;
   text-transform: uppercase;
-  letter-spacing: 0.30em;
+  letter-spacing: 0.3em;
   margin-top: 15px;
 }
 
@@ -385,5 +407,4 @@ export default {
 
 @media (min-width: 1920px) {
 }
-
 </style>
