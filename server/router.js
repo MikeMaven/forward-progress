@@ -2,7 +2,6 @@ const globby = require('globby');
 const path = require('path');
 
 module.exports = function apiMiddlewares(app) {
-  
   /* eslint global-require: "off" */
   globby([`${__dirname}/./features/*/**/*.policy.js`]).then(policies => {
     policies.forEach(policyPath => {
