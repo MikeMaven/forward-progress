@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const jwt = require('jsonwebtoken');
 
-function getAccessToken(user) {
+module.exports = function getAccessToken(user) {
   const userInfo = _.pick(
     user,
     global.appConfig.whitelistedUserFields.concat(['id'])
@@ -13,8 +13,4 @@ function getAccessToken(user) {
     { expiresIn: '1d' }
   );
   return token;
-}
-
-module.exports = {
-  getAccessToken
 };

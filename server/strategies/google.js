@@ -1,6 +1,6 @@
 const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const users = require('../user.controller');
+const users = require('../api/user.controller');
 
 module.exports = () => {
   // Use google strategy

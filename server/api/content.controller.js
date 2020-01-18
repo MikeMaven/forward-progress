@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
-const DB = require('../../db/models');
+const DB = require('../db/models');
 const { ContentText, Language } = DB;
-const errorHandler = require('../core/errorHandler');
+const errorHandler = require('../errorHandler');
 
 /**
  * For site display purpose
@@ -83,7 +83,7 @@ exports.put = (req, res) => {
         .then(updatedContentText => {
           res.json(updatedContentText);
         })
-        .catch(err => res.status(400).send(errorHandler.formatMessage(err)));
+        .catch(err => res.status(400).send(errorHandler(err)));
     })
-    .catch(err => res.status(400).send(errorHandler.formatMessage(err)));
+    .catch(err => res.status(400).send(errorHandler(err)));
 };

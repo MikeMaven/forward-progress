@@ -1,6 +1,6 @@
 const passport = require('passport');
 const { Strategy, ExtractJwt } = require('passport-jwt');
-const DB = require('../../../db/models');
+const DB = require('../db/models');
 const { User } = DB;
 
 module.exports = () => {

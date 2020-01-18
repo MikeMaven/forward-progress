@@ -1,5 +1,5 @@
 /* eslint consistent-return: "off" */
-exports.formatMessage = err => {
+module.exports = function errorHandler(err) {
   // Sequelize validation messages validation
   if (err.name === 'SequelizeValidationError') {
     return err.errors.map(e => ({

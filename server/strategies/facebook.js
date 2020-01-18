@@ -1,6 +1,6 @@
 const passport = require('passport');
 const FacebookStrategy = require('passport-facebook').Strategy;
-const users = require('../user.controller');
+const users = require('../api/user.controller');
 
 module.exports = () => {
   // Use facebook strategy
