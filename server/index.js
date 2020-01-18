@@ -14,7 +14,7 @@ const morgan = require('morgan');
 const microcache = require('route-cache');
 const resolve = file => path.resolve(__dirname, file);
 const { createBundleRenderer } = require('vue-server-renderer');
-const logger = require('./features/logger');
+const logger = require('./logger');
 const isProd = process.env.NODE_ENV === 'production';
 const isDev = !isProd;
 const ngrok = process.env.ENABLE_TUNNEL ? require('ngrok') : false;
@@ -30,7 +30,7 @@ global.appConfig = _.merge(
   require('./config.prod.json'),
   { isDev, isProd }
 );
-global.errorHandler = require('./features/core').errorHandler;
+global.errorHandler = require('./errorHandler');
 
 const app = express();
 const db = require('./db/models');
@@ -104,7 +104,9 @@ app.use(morgan('dev'));
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl));
 
-require('./router')(app);
+require('./policy/admin.policy').invokeRolesPolicies();
+require('./policy/content.policy').invokeRolesPolicies();
+require('./routes')(app);
 async function render(req, res) {
   const s = Date.now();
 
@@ -124,7 +126,7 @@ async function render(req, res) {
     }
   };
 
-  const uc = require('./features/app/app.controller');
+  const uc = require('./api/app.controller');
   let appData = await uc.content(req);
 
   if (req.query.access_token) {

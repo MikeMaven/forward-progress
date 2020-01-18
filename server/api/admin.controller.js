@@ -1,6 +1,6 @@
-const DB = require('../../db/models');
+const DB = require('../db/models');
 const { User, Role, UserImage } = DB.User;
-const errorHandler = require('../core/errorHandler');
+const errorHandler = require('../errorHandler');
 
 /**
  * List of Users
@@ -15,7 +15,7 @@ exports.list = (req, res) => {
     order: ['updatedAt']
   })
     .then(users => res.json(users))
-    .catch(err => res.status(400).send(errorHandler.formatMessage(err)));
+    .catch(err => res.status(400).send(errorHandler(err)));
 };
 
 /**
@@ -49,7 +49,7 @@ exports.update = (req, res) => {
       }
     )
     .then(u => res.json(u))
-    .catch(err => res.status(400).send(errorHandler.formatMessage(err)));
+    .catch(err => res.status(400).send(errorHandler(err)));
 };
 
 /**
@@ -61,7 +61,7 @@ exports.delete = (req, res) => {
   user
     .destroy()
     .then(u => res.json(u))
-    .catch(err => res.status(400).send(errorHandler.formatMessage(err)));
+    .catch(err => res.status(400).send(errorHandler(err)));
 };
 
 /**

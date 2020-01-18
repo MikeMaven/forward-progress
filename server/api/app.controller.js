@@ -1,4 +1,4 @@
-const DB = require('../../db/models');
+const DB = require('../db/models');
 const { ContentText, Language } = DB;
 
 /**

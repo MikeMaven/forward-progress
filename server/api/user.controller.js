@@ -3,12 +3,12 @@ const passport = require('passport');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const _ = require('lodash');
-const DB = require('../../db/models');
+const DB = require('../db/models');
 const { User, UserImage, Role } = DB;
-const errorHandler = require('../core/errorHandler');
-const { getAccessToken } = require('./token');
+const errorHandler = require('../errorHandler');
+const { getAccessToken } = require('../token');
 const logger = require('../logger');
-const whitelist = require('./user.whitelist');
+const whitelist = require('../whitelist');
 
 // =================== OAUTH ROUTES ====================
 
@@ -35,7 +35,7 @@ exports.signup = (req, res) => {
 exports.signin = (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err || !user) {
-      res.status(400).send(errorHandler.formatMessage('Incorrect credentials'));
+      res.status(400).send(errorHandler('Incorrect credentials'));
     } else {
       console.log('=================');
       console.log('=================');
@@ -85,7 +85,7 @@ exports.oauthCallback = strategy => (req, res, next) => {
   passport.authenticate(strategy, { session: false }, (err, user) => {
     if (err) {
       return res.redirect(
-        `/login?err=${encodeURIComponent(errorHandler.formatMessage(err))}`
+        `/login?err=${encodeURIComponent(errorHandler(err))}`
       );
     }
     if (!user) {
@@ -185,7 +185,7 @@ exports.removeOAuthProvider = (req, res) => {
 
   user.save(err => {
     if (err) {
-      return res.status(400).send(errorHandler.formatMessage(err));
+      return res.status(400).send(errorHandler(err));
     }
     req.login(user, e => {
       if (e) {
@@ -207,7 +207,7 @@ exports.updateProfile = (req, res) => {
     .then(user =>
       res.json(_.pick(user, global.appConfig.whitelistedUserFields))
     )
-    .catch(err => res.status(400).send(errorHandler.formatMessage(err)));
+    .catch(err => res.status(400).send(errorHandler(err)));
 };
 
 /**
@@ -228,7 +228,7 @@ exports.getProfilePicture = (req, res) => {
       }
     },
     err => {
-      res.status(400).send(errorHandler.formatMessage(err));
+      res.status(400).send(errorHandler(err));
     }
   );
 };
@@ -459,7 +459,7 @@ exports.reset = (req, res) => {
             }
           );
         })
-        .catch(e => res.status(400).send(errorHandler.formatMessage(e)));
+        .catch(e => res.status(400).send(errorHandler(e)));
     })
     .catch(() =>
       res.status(400).send('Password reset token is invalid or has expired.')
@@ -504,7 +504,7 @@ exports.changePassword = (req, res) => {
                   if (!u) {
                     return res
                       .status(400)
-                      .send(errorHandler.formatMessage('Invalid credentials'));
+                      .send(errorHandler('Invalid credentials'));
                   }
                   res.json(['Password changed successfully']);
                 });
