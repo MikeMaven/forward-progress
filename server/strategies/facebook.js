@@ -13,12 +13,15 @@ module.exports = new FacebookStrategy(
   (req, accessToken, refreshToken, profile, done) => {
     // Set the provider data and include tokens
     /* eslint no-underscore-dangle: "off" */
-    const providerData = profile._json;
-    providerData.accessToken = accessToken;
-    providerData.refreshToken = refreshToken;
+    const providerData = {
+      ...profile._json,
+      accessToken,
+      refreshToken
+    };
 
     // Create the user OAuth profile
     const providerUserProfile = {
+      providerData,
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
       displayName: profile.displayName,
@@ -28,15 +31,14 @@ module.exports = new FacebookStrategy(
         ? `//graph.facebook.com/${profile.id}/picture?type=large`
         : undefined,
       provider: 'facebook',
-      providerIdentifierField: 'id',
-      providerData
+      providerIdentifierField: 'id'
     };
 
     // Save the user OAuth profile
     users.saveOAuthUserProfile(providerUserProfile, done);
 
     function generateUsername(prof) {
-      let username = '';
+      let username;
 
       if (prof.emails) {
         /* eslint prefer-destructuring: "off" */
@@ -45,7 +47,7 @@ module.exports = new FacebookStrategy(
         username = prof.name.givenName[0] + prof.name.familyName;
       }
 
-      return username.toLowerCase() || undefined;
+      return username ? username.toLowerCase() : undefined;
     }
   }
 )

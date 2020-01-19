@@ -12,12 +12,15 @@ module.exports = new GoogleStrategy(
   (req, accessToken, refreshToken, profile, done) => {
     // Set the provider data and include tokens
     /* eslint no-underscore-dangle: "off" */
-    const providerData = profile._json;
-    providerData.accessToken = accessToken;
-    providerData.refreshToken = refreshToken;
+    const providerData = {
+      ...profile._json,
+      accessToken,
+      refreshToken
+    };
 
     // Create the user OAuth profile
     const providerUserProfile = {
+      providerData,
       firstName: profile.name.givenName,
       lastName: profile.name.familyName,
       displayName: profile.displayName,
@@ -27,8 +30,7 @@ module.exports = new GoogleStrategy(
         ? providerData.picture
         : undefined,
       provider: 'google',
-      providerIdentifierField: 'id',
-      providerData
+      providerIdentifierField: 'id'
     };
 
     // Save the user OAuth profile
