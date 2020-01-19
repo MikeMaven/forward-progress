@@ -6,7 +6,7 @@ const _ = require('lodash');
 const DB = require('../db/models');
 const { BlogPost, User } = DB;
 const errorHandler = require('../errorHandler');
-const { getAccessToken } = require('../token');
+const getAccessToken = require('../token');
 const logger = require('../logger');
 
 exports.newBlog = (req, res) => {

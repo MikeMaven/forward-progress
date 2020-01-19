@@ -6,7 +6,7 @@ const _ = require('lodash');
 const DB = require('../db/models');
 const { Note, User, Usernote, Tag, NoteTag, UserSharedNote } = DB;
 const errorHandler = require('../errorHandler');
-const { getAccessToken } = require('../token');
+const getAccessToken = require('../token');
 const logger = require('../logger');
 
 exports.sharedNotes = (req, res) => {

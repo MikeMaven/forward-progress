@@ -106,7 +106,10 @@ app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl));
 
 require('./policy/admin.policy').invokeRolesPolicies();
 require('./policy/content.policy').invokeRolesPolicies();
-require('./routes')(app);
+const router = require('./routes');
+
+app.use(router);
+
 async function render(req, res) {
   const s = Date.now();
 
