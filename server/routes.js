@@ -71,9 +71,9 @@ router.post('/api/auth/signup', users.signup);
 router.get('/api/auth/signout', users.signout);
 
 // Setting the facebook oauth routes
-router.get('/api/auth/facebook', users.oauthCall(
-  'facebook',
-  {
+router.get(
+  '/api/auth/facebook',
+  users.oauthCall('facebook', {
     session: false,
     scope: ['email']
   })
@@ -81,20 +81,22 @@ router.get('/api/auth/facebook', users.oauthCall(
 router.get('/api/auth/facebook/callback', users.oauthCallback('facebook'));
 
 // Setting the windowslive oauth routes
-router.get('/api/auth/windowslive', users.oauthCall(
-  'windowslive',
-  {
+router.get(
+  '/api/auth/windowslive',
+  users.oauthCall('windowslive', {
     session: false,
     scope: ['wl.signin', 'wl.basic']
-  }
-  )
+  })
 );
-router.get('/api/auth/windowslive/callback', users.oauthCallback('windowslive'));
+router.get(
+  '/api/auth/windowslive/callback',
+  users.oauthCallback('windowslive')
+);
 
 // Setting the google oauth routes
-router.get('/api/auth/google', users.oauthCall(
-  'google',
-  {
+router.get(
+  '/api/auth/google',
+  users.oauthCall('google', {
     session: false,
     scope: ['openid', 'profile', 'email']
   })
@@ -102,9 +104,9 @@ router.get('/api/auth/google', users.oauthCall(
 router.get('/api/auth/google/callback', users.oauthCallback('google'));
 
 // Setting the linkedin oauth routes
-router.get('/api/auth/linkedin', users.oauthCall(
-  'linkedin',
-  {
+router.get(
+  '/api/auth/linkedin',
+  users.oauthCall('linkedin', {
     session: false,
     scope: ['r_basicprofile', 'r_emailaddress']
   })
@@ -129,7 +131,8 @@ router.get('/api/profile', users.getProfile);
 router.put('/api/profile', users.updateProfile);
 router.delete('/api/users/accounts', users.removeOAuthProvider);
 router.post('/api/users/password', users.changePassword);
-router.post('/api/users/picture',
+router.post(
+  '/api/users/picture',
   multer(multerConfig).single('newProfilePicture'),
   users.changeProfilePicture
 );
@@ -164,6 +167,5 @@ router.post('/api/newNote', notes.newNote);
 router.post('/api/editNote', notes.editNote);
 router.post('/api/deleteNote', notes.deleteNote);
 router.get('/api/myTags', notes.getTags);
-
 
 module.exports = router;

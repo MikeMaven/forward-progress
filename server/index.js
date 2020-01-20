@@ -78,9 +78,11 @@ if (isProd) {
   );
 }
 
-const serve = (path, cache) => express.static(resolve(path), {
-  maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
-});
+const serve = (path, cache) => {
+  express.static(resolve(path), {
+    maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
+  });
+};
 
 app.use('*', cors());
 app.use(helmet());
@@ -158,9 +160,13 @@ async function render(req, res) {
   });
 }
 
-app.get('*', isProd ? render : (req, res) => {
-    readyPromise.then(() => render(req, res));
-  }
+app.get(
+  '*',
+  isProd
+    ? render
+    : (req, res) => {
+        readyPromise.then(() => render(req, res));
+      }
 );
 
 const port = process.env.PORT || 3000;

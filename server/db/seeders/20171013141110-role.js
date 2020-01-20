@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Roles', [
