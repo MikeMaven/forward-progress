@@ -19,15 +19,16 @@ const multerConfig = {
   }
 };
 
+const router = require('express').Router();
 
 const passport = require('passport');
-
+router.use(passport.initialize());
+router.use(passport.session());
 passport.use(require('./strategies/facebook'));
 passport.use(require('./strategies/google'));
 passport.use(require('./strategies/jwt'));
 passport.use(require('./strategies/local'));
 
-const router = require('express').Router();
 // app
 const appCtrl = require('./api/app.controller');
 
@@ -55,23 +56,8 @@ const fileUpload = require('./api/fileupload.controller');
 
 router.post('/api/fileupload', fileUpload.uploadPhoto);
 
-// notes
-const notes = require('./api/note.controller');
-
-router.get('/api/allNotes', notes.allNotes);
-router.get('/api/sharedNotes', notes.sharedNotes);
-router.get('/api/getNote/:id', notes.getNote);
-router.get('/api/myNotes', notes.myNotes);
-router.get('/api/myTags', notes.getTags);
-router.post('/api/starToggle', notes.starToggle);
-router.post('/api/shareNote', notes.createShares);
-router.post('/api/newNote', notes.newNote);
-router.post('/api/editNote', notes.editNote);
-router.post('/api/deleteNote', notes.deleteNote);
-
 // user
 const users = require('./api/user.controller');
-
 
 // =============== OAUTH ROUTES (public routes) =================
 // Setting up the users password api
@@ -164,5 +150,20 @@ router.all('/api/users/:userId', adminPolicy.isAllowed);
 router.get('/api/users/:userId', adminUsers.read);
 router.put('/api/users/:userId', adminUsers.update);
 router.delete('/api/users/:userId', adminUsers.delete);
+
+// notes
+const notes = require('./api/note.controller');
+
+router.get('/api/allNotes', notes.allNotes);
+router.get('/api/sharedNotes', notes.sharedNotes);
+router.get('/api/getNote/:id', notes.getNote);
+router.get('/api/myNotes', notes.myNotes);
+router.post('/api/starToggle', notes.starToggle);
+router.post('/api/shareNote', notes.createShares);
+router.post('/api/newNote', notes.newNote);
+router.post('/api/editNote', notes.editNote);
+router.post('/api/deleteNote', notes.deleteNote);
+router.get('/api/myTags', notes.getTags);
+
 
 module.exports = router;
