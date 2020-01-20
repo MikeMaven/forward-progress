@@ -43,17 +43,17 @@ id="landingContainer" class="container">
       style="border-top:1px dotted black;padding-top:30px;"
     >
       <div class="featureColumn">
-        <img src="~public/images/Icon1.png">
+        <img src="~public/images/Icon1.png" >
         <h2>Articles</h2>
         <p>Dedicated analysis from top NFL insiders.</p>
       </div>
       <div class="featureColumn">
-        <img src="~public/images/Icon2.png">
+        <img src="~public/images/Icon2.png" >
         <h2>Data Visualization</h2>
         <p>Leaders in NFL stats analysis and visualiztion.</p>
       </div>
       <div class="featureColumn">
-        <img src="~public/images/Icon3.png">
+        <img src="~public/images/Icon3.png" >
         <h2>Live Updates</h2>
         <p>Live updates and insights that only NFL insiders can provide.</p>
       </div>
@@ -70,9 +70,7 @@ export default {
       return this.$store.getters['blog/getLatestPosts'];
     }
   },
-  mounted() {
-    this.$store.dispatch('blog/getBlogPosts');
-  }
+  mounted() {}
 };
 </script>
 
