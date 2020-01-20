@@ -27,9 +27,7 @@ passport.use(require('./strategies/google'));
 passport.use(require('./strategies/jwt'));
 passport.use(require('./strategies/local'));
 
-
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
 // app
 const appCtrl = require('./api/app.controller');
 
