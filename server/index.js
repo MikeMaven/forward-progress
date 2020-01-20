@@ -79,7 +79,7 @@ if (isProd) {
 }
 
 const serve = (path, cache) => {
-  express.static(resolve(path), {
+  return express.static(resolve(path), {
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
   });
 };
