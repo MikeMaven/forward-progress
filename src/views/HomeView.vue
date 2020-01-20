@@ -1,43 +1,53 @@
 <template>
-  <div
-id="landingContainer" class="container">
-    <div class="row header3 mb-3">
-      <p>Leading the Way Forward in Football Analysis</p>
+  <div id="landingContainer">
+    <div class="featured-section">
+      <div class="row header3 mb-3">
+        <p>Leading the Way Forward in Football Analysis</p>
+      </div>
+      <b-row align-h="center">
+        <b-col cols="4">
+          <b-carousel
+            id="landing-page-article-carousel"
+            :interval="4000"
+            fade
+            controls
+            indicators
+            background="#ababab"
+            img-width="100%"
+            img-height="400px"
+            v-model="currentSlide"
+          >
+            <b-carousel-slide v-for="post in carouselSlides" v-bind:key="post.id"
+              :img-src="post.coverImageURL"
+            />
+          </b-carousel>
+          <div class="slider-article-description">
+            <div class="slider-description-content">
+              <div class="slider-title">{{ currentSlidePost.title }}</div>
+              <div class="slider-subtitle">{{ currentSlidePost.subTitle }}</div>
+            </div>
+          </div>
+        </b-col>
+        <b-col cols="4">
+          <div class="latest-container">
+            <div class="red-title">
+              LATEST
+            </div>
+            <div>
+              <div v-for="post in otherLatestPosts" v-bind:key="post.id" class="latest-post">
+                <div class="post-title">
+                  {{ truncate(post.title, 'title') }}
+                </div>
+                <div class="post-subtitle">
+                  {{ truncate(post.subTitle, 'subtitle') }}
+                </div>
+                <div v-if="!isLastLatestPost(post)" class="divider"/>
+              </div>
+            </div>
+          </div>
+        </b-col>
+      </b-row>
     </div>
-    <b-row align-h="center">
-      <b-col cols="4">
-        <b-carousel
-          id="landing-page-article-carousel"
-          :interval="4000"
-          fade
-          controls
-          indicators
-          background="#ababab"
-          img-width="100%"
-          img-height="400px"
-        >
-          <b-carousel-slide
-            img-src="https://thenypost.files.wordpress.com/2020/01/tom_brady2.jpg?quality=80&strip=all&w=1200"
-          />
-          <b-carousel-slide
-            img-src="https://sportshub.cbsistatic.com/i/r/2019/12/22/92c8a13e-e2e5-49ff-8232-519806daf2f7/thumbnail/1200x675/2fde3cdfbef8ad83e94a5462a99e017e/tom-brady-patriots.jpg"
-          />
-          <b-carousel-slide
-            img-src="http://media.foxbusiness.com/BrightCove/854081161001/202001/167/854081161001_6120130604001_6120130421001-vs.jpg"
-          />
-        </b-carousel>
-      </b-col>
-      <b-col cols="3">
-        <b-row
-          style="border-top:3px solid red;border-bottom:3px solid red;"
-          align-h="center"
-        >
-          <h1 style="color:red;">
-            LATEST
-          </h1>
-        </b-row>
-      </b-col>
-    </b-row>
     <div
       class="featureSpotlight"
       style="border-top:1px dotted black;padding-top:30px;"
@@ -62,19 +72,115 @@ id="landingContainer" class="container">
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import _ from "lodash";
+import { mapGetters } from "vuex";
+
 export default {
   computed: {
-    ...mapGetters(['appData']),
-    latestBlogPosts() {
-      return this.$store.getters['blog/getLatestPosts'];
+    ...mapGetters({
+      appData: "appData",
+      latestPosts: "blog/getLatestPosts"
+    }),
+    carouselSlides() {
+      return this.latestPosts.slice(0, 3);
+    },
+    otherLatestPosts() {
+      return this.latestPosts.slice(3, 6);
+    },
+    currentSlidePost() {
+      return this.carouselSlides[this.currentSlide];
     }
   },
-  mounted() {}
+  data() {
+    return {
+      currentSlide: 0
+    };
+  },
+  methods: {
+    isLastLatestPost(post) {
+      return _.last(this.otherLatestPosts) === post;
+    },
+    truncate(text, type) {
+      if (type === "title" && text.length > 60) {
+        return text.slice(0, 59) + "...";
+      } else if (type === "subtitle" && text.length > 70) {
+        return text.slice(0, 69) + "...";
+      } else {
+        return text;
+      }
+    }
+  }
 };
 </script>
 
 <style>
+.featured-section {
+  overflow: hidden;
+}
+
+.slider-title {
+  font-size: 18px;
+}
+
+.slider-subtitle {
+  font-size: 14px;
+}
+
+.slider-description-content {
+  padding: 20px;
+}
+
+.slider-title,
+.slider-subtitle {
+  color: #ffffff;
+}
+
+.red-title {
+  letter-spacing: 1.5pt;
+  color: #ff0200;
+  width: 100%;
+  text-align: center;
+  padding: 3px 0px;
+  font-size: 20px;
+  border-top: 2px solid #d50a0a;
+  border-bottom: 2px solid #d50a0a;
+}
+
+.slider-article-description {
+  height: 100%;
+  background-color: #013369;
+  color: #ffffff;
+}
+
+.divider {
+  width: 80%;
+  margin: 10px auto 0px;
+  border-bottom: 1px solid #000000;
+}
+
+.post-title {
+  font-size: 18px;
+}
+
+.post-subtitle {
+  font-size: 14px;
+}
+
+.post-subtitle,
+.post-title {
+  color: #013369;
+}
+
+.latest-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.latest-post {
+  padding: 5px 0px;
+}
+
 .row {
   width: 100% !important;
 }
@@ -137,7 +243,7 @@ export default {
 
 .infoButton {
   font-family: paralucent, sans-serif;
-  font-style: 'normal';
+  font-style: "normal";
   font-weight: 400;
   font-size: 1.5em;
   letter-spacing: 0.2em;
@@ -160,7 +266,7 @@ export default {
   max-width: 100%;
   margin: 2.5% 0 0 0;
   font-family: paralucent, sans-serif;
-  font-style: 'normal';
+  font-style: "normal";
   font-weight: 400;
   font-size: 1.5em;
   color: #013369;
@@ -205,7 +311,7 @@ export default {
 
 .featureColumn p {
   color: black;
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
   margin: 0 15%;
   font-size: 1.5em;
 }
@@ -213,9 +319,6 @@ export default {
 @media (max-width: 374px) {
   .row {
     margin: 0;
-  }
-
-  .span-image {
   }
 
   .landingImage {
@@ -260,9 +363,6 @@ export default {
     margin: 0;
   }
 
-  .span-image {
-  }
-
   .landingImage {
     height: 360px;
   }
@@ -303,9 +403,6 @@ export default {
 @media (min-width: 414px) and (max-width: 629px) {
   .row {
     margin: 0;
-  }
-
-  .span-image {
   }
 
   .landingImage {
