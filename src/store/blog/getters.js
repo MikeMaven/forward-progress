@@ -9,5 +9,9 @@ export default {
 
   getNumberOfPages: (state, getters) => {
     return state.numberOfPages;
+  },
+
+  getLatestPosts: (state, getters) => {
+    return state.blogPosts;
   }
 };
