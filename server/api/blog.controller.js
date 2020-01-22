@@ -28,8 +28,10 @@ exports.newBlog = (req, res) => {
   }
 };
 
-exports.getBlogPosts = (req, res) => {
-  res.json('testing public route');
+exports.getBlogPosts = async (req, res) => {
+  const blogPosts = await BlogPost.findAll();
+
+  res.json(blogPosts);
 };
 
 exports.getPageOfBlogPosts = (req, res) => {
