@@ -3,10 +3,10 @@ const passport = require('passport');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const _ = require('lodash');
-const DB = require('../../db/models');
-const { Note, User, Usernote, Tag, NoteTag, Role, UserSharedNote } = DB;
-const errorHandler = require('../core/errorHandler');
-const { getAccessToken } = require('../users/token');
+const DB = require('../db/models');
+const { Note, User, Usernote, Tag, NoteTag, UserSharedNote } = DB;
+const errorHandler = require('../errorHandler');
+const getAccessToken = require('../token');
 const logger = require('../logger');
 
 exports.sharedNotes = (req, res) => {

@@ -15,4 +15,3 @@ export function getUserProfile() {
     CodeApi.unrollApiResponse(response.data)
   );
 }
-

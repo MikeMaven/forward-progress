@@ -21,8 +21,7 @@
     "test:coverage": "jest --coverage",
     "e2e": "testcafe chrome e2e/**/*.e2e-spec.js",
     "e2e:watch": "testcafe-live chrome e2e/**/*.e2e-spec.js",
-    "e2e:ci": "testcafe all e2e/**/*.e2e-spec.js --app \"yarn dev\" --app-init-delay 4000",
-    "postinstall": "npm run build"
+    "e2e:ci": "testcafe all e2e/**/*.e2e-spec.js --app \"yarn dev\" --app-init-delay 4000"
   },
   "engines": {
     "node": ">=8.0",
@@ -68,7 +67,6 @@
     "dotenv": "^8.1.0",
     "es6-promise": "4.2.8",
     "express": "4.17.1",
-    "globby": "10.0.1",
     "helmet": "3.18.0",
     "ip": "^1.1.5",
     "jsonwebtoken": "8.5.1",
