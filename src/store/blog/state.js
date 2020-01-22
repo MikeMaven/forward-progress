@@ -8,7 +8,7 @@ export default {
       title: 'Coming Soon: In Depth Articles',
       subTitle: 'Football analysis at the next level.',
       coverImageURL:
-        'https://sportshub.cbsistatic.com/i/r/2019/12/22/92c8a13e-e2e5-49ff-8232-519806daf2f7/thumbnail/1200x675/2fde3cdfbef8ad83e94a5462a99e017e/tom-brady-patriots.jpg',
+        'https://usatftw.files.wordpress.com/2019/01/patrickmahomes.jpg?w=1000&h=600&crop=1',
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
