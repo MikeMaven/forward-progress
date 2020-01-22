@@ -38,6 +38,7 @@ router.post('/api/SetLanguage', appCtrl.setLanguage);
 // blog
 const blog = require('./api/blog.controller');
 
+router.get('/api/getBlog/:id', blog.getBlog);
 router.get('/api/getBlogPosts', blog.getBlogPosts);
 router.get('/api/getPageOfBlogPosts/:page', blog.getPageOfBlogPosts);
 router.post('/api/newBlog', blog.newBlog);

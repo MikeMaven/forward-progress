@@ -11,14 +11,14 @@ const logger = require('../logger');
 
 exports.newBlog = (req, res) => {
   if (req.user && (req.body.title && req.body.body)) {
-    const newBlog = Object.assign({
+    const newBlog = {
       title: req.body.title,
       subTitle: req.body.subTitle,
       body: req.body.body,
       coverImageURL: req.body.imageURL,
       isPaid: req.body.isPaid,
       Author: req.user.dataValues.id
-    });
+    };
     BlogPost.create(newBlog).then(blog => {
       const responseBlog = JSON.stringify(blog);
       res.json(responseBlog);
@@ -34,9 +34,20 @@ exports.getBlogPosts = async (req, res) => {
   res.json(blogPosts);
 };
 
+exports.getBlog = async (req, res) => {
+  const query = req.params.id;
+  // req params default to string
+  if (query && Number.isInteger(parseInt(query))) {
+    const blog = await BlogPost.findByPk(query);
+    res.json(blog);
+  } else {
+    res.status(401).send('Cannot find specified blog');
+  }
+};
+
 exports.getPageOfBlogPosts = (req, res) => {
   if (isNaN(req.params.page) || req.params.page < 1) {
-    return res.status(401).send({});
+    res.status(401).send({});
   } else {
     const currentPageIndex = (req.params.page - 1) * 10;
     BlogPost.findAll({
