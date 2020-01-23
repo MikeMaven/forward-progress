@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as CodeApi from './CodeApi.js';
 
 export function saveBlog(title, body, imageURL, subTitle, isPaid) {
-  const url = '../api/newBlog';
+  const url = '../api/blog/new';
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {
     method: 'post',
     url: url,
@@ -17,7 +17,7 @@ export function saveBlog(title, body, imageURL, subTitle, isPaid) {
 }
 
 export function getBlogPosts() {
-  const url = '../api/getBlogPosts';
+  const url = '../api/blog';
 
   const options = Object.assign({}, CodeApi.config.axiosDefaults, {
     method: 'get',
@@ -26,7 +26,6 @@ export function getBlogPosts() {
   });
 
   return axios(options).then(response => {
-    console.log({response});
     CodeApi.unrollApiResponse(response);
   });
 }
