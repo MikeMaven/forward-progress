@@ -12,6 +12,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const microcache = require('route-cache');
+const passport = require('passport');
 const resolve = file => path.resolve(__dirname, file);
 const { createBundleRenderer } = require('vue-server-renderer');
 const logger = require('./logger');
@@ -103,11 +104,14 @@ app.use(morgan('dev'));
 // 1-second microcache.
 // https://www.nginx.com/blog/benefits-of-microcaching-nginx/
 app.use(microcache.cacheSeconds(1, req => useMicroCache && req.originalUrl));
+app.use(passport.initialize());
+app.use(passport.session());
 
+require('./passport-settings');
 require('./policy/admin.policy').invokeRolesPolicies();
 require('./policy/content.policy').invokeRolesPolicies();
 
-app.use(require('./routes'));
+app.use('/api', require('./routes'));
 
 async function render(req, res) {
   const s = Date.now();

@@ -6,7 +6,7 @@ module.exports = {
     return queryInterface.bulkInsert('BlogPosts', [
       {
         title: 'Best Coffee Shops',
-        body: 'Top 3 Best Coffee Shops \nStarbucks \n Dunkin\' Donuts \n, Peet\'s Coffee \n',
+        body: 'Top 3 Best Coffee Shops \nStarbucks \nDunkin\' Donuts \nPeet\'s Coffee \n',
         Author: 1,
         coverImageURL: null,
         subTitle: 'Who drinks tea anymore?',

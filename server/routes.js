@@ -1,169 +1,121 @@
+const passport = require('passport');
 const multer = require('multer');
-const multerConfig = {
-  // dest: './profile/images/',
-  limits: {
-    fileSize: 1 * 1024 * 1024 // Max file size in bytes (1 MB)
-  },
-  fileFilter: (req, file, callback) => {
-    if (
-      file.mimetype !== 'image/png' &&
-      file.mimetype !== 'image/jpg' &&
-      file.mimetype !== 'image/jpeg' &&
-      file.mimetype !== 'image/gif'
-    ) {
-      const err = new Error();
-      err.code = 'UNSUPPORTED_MEDIA_TYPE';
-      return callback(err, false);
-    }
-    return callback(null, true);
-  }
-};
+const multerConfig = require('./multerConfig');
 
 const router = require('express').Router();
 
-const passport = require('passport');
-router.use(passport.initialize());
-router.use(passport.session());
-passport.use(require('./strategies/facebook'));
-passport.use(require('./strategies/google'));
-passport.use(require('./strategies/jwt'));
-passport.use(require('./strategies/local'));
-
-// app
-const appCtrl = require('./api/app.controller');
-
-router.get('/api/applicationdata', appCtrl.get);
-router.post('/api/SetLanguage', appCtrl.setLanguage);
-
-// blog
+const app = require('./api/app.controller');
 const blog = require('./api/blog.controller');
-
-router.get('/api/getBlogPosts', blog.getBlogPosts);
-router.get('/api/getPageOfBlogPosts/:page', blog.getPageOfBlogPosts);
-router.post('/api/newBlog', blog.newBlog);
-
-// content
-const contentCtrl = require('./api/content.controller');
+const content = require('./api/content.controller');
+const fileUpload = require('./api/fileupload.controller');
+const users = require('./api/user.controller');
+const adminUsers = require('./api/admin.controller');
+const notes = require('./api/note.controller');
+const adminPolicy = require('./policy/admin.policy');
 const contentPolicy = require('./policy/content.policy');
 
-router.get('/api/content/list', contentCtrl.list);
-router.all('/api/content/:locale', contentPolicy.isAllowed);
-router.get('/api/content/:locale', contentCtrl.get);
-router.put('/api/content/:locale', contentCtrl.put);
+router
+  .get('/applicationdata', app.get)
+  .post('/SetLanguage', app.setLanguage)
 
-// file upload
-const fileUpload = require('./api/fileupload.controller');
+  .get('/blog', blog.getBlogPosts)
+  .get('/blog/index', blog.indexBlogPosts)
+  .get('/blog/:id', blog.getBlog)
+  .delete('/blog/:id', blog.deleteBlog)
+  // .get('/getPageOfBlogPosts/:page', blog.getPageOfBlogPosts)
+  .post('/blog/new', blog.newBlog)
 
-router.post('/api/fileupload', fileUpload.uploadPhoto);
+  .get('/content/list', content.list)
+  .all('/content/:locale', contentPolicy.isAllowed)
+  .get('/content/:locale', content.get)
+  .put('/content/:locale', content.put)
 
-// user
-const users = require('./api/user.controller');
+  .post('/fileupload', fileUpload.uploadPhoto)
 
-// =============== OAUTH ROUTES (public routes) =================
-// Setting up the users password api
-router.get('/api/auth/reset/:token', users.validateResetToken);
-router.post('/api/auth/reset/:token', users.reset);
-router.post('/api/auth/forgotpassword', users.forgot);
+  .get('/auth/reset/:token', users.validateResetToken)
+  .post('/auth/reset/:token', users.reset)
+  .post('/auth/forgotpassword', users.forgot)
 
-// Setting up the users authentication api
-router.post('/api/auth/signin', users.signin);
-router.post('/api/auth/signup', users.signup);
-router.get('/api/auth/signout', users.signout);
+  .post('/auth/signin', users.signin)
+  .post('/auth/signup', users.signup)
+  .get('/auth/signout', users.signout)
 
-// Setting the facebook oauth routes
-router.get('/api/auth/facebook', users.oauthCall(
-  'facebook',
-  {
-    session: false,
-    scope: ['email']
-  })
-);
-router.get('/api/auth/facebook/callback', users.oauthCallback('facebook'));
-
-// Setting the windowslive oauth routes
-router.get('/api/auth/windowslive', users.oauthCall(
-  'windowslive',
-  {
-    session: false,
-    scope: ['wl.signin', 'wl.basic']
-  }
+  .get('/auth/facebook',
+    users.oauthCall('facebook',
+    {
+      session: false,
+      scope: ['email']
+    })
   )
-);
-router.get('/api/auth/windowslive/callback', users.oauthCallback('windowslive'));
+  .get('/auth/facebook/callback', users.oauthCallback('facebook'))
 
-// Setting the google oauth routes
-router.get('/api/auth/google', users.oauthCall(
-  'google',
-  {
-    session: false,
-    scope: ['openid', 'profile', 'email']
-  })
-);
-router.get('/api/auth/google/callback', users.oauthCallback('google'));
+  .get('/auth/windowslive',
+    users.oauthCall('windowslive',
+    {
+      session: false,
+      scope: ['wl.signin', 'wl.basic']
+    })
+  )
+  .get('/auth/windowslive/callback', users.oauthCallback('windowslive'))
 
-// Setting the linkedin oauth routes
-router.get('/api/auth/linkedin', users.oauthCall(
-  'linkedin',
-  {
-    session: false,
-    scope: ['r_basicprofile', 'r_emailaddress']
-  })
-);
+  .get('/auth/google',
+    users.oauthCall('google',
+    {
+      session: false,
+      scope: ['openid', 'profile', 'email']
+    })
+  )
+  .get('/auth/google/callback', users.oauthCallback('google'))
 
-router.get('/api/auth/linkedin/callback', users.oauthCallback('linkedin'));
+  .get('/auth/linkedin',
+    users.oauthCall('linkedin',
+    {
+      session: false,
+      scope: ['r_basicprofile', 'r_emailaddress']
+    })
+  )
 
-// Setting the github oauth routes
-router.get('/api/auth/github', users.oauthCall('github'));
-router.get('/api/auth/github/callback', users.oauthCallback('github'));
+  .get('/auth/linkedin/callback', users.oauthCallback('linkedin'))
 
-// Setting the paypal oauth routes
-router.get('/api/auth/paypal', users.oauthCall('paypal'));
-router.get('/api/auth/paypal/callback', users.oauthCallback('paypal'));
+  .get('/auth/github', users.oauthCall('github'))
+  .get('/auth/github/callback', users.oauthCallback('github'))
 
-// ==== all routes after this will be secured
-router.all('/api/*', passport.authenticate('jwt', { session: false }));
+  .get('/auth/paypal', users.oauthCall('paypal'))
+  .get('/auth/paypal/callback', users.oauthCallback('paypal'))
 
-// =============== USERS ROUTES (secure routes) =================
-// Setting up the users profile api
-router.get('/api/profile', users.getProfile);
-router.put('/api/profile', users.updateProfile);
-router.delete('/api/users/accounts', users.removeOAuthProvider);
-router.post('/api/users/password', users.changePassword);
-router.post('/api/users/picture',
-  multer(multerConfig).single('newProfilePicture'),
-  users.changeProfilePicture
-);
-router.get('/api/users/picture/:id', users.getProfilePicture);
-router.get('/api/usersToShareWith', users.getUsersToShareWith);
-router.post('/api/usersToShareWith', users.updateUsersToShareWith);
+  // ==== all routes after this will be secured
+  .all('/*', passport.authenticate('jwt', { session: false }))
 
-// admin
-const adminUsers = require('./api/admin.controller');
-const adminPolicy = require('./policy/admin.policy');
+  // =============== USERS ROUTES (secure routes) =================
+  .get('/profile', users.getProfile)
+  .put('/profile', users.updateProfile)
+  .delete('/users/accounts', users.removeOAuthProvider)
+  .post('/users/password', users.changePassword)
+  .post('/users/picture',
+    multer(multerConfig).single('newProfilePicture'),
+    users.changeProfilePicture
+  )
+  .get('/users/picture/:id', users.getProfilePicture)
+  .get('/usersToShareWith', users.getUsersToShareWith)
+  .post('/usersToShareWith', users.updateUsersToShareWith)
 
-// Users collection routes
-router.get('/api/users', adminPolicy.isAllowed);
-router.get('/api/users', adminUsers.list);
+  .get('/users', adminPolicy.isAllowed)
+  .get('/users', adminUsers.list)
 
-// Single user routes
-router.all('/api/users/:userId', adminPolicy.isAllowed);
-router.get('/api/users/:userId', adminUsers.read);
-router.put('/api/users/:userId', adminUsers.update);
-router.delete('/api/users/:userId', adminUsers.delete);
+  .all('/users/:userId', adminPolicy.isAllowed)
+  .get('/users/:userId', adminUsers.read)
+  .put('/users/:userId', adminUsers.update)
+  .delete('/users/:userId', adminUsers.delete)
 
-// notes
-const notes = require('./api/note.controller');
-
-router.get('/api/allNotes', notes.allNotes);
-router.get('/api/sharedNotes', notes.sharedNotes);
-router.get('/api/getNote/:id', notes.getNote);
-router.get('/api/myNotes', notes.myNotes);
-router.post('/api/starToggle', notes.starToggle);
-router.post('/api/shareNote', notes.createShares);
-router.post('/api/newNote', notes.newNote);
-router.post('/api/editNote', notes.editNote);
-router.post('/api/deleteNote', notes.deleteNote);
-router.get('/api/myTags', notes.getTags);
-
+  .get('/allNotes', notes.allNotes)
+  .get('/sharedNotes', notes.sharedNotes)
+  .get('/getNote/:id', notes.getNote)
+  .get('/myNotes', notes.myNotes)
+  .post('/starToggle', notes.starToggle)
+  .post('/shareNote', notes.createShares)
+  .post('/newNote', notes.newNote)
+  .post('/editNote', notes.editNote)
+  .post('/deleteNote', notes.deleteNote)
+  .get('/myTags', notes.getTags);
 
 module.exports = router;

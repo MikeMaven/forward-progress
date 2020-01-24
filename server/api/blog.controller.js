@@ -9,32 +9,78 @@ const errorHandler = require('../errorHandler');
 const getAccessToken = require('../token');
 const logger = require('../logger');
 
-exports.newBlog = (req, res) => {
-  if (req.user && (req.body.title && req.body.body)) {
-    const newBlog = Object.assign({
-      title: req.body.title,
-      subTitle: req.body.subTitle,
-      body: req.body.body,
-      coverImageURL: req.body.imageURL,
-      isPaid: req.body.isPaid,
-      Author: req.user.dataValues.id
-    });
-    BlogPost.create(newBlog).then(blog => {
-      const responseBlog = JSON.stringify(blog);
-      res.json(responseBlog);
-    });
-  } else {
-    res.status(401).send([]);
-  }
+exports.getBlogPosts = async (req, res) => {
+  // if (!req.user.isAdmin) {
+  //   return res.status(401).send('Unauthorized User');
+  // }
+  const blogPosts = await BlogPost.findAll({});
+
+  res.json(blogPosts);
 };
 
-exports.getBlogPosts = (req, res) => {
-  res.json('testing public route');
+exports.indexBlogPosts = async (req, res) => {
+  const blogPosts = await BlogPost.findAll({
+    attributes: [
+      'title',
+      'subTitle',
+      'Author',
+      'coverImageURL',
+      'body',
+      'isPaid'
+    ],
+    order: ['createdAt']
+  });
+
+  res.json(blogPosts);
+};
+
+exports.getBlog = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id || !/^\d+$/.test(id)) {
+    return res.status(401).send('Cannot find specified blog');
+  }
+
+  const blog = await BlogPost.findByPk(id);
+
+  res.json(blog);
+};
+
+exports.deleteBlog = async (req, res) => {
+  const { id } = req.params;
+
+  if (!id || !/^\d+$/.test(id)) {
+    return res.status(401).send('Cannot delete specified blog');
+  }
+
+  const blog = await BlogPost.destroy({ where: { id } });
+
+  res.json(blog);
+};
+
+exports.newBlog = async (req, res) => {
+  const { title, body } = req.body;
+  if (!title || !body) {
+    res.status(401).send('Cannot create new blog post');
+  }
+
+  const newBlog = {
+    title,
+    body,
+    subTitle: req.body.subTitle,
+    coverImageURL: req.body.imageURL,
+    isPaid: req.body.isPaid,
+    Author: req.user.dataValues.id,
+    photoGallery: req.body.photoGallery
+  };
+
+  const blog = await BlogPost.create(newBlog);
+  res.json(blog);
 };
 
 exports.getPageOfBlogPosts = (req, res) => {
   if (isNaN(req.params.page) || req.params.page < 1) {
-    return res.status(401).send({});
+    res.status(401).send({});
   } else {
     const currentPageIndex = (req.params.page - 1) * 10;
     BlogPost.findAll({
