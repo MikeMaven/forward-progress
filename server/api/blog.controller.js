@@ -1,15 +1,7 @@
 /* eslint consistent-return: "off" */
-const passport = require('passport');
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const _ = require('lodash');
-const DB = require('../db/models');
-const { BlogPost, User } = DB;
-const errorHandler = require('../errorHandler');
-const getAccessToken = require('../token');
-const logger = require('../logger');
+const { BlogPost, User } = require('../db/models');
 
-exports.getBlogPosts = async (req, res) => {
+exports.getAllBlogPosts = async (req, res) => {
   // if (!req.user.isAdmin) {
   //   return res.status(401).send('Unauthorized User');
   // }
@@ -18,7 +10,7 @@ exports.getBlogPosts = async (req, res) => {
   res.json(blogPosts);
 };
 
-exports.indexBlogPosts = async (req, res) => {
+exports.indexOfBlogPosts = async (req, res) => {
   const blogPosts = await BlogPost.findAll({
     attributes: [
       'title',
@@ -34,7 +26,7 @@ exports.indexBlogPosts = async (req, res) => {
   res.json(blogPosts);
 };
 
-exports.getBlog = async (req, res) => {
+exports.getBlogPost = async (req, res) => {
   const { id } = req.params;
 
   if (!id || !/^\d+$/.test(id)) {
@@ -46,7 +38,7 @@ exports.getBlog = async (req, res) => {
   res.json(blog);
 };
 
-exports.deleteBlog = async (req, res) => {
+exports.deleteBlogPost = async (req, res) => {
   const { id } = req.params;
 
   if (!id || !/^\d+$/.test(id)) {

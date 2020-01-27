@@ -17,10 +17,10 @@ router
   .get('/appdata', app.getApp)
   .post('/language', app.setLanguage)
 
-  .get('/blog', blog.getBlogPosts)
-  .get('/blog/index', blog.indexBlogPosts)
-  .get('/blog/:id', blog.getBlog)
-  .delete('/blog/:id', blog.deleteBlog)
+  .get('/blog', blog.getAllBlogPosts)
+  .get('/blog/index', blog.indexOfBlogPosts)
+  .get('/blog/:id', blog.getBlogPost)
+  .delete('/blog/:id', blog.deleteBlogPost)
   // .get('/getPageOfBlogPosts/:page', blog.getPageOfBlogPosts)
   .post('/blog/new', blog.newBlog)
 
