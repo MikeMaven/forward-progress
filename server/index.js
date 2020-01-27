@@ -21,9 +21,6 @@ const isDev = !isProd;
 const ngrok = process.env.ENABLE_TUNNEL ? require('ngrok') : false;
 const useMicroCache = process.env.MICRO_CACHE !== 'false';
 require('dotenv').config();
-const serverInfo =
-  `express/${require('express/package.json').version} ` +
-  `vue-server-renderer/${require('vue-server-renderer/package.json').version}`;
 
 global.appConfig = _.merge(
   {},
@@ -114,7 +111,11 @@ require('./policy/content.policy').invokeRolesPolicies();
 app.use('/api', require('./routes'));
 
 async function render(req, res) {
-  const s = Date.now();
+  const serverInfo =
+    `express/${require('express/package.json').version} ` +
+    `vue-server-renderer/${require('vue-server-renderer/package.json').version}`;
+
+  const start = Date.now();
 
   res.setHeader('Content-Type', 'text/html');
   res.setHeader('Server', serverInfo);
@@ -132,18 +133,19 @@ async function render(req, res) {
     }
   };
 
-  const uc = require('./api/app.controller');
-  let appData = await uc.content(req);
+  const appController = require('./api/app.controller');
+  let appData = await appController.fetchAppByLanguage(req);
 
   if (req.query.access_token) {
     appData = _.extend(appData, { access_token: req.query.access_token });
   }
 
   const context = {
+    appData,
     title: appData.content.app_title, // default title
-    url: req.url,
-    appData
+    url: req.url
   };
+
   renderer.renderToString(context, (err, html) => {
     if (err) {
       return handleError(err);
@@ -157,7 +159,7 @@ async function render(req, res) {
     );
     res.send(html);
     if (!isProd) {
-      console.log(`whole request: ${Date.now() - s}ms`);
+      console.log(`whole request: ${Date.now() - start}ms`);
     }
   });
 }

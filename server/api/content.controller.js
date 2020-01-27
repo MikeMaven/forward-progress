@@ -14,11 +14,7 @@ exports.list = async (req, res) => {
   });
 
   ContentText.findAll({
-    include: [
-      {
-        model: DB.Content
-      }
-    ],
+    include: [{ model: DB.Content }],
     where: {
       languageid: language.id
     }

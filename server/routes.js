@@ -1,8 +1,7 @@
+const router = require('express').Router();
 const passport = require('passport');
 const multer = require('multer');
 const multerConfig = require('./multerConfig');
-
-const router = require('express').Router();
 
 const app = require('./api/app.controller');
 const blog = require('./api/blog.controller');
@@ -15,8 +14,8 @@ const adminPolicy = require('./policy/admin.policy');
 const contentPolicy = require('./policy/content.policy');
 
 router
-  .get('/applicationdata', app.get)
-  .post('/SetLanguage', app.setLanguage)
+  .get('/appdata', app.getApp)
+  .post('/language', app.setLanguage)
 
   .get('/blog', blog.getBlogPosts)
   .get('/blog/index', blog.indexBlogPosts)
