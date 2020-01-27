@@ -1,7 +1,7 @@
 /* eslint consistent-return: "off" */
 const { BlogPost, User } = require('../db/models');
 
-exports.getAllBlogPosts = async (req, res) => {
+exports.getAllPosts = async (req, res) => {
   // if (!req.user.isAdmin) {
   //   return res.status(401).send('Unauthorized User');
   // }
@@ -10,7 +10,7 @@ exports.getAllBlogPosts = async (req, res) => {
   res.json(blogPosts);
 };
 
-exports.indexOfBlogPosts = async (req, res) => {
+exports.getIndex = async (req, res) => {
   const blogPosts = await BlogPost.findAll({
     attributes: [
       'title',
@@ -26,7 +26,7 @@ exports.indexOfBlogPosts = async (req, res) => {
   res.json(blogPosts);
 };
 
-exports.getBlogPost = async (req, res) => {
+exports.getPost = async (req, res) => {
   const { id } = req.params;
 
   if (!id || !/^\d+$/.test(id)) {
@@ -38,7 +38,7 @@ exports.getBlogPost = async (req, res) => {
   res.json(blog);
 };
 
-exports.deleteBlogPost = async (req, res) => {
+exports.deletePost = async (req, res) => {
   const { id } = req.params;
 
   if (!id || !/^\d+$/.test(id)) {
@@ -50,7 +50,7 @@ exports.deleteBlogPost = async (req, res) => {
   res.json(blog);
 };
 
-exports.newBlog = async (req, res) => {
+exports.newPost = async (req, res) => {
   const { title, body } = req.body;
   if (!title || !body) {
     res.status(401).send('Cannot create new blog post');

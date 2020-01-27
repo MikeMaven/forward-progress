@@ -1,85 +1,65 @@
 /* eslint consistent-return: "off" */
-const DB = require('../db/models');
-const { ContentText, Language } = DB;
+const { ContentText, Language, Content } = require('../db/models');
 const errorHandler = require('../errorHandler');
 
-/**
- * For site display purpose
- */
 exports.list = async (req, res) => {
-  const language = await Language.findOne({
-    where: {
-      locale: req.query.lang
-    }
-  });
+  try {
+    const { id } = await Language.findOne({
+      where: { locale: req.query.lang }
+    });
 
-  ContentText.findAll({
-    include: [{ model: DB.Content }],
-    where: {
-      languageid: language.id
-    }
-  })
-    .then(list => {
-      const response = {};
+    const allContentText = ContentText.findAll({
+      include: [{ model: Content }],
+      where: { languageid: id }
+    });
 
-      list.forEach(item => {
-        response[item.Content.key] = item.text;
-      });
+    const contentObj = {};
 
-      res.json(response);
-    })
-    .catch(err => res.status(400).send(err));
+    allContentText.map(el => {
+      contentObj[el.Content.key] = el.text;
+    });
+
+    res.json(contentObj);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 
-/**
- * For editing on admin content page
- */
 exports.get = async (req, res) => {
-  const language = await Language.findOne({
-    where: {
-      locale: req.params.locale
-    }
-  });
+  try {
+    const { id } = await Language.findOne({
+      where: { locale: req.params.locale }
+    });
 
-  ContentText.findAll({
-    include: [
-      {
-        model: DB.Content
-      }
-    ],
-    where: {
-      languageid: language.id
-    }
-  })
-    .then(contentTextList => {
-      const list = contentTextList.map(item => ({
-        id: item.id,
-        text: item.text,
-        contentKey: item.Content.key
-      }));
-      res.json(list);
-    })
-    .catch(err => res.status(400).send(err));
+    const allContentText = ContentText.findAll({
+      include: [{ model: Content }],
+      where: { languageid: id }
+    });
+
+    const contentArr = allContentText.map(content => ({
+      id: content.id,
+      text: content.text,
+      contentKey: content.Content.key
+    }));
+
+    res.json(contentArr);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 };
 
-/**
- * Edit single content
- */
-exports.put = (req, res) => {
-  ContentText.findOne({
-    where: {
-      id: req.body.id
-    }
-  })
-    .then(contentText => {
-      contentText
-        .update({
-          text: req.body.text
-        })
-        .then(updatedContentText => {
-          res.json(updatedContentText);
-        })
-        .catch(err => res.status(400).send(errorHandler(err)));
-    })
-    .catch(err => res.status(400).send(errorHandler(err)));
+exports.put = async (req, res) => {
+  try {
+    const contentText = await ContentText.findOne({
+      where: { id: req.body.id }
+    });
+
+    const updatedText = await contentText.update({
+      text: req.body.text
+    });
+
+    res.json(updatedText);
+  } catch (error) {
+    res.status(400).send(errorHandler(error));
+  }
 };
