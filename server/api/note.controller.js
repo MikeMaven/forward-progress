@@ -1,33 +1,34 @@
 /* eslint consistent-return: "off" */
-const passport = require('passport');
-const nodemailer = require('nodemailer');
-const crypto = require('crypto');
-const _ = require('lodash');
-const DB = require('../db/models');
-const { Note, User, Usernote, Tag, NoteTag, UserSharedNote } = DB;
-const errorHandler = require('../errorHandler');
-const getAccessToken = require('../token');
-const logger = require('../logger');
+const {
+  Note,
+  User,
+  Usernote,
+  Tag,
+  NoteTag,
+  UserSharedNote
+} = require('../db/models');
 
-exports.sharedNotes = (req, res) => {
-  let notes = null;
-  if (req.user) {
-    User.findByPk(req.user.dataValues.id, {
-      include: [
-        {
-          model: Note,
-          as: 'sharednotes'
-        }
-      ]
-    }).then(notes => {
-      res.json(notes);
-    });
-  } else {
+exports.sharedNotes = async (req, res) => {
+  console.log(req.body)
+  const { user } = req;
+
+  if (!user) {
     res.status(401).send([]);
   }
+
+  const notes = await User.findByPk(user.dataValues.id, {
+    include: [
+      {
+        model: Note,
+        as: 'sharednotes'
+      }
+    ]
+  });
+
+  res.json(notes);
 };
 
-exports.createShares = (req, res) => {
+exports.createShares = async (req, res) => {
   req.body.users.forEach(user => {
     NewShare = Object.assign({
       UserId: user.id,
