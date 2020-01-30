@@ -26,9 +26,8 @@ exports.fetchAppByLanguage = async req => {
     }));
 
     return { cultures, content };
-  } catch (error) {
-    console.error(error);
-    Promise.reject(error);
+  } catch (err) {
+    Promise.reject(err);
   }
 };
 

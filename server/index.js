@@ -111,62 +111,73 @@ require('./policy/content.policy').invokeRolesPolicies();
 app.use('/api', require('./routes'));
 
 async function render(req, res) {
-  const serverInfo =
-    `express/${require('express/package.json').version} ` +
-    `vue-server-renderer/${require('vue-server-renderer/package.json').version}`;
+  try {
+    const serverInfo =
+      `express/${require('express/package.json').version} ` +
+      `vue-server-renderer/${require('vue-server-renderer/package.json').version}`;
 
-  const start = Date.now();
+    const start = Date.now();
 
-  res.setHeader('Content-Type', 'text/html');
-  res.setHeader('Server', serverInfo);
+    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Server', serverInfo);
 
-  const handleError = err => {
-    if (err.url) {
-      res.redirect(err.url);
-    } else if (err.code === 404) {
-      res.status(404).send('404 | Page Not Found');
-    } else {
-      // Render Error Page or Redirect
-      res.status(500).send('500 | Internal Server Error');
-      console.error(`error during render : ${req.url}`);
-      console.error(err.stack);
+    const handleError = err => {
+      if (err.url) {
+        res.redirect(err.url);
+      } else if (err.code === 404) {
+        res.status(404).send('404 | Page Not Found');
+      } else {
+        // Render Error Page or Redirect
+        res.status(500).send('500 | Internal Server Error');
+        console.error(`error during render : ${req.url}`);
+        console.error(err.stack);
+      }
+    };
+
+    let appData = await require('./api/app.controller').fetchAppByLanguage(req);
+    if (req.query.access_token) {
+      appData = _.extend(appData, { access_token: req.query.access_token });
     }
-  };
 
-  const appController = require('./api/app.controller');
-  let appData = await appController.fetchAppByLanguage(req);
+    const context = {
+      appData,
+      title: appData.content.app_title, // default title
+      url: req.url
+    };
 
-  if (req.query.access_token) {
-    appData = _.extend(appData, { access_token: req.query.access_token });
+    renderer.renderToString(context, (err, html) => {
+      if (err) {
+        return handleError(err);
+      }
+      html = html.replace(
+        '<div id="preloadedstate"></div>',
+        `<script>window.__PRELOADEDSTATE__ = ${JSON.stringify(appData).replace(
+          /</g,
+          '\\u003c'
+        )}</script>`
+      );
+      res.send(html);
+      if (!isProd) {
+        console.log(`whole request: ${Date.now() - start}ms`);
+      }
+    });
+  } catch (err) {
+    console.error(err);
   }
-
-  const context = {
-    appData,
-    title: appData.content.app_title, // default title
-    url: req.url
-  };
-
-  renderer.renderToString(context, (err, html) => {
-    if (err) {
-      return handleError(err);
-    }
-    html = html.replace(
-      '<div id="preloadedstate"></div>',
-      `<script>window.__PRELOADEDSTATE__ = ${JSON.stringify(appData).replace(
-        /</g,
-        '\\u003c'
-      )}</script>`
-    );
-    res.send(html);
-    if (!isProd) {
-      console.log(`whole request: ${Date.now() - start}ms`);
-    }
-  });
 }
 
-app.get('*', isProd ? render : (req, res) => {
-    readyPromise.then(() => render(req, res));
-  }
+app.get(
+  '*',
+  isProd
+    ? render
+    : async (req, res) => {
+        try {
+          await readyPromise;
+          render(req, res);
+        } catch (err) {
+          console.error(err);
+        }
+      }
 );
 
 const port = process.env.PORT || 3000;
