@@ -22,8 +22,9 @@ router
   .get('/blog/index', blog.indexBlogPosts)
   .get('/blog/:id', blog.getBlog)
   .delete('/blog/:id', blog.deleteBlog)
-  // .get('/getPageOfBlogPosts/:page', blog.getPageOfBlogPosts)
   .post('/blog/new', blog.newBlog)
+
+  .get('/blogs', blog.getPageOfBlogPosts)
 
   .get('/content/list', content.list)
   .all('/content/:locale', contentPolicy.isAllowed)
@@ -42,37 +43,37 @@ router
 
   .get('/auth/facebook',
     users.oauthCall('facebook',
-    {
-      session: false,
-      scope: ['email']
-    })
+      {
+        session: false,
+        scope: ['email']
+      })
   )
   .get('/auth/facebook/callback', users.oauthCallback('facebook'))
 
   .get('/auth/windowslive',
     users.oauthCall('windowslive',
-    {
-      session: false,
-      scope: ['wl.signin', 'wl.basic']
-    })
+      {
+        session: false,
+        scope: ['wl.signin', 'wl.basic']
+      })
   )
   .get('/auth/windowslive/callback', users.oauthCallback('windowslive'))
 
   .get('/auth/google',
     users.oauthCall('google',
-    {
-      session: false,
-      scope: ['openid', 'profile', 'email']
-    })
+      {
+        session: false,
+        scope: ['openid', 'profile', 'email']
+      })
   )
   .get('/auth/google/callback', users.oauthCallback('google'))
 
   .get('/auth/linkedin',
     users.oauthCall('linkedin',
-    {
-      session: false,
-      scope: ['r_basicprofile', 'r_emailaddress']
-    })
+      {
+        session: false,
+        scope: ['r_basicprofile', 'r_emailaddress']
+      })
   )
 
   .get('/auth/linkedin/callback', users.oauthCallback('linkedin'))

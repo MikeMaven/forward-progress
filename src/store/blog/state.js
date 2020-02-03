@@ -12,7 +12,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     },
     {
       id: 2,
@@ -23,7 +29,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     },
     {
       id: 3,
@@ -34,7 +46,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     },
     {
       id: 4,
@@ -45,7 +63,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     },
     {
       id: 5,
@@ -56,7 +80,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     },
     {
       id: 6,
@@ -67,7 +97,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     },
     {
       id: 7,
@@ -78,7 +114,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     },
     {
       id: 8,
@@ -89,7 +131,13 @@ export default {
       body:
         "<p><strong>This is a test.</strong></p><p><br></p><p>We are here to make an impact in this industry.</p><p><br></p><p>For us, this should be only the beginning of some very impactful articles.</p><p><br></p><ol><li>Let's talk about this.</li></ol><p>\t\tOk!</p>",
       isPaid: false,
-      photoGallery: null
+      photoGallery: null,
+      tags: ['News', 'Opinion'],
+      author: {
+        firstName: 'John',
+        lastName: 'Snow'
+      },
+      createdAt: new Date().toLocaleDateString()
     }
   ]
 };

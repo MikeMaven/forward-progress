@@ -48,10 +48,7 @@
         </b-col>
       </b-row>
     </div>
-    <div
-      class="featureSpotlight"
-      style="border-top:1px dotted black;padding-top:30px;"
-    >
+    <div class="featureSpotlight">
       <div class="featureColumn">
         <img src="~public/images/Icon1.png" >
         <h2>Articles</h2>
@@ -113,7 +110,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .featured-section {
   overflow: hidden;
 }
@@ -285,6 +282,8 @@ export default {
 .featureSpotlight {
   margin: 35px 16% 0 16%;
   text-align: center;
+  border-top: 1px dotted black;
+  padding-top:30px;
 }
 
 .featureSpotlight .featureColumn {

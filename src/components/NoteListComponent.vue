@@ -69,7 +69,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
 .showNoteBody li p {
   display: inline !important;
