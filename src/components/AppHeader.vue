@@ -43,7 +43,7 @@
       </b-nav-item-dropdown>
       <b-nav-item
       v-if="!isAdmin"
-      to="/blog/index?page=1">
+      to="/blogs">
         Blog
       </b-nav-item>
       <b-nav-item
@@ -71,7 +71,7 @@
   </b-navbar>
 </template>
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -79,14 +79,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'user', 'appData']),
+    ...mapGetters(["isAuthenticated", "user", "appData"]),
     isAdmin() {
-      return this.$store.getters['isAdmin'];
+      return this.$store.getters["isAdmin"];
     }
   },
   methods: {
     ...mapActions({
-      logout: 'logout'
+      logout: "logout"
     }),
     toggle() {
       this.isOpen = !this.isOpen;
@@ -96,16 +96,17 @@ export default {
 </script>
 
 <style scoped>
-#noteHeader ul, li {
-  font-size: 12px!important;
+#noteHeader ul,
+li {
+  font-size: 12px !important;
 }
 
 .navbar {
-  background-color: #013369!important;
+  background-color: #013369 !important;
 }
 
 .dropdown-toggle.dropdown-menu {
-  min-width: 12rem!important;
+  min-width: 12rem !important;
 }
 
 #navBarTitle {
@@ -130,7 +131,7 @@ export default {
 .logButtons .logButton {
   margin-right: 0;
   font-family: paralucent, sans-serif;
-  font-style: 'normal';
+  font-style: "normal";
   font-weight: 400;
   font-size: 1.5em;
   letter-spacing: 0.2em;

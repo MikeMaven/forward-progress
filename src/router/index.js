@@ -54,7 +54,7 @@ function createRouter() {
           { path: 'userpassword', component: ProfilePasswordView }
         ]
       },
-      { path: '/blog/index', component: BlogIndex },
+      { path: '/blogs', component: BlogIndex },
       { path: '/blog/new', component: NewBlogPost },
       { path: '/users', component: UsersView },
       { path: '/users/:id', component: UserShow },

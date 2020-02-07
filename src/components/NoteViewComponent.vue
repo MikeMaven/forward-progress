@@ -126,7 +126,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 #noteViewComponent {
   float: right;
   padding: 25px 35px 25px 25px;

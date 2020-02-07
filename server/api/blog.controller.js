@@ -79,10 +79,10 @@ exports.newBlog = async (req, res) => {
 };
 
 exports.getPageOfBlogPosts = (req, res) => {
-  if (isNaN(req.params.page) || req.params.page < 1) {
+  if (isNaN(req.query.page) || req.query.page < 1) {
     res.status(401).send({});
   } else {
-    const currentPageIndex = (req.params.page - 1) * 10;
+    const currentPageIndex = (req.query.page - 1) * 10;
     BlogPost.findAll({
       include: [
         {
