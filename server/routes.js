@@ -1,8 +1,9 @@
+const router = require('express').Router();
+
 const passport = require('passport');
 const multer = require('multer');
 const multerConfig = require('./multerConfig');
-
-const router = require('express').Router();
+const upload = multer(multerConfig);
 
 const app = require('./api/app.controller');
 const blog = require('./api/blog.controller');
@@ -30,7 +31,7 @@ router
   .get('/content/:locale', content.get)
   .put('/content/:locale', content.put)
 
-  .post('/fileupload', fileUpload.uploadPhoto)
+  .post('/fileupload', upload.single('image'), fileUpload.uploadPhoto)
 
   .get('/auth/reset/:token', users.validateResetToken)
   .post('/auth/reset/:token', users.reset)
@@ -92,7 +93,7 @@ router
   .delete('/users/accounts', users.removeOAuthProvider)
   .post('/users/password', users.changePassword)
   .post('/users/picture',
-    multer(multerConfig).single('newProfilePicture'),
+    upload.single('newProfilePicture'),
     users.changeProfilePicture
   )
   .get('/users/picture/:id', users.getProfilePicture)
