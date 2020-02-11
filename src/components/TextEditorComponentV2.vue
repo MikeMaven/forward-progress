@@ -1,12 +1,17 @@
 <template>
   <div>
-    <h4>Title:</h4>
-    <input v-model="title"
-type="text" id="titleEntry" tabindex="1"
-/>
+    <h4>Title</h4>
+    <input
+      id="titleEntry"
+      v-model="title"
+      type="text"
+      tabindex="1"
+    >
     <div
-v-if="this.type === 'blog'" id="blogFields">
-      <h4>Subtitle:</h4>
+      v-if="this.type === 'blog'" 
+      id="blogFields"
+    >
+      <h4>Subtitle</h4>
       <input
         id="titleEntry"
         v-model="subTitle"
@@ -14,11 +19,13 @@ v-if="this.type === 'blog'" id="blogFields">
         tabindex="2"
         @keydown="focusEditor"
       />
-      <h4>Paywall Article?:</h4>
-      <input id="paywallCheckBox"
-v-model="isPaid" type="checkbox"
-/>
-      <h4>Upload Cover image:</h4>
+      <h4>Paywall?</h4>
+      <input
+        id="paywallCheckBox"
+        v-model="isPaid"
+        type="checkbox"
+      >
+      <h4>Upload Cover Image</h4>
       <input
         id="coverImageUpload"
         ref="fileInput"
@@ -26,21 +33,33 @@ v-model="isPaid" type="checkbox"
         accept="image/*"
         @change="uploadCoverImage($event)"
       />
-      <div v-if="this.coverImageURL" id="coverImage">
-        <img :src="this.coverImageURL"
-width="50" height="50"
-/>
+      <div
+        v-if="this.coverImageURL"
+        id="coverImage"
+      >
+        <img
+          v-bind:src="this.coverImageURL"
+          width="50"
+          height="50"
+        >
       </div>
+      <h4>Upload to Photo Gallery</h4>
+      <Uploader />
     </div>
+    <h4>Body</h4>
     <vue-editor
       ref="editor"
       v-model="content"
-      use-custom-image-handler
+      useCustomImageHandler
       @image-added="handleImageAdded"
       @selection-change="getSelectionText"
-    />
-    <div v-if="this.type === 'note'" class="tagDiv">
-      <h4>Add Tags:</h4>
+    >
+    </vue-editor>
+    <div
+      v-if="this.type === 'note'"
+      class="tagDiv"
+    >
+      <h4>Add Tags</h4>
       <p class="small text-secondary">
         Press shift + ctrl + t to tag highlighted text.
       </p>
@@ -58,30 +77,49 @@ width="50" height="50"
       />
     </div>
     <div class="buttonRow">
-      <router-link v-if="this.editNoteID" to="/notes" tag="button">
+      <router-link
+        v-if="this.editNoteID"
+        to="/notes"
+        tag="button"
+      >
         Cancel
       </router-link>
-      <button v-if="!this.editNoteID" @click="clearEditor">
+      <button
+        v-if="!this.editNoteID"
+        @click="clearEditor"
+      >
         Clear
       </button>
-      <button v-if="this.type === 'note'" @click="saveNote">
+      <button 
+        v-if="this.type === 'note'"
+        @click="saveNote"
+      >
         Save Note
       </button>
-      <button v-if="this.type === 'note'" @click="saveAndShareNote">
+      <button 
+        v-if="this.type === 'note'"
+        @click="saveAndShareNote"
+      >
         Save and Share
       </button>
-      <button v-if="this.type === 'blog'" @click="saveNote">
+      <button 
+        v-if="this.type === 'blog'"
+        @click="saveNote"
+      >
         Save Blog
       </button>
-      <button v-if="this.editNoteID" @click="deleteNote">
+      <button 
+        v-if="this.editNoteID"
+        @click="deleteNote"
+      >
         Delete Note
       </button>
-      <span v-hotkey="keymap" />
+      <span v-hotkey="keymap"></span>
     </div>
     <b-modal
       id="share-modal"
-      hide-footer
       title="Share This Note With Another User"
+      hide-footer
     >
       <p class="my-4">
         Search below for a users you would like to share this note with by
@@ -99,7 +137,10 @@ width="50" height="50"
         @tag="addUserToSelected"
       />
       <b-button
-class="mt-3" block @click="submitShares">
+        class="mt-3"
+        @click="submitShares"
+        block
+      >
         Share Now
       </b-button>
     </b-modal>
@@ -113,6 +154,7 @@ import Multiselect from 'vue-multiselect';
 import axios from 'axios';
 require('../util/multiselect.css');
 import { router } from '../router';
+require('../util/multiselect.css');
 
 export default {
   name: 'TextEditorComponentV2',
@@ -178,11 +220,6 @@ export default {
       this.content = this.noteBody;
     }
   },
-
-  mounted() {
-    // Invoked when the component loads, good place to fetch data from the API
-  },
-
   methods: {
     clearEditor() {
       this.$store.dispatch('notes/clearTagSelection');
@@ -221,6 +258,7 @@ export default {
           subTitle: this.subTitle,
           body: this.content,
           imageURL: this.coverImageURL,
+          photoGallery: this.photoGallery,
           isPaid: this.isPaid
         });
       }
@@ -292,11 +330,9 @@ export default {
         resetUploader();
       });
     },
-
     addUserToSelected(user) {
       this.selectedUsers.push(user);
     },
-
     submitShares() {
       let payload = {
         users: this.selectedUsers,
@@ -307,7 +343,6 @@ export default {
         router.push('/notes');
       });
     },
-
     getSelectionText() {
       var text = '';
       if (window.getSelection) {
@@ -317,16 +352,13 @@ export default {
       }
       this.selection = text;
     },
-
     autoTag() {
       this.$refs.tagSelect.$el.focus();
       this.$refs.tagSelect._data.search = this.selection.trim();
     },
-
     acceptTag() {
       console.log('Accepted');
     },
-
     uploadCoverImage($event) {
       const resetUploader = function() {
         var uploader = document.getElementById('coverImageUpload');

@@ -1,11 +1,11 @@
 <template>
   <div id="newBlogContainer">
-    <h1>Create a new Blog Post</h1>
+    <h1>Create New Blog Post</h1>
     <text-editor-component-v2
-      :noteTitle = "null"
-      :noteBody = "null"
-      :editNoteID = "null"
-      :type = "'blog'"
+      :noteTitle="null"
+      :noteBody="null"
+      :editNoteID="null"
+      :type="'blog'"
     ></text-editor-component-v2>
   </div>
 </template>
@@ -18,7 +18,6 @@ export default {
     TextEditorComponentV2
   }
 };
-
 </script>
 
 <style scoped>
