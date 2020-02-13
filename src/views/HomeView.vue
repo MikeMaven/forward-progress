@@ -5,9 +5,11 @@
         <p>Leading the Way Forward in Football Analysis</p>
       </div>
       <b-row align-h="center">
-        <b-col cols="4">
+        <b-col
+lg="4" md="12">
           <b-carousel
             id="landing-page-article-carousel"
+            v-model="currentSlide"
             :interval="4000"
             fade
             controls
@@ -15,33 +17,43 @@
             background="#ababab"
             img-width="100%"
             img-height="400px"
-            v-model="currentSlide"
           >
-            <b-carousel-slide v-for="post in carouselSlides" v-bind:key="post.id"
+            <b-carousel-slide
+              v-for="post in carouselSlides"
+              :key="post.id"
               :img-src="post.coverImageURL"
             />
           </b-carousel>
           <div class="slider-article-description">
             <div class="slider-description-content">
-              <div class="slider-title">{{ currentSlidePost.title }}</div>
-              <div class="slider-subtitle">{{ currentSlidePost.subTitle }}</div>
+              <div class="slider-title">
+                {{ currentSlidePost.title }}
+              </div>
+              <div class="slider-subtitle">
+                {{ currentSlidePost.subTitle }}
+              </div>
             </div>
           </div>
         </b-col>
-        <b-col cols="4">
+        <b-col
+lg="4" md="12">
           <div class="latest-container">
             <div class="red-title">
               LATEST
             </div>
             <div>
-              <div v-for="post in otherLatestPosts" v-bind:key="post.id" class="latest-post">
+              <div
+                v-for="post in otherLatestPosts"
+                :key="post.id"
+                class="latest-post"
+              >
                 <div class="post-title">
                   {{ truncate(post.title, 'title') }}
                 </div>
                 <div class="post-subtitle">
                   {{ truncate(post.subTitle, 'subtitle') }}
                 </div>
-                <div v-if="!isLastLatestPost(post)" class="divider"/>
+                <div v-if="!isLastLatestPost(post)" class="divider" />
               </div>
             </div>
           </div>
@@ -69,14 +81,14 @@
 </template>
 
 <script>
-import _ from "lodash";
-import { mapGetters } from "vuex";
+import _ from 'lodash';
+import { mapGetters } from 'vuex';
 
 export default {
   computed: {
     ...mapGetters({
-      appData: "appData",
-      latestPosts: "blog/getLatestPosts"
+      appData: 'appData',
+      latestPosts: 'blog/getLatestPosts'
     }),
     carouselSlides() {
       return this.latestPosts.slice(0, 3);
@@ -98,10 +110,10 @@ export default {
       return _.last(this.otherLatestPosts) === post;
     },
     truncate(text, type) {
-      if (type === "title" && text.length > 60) {
-        return text.slice(0, 59) + "...";
-      } else if (type === "subtitle" && text.length > 70) {
-        return text.slice(0, 69) + "...";
+      if (type === 'title' && text.length > 60) {
+        return text.slice(0, 59) + '...';
+      } else if (type === 'subtitle' && text.length > 70) {
+        return text.slice(0, 69) + '...';
       } else {
         return text;
       }
@@ -144,7 +156,7 @@ export default {
 }
 
 .slider-article-description {
-  height: 100%;
+  height: 110px;
   background-color: #013369;
   color: #ffffff;
 }
@@ -240,7 +252,7 @@ export default {
 
 .infoButton {
   font-family: paralucent, sans-serif;
-  font-style: "normal";
+  font-style: 'normal';
   font-weight: 400;
   font-size: 1.5em;
   letter-spacing: 0.2em;
@@ -263,7 +275,7 @@ export default {
   max-width: 100%;
   margin: 2.5% 0 0 0;
   font-family: paralucent, sans-serif;
-  font-style: "normal";
+  font-style: 'normal';
   font-weight: 400;
   font-size: 1.5em;
   color: #013369;
@@ -283,7 +295,7 @@ export default {
   margin: 35px 16% 0 16%;
   text-align: center;
   border-top: 1px dotted black;
-  padding-top:30px;
+  padding-top: 30px;
 }
 
 .featureSpotlight .featureColumn {
@@ -310,7 +322,7 @@ export default {
 
 .featureColumn p {
   color: black;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   margin: 0 15%;
   font-size: 1.5em;
 }
