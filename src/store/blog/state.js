@@ -56,8 +56,8 @@ export default {
     },
     {
       id: 4,
-      title: 'Forward Progress',
-      subTitle: 'Changing the field of football.',
+      title: 'Mike Tannenbaum',
+      subTitle: 'The man, the myth, the legend.',
       coverImageURL:
         'https://sportshub.cbsistatic.com/i/r/2019/09/26/f81faf11-54b5-4c2f-9d7f-d129b9e45803/thumbnail/640x360/9848805b319ccb9c8891ee149e020ce7/college-football-general.jpg',
       body:
@@ -73,8 +73,8 @@ export default {
     },
     {
       id: 5,
-      title: 'Forward Progress',
-      subTitle: 'Changing the field of football.',
+      title: 'Sydney Robinson',
+      subTitle: 'An innovator in data science and sports.',
       coverImageURL:
         'https://sportshub.cbsistatic.com/i/r/2019/09/26/f81faf11-54b5-4c2f-9d7f-d129b9e45803/thumbnail/640x360/9848805b319ccb9c8891ee149e020ce7/college-football-general.jpg',
       body:
@@ -90,8 +90,8 @@ export default {
     },
     {
       id: 6,
-      title: 'Forward Progress',
-      subTitle: 'Changing the field of football.',
+      title: 'Mike Mathieu',
+      subTitle: 'These guys put a lot of trust in me.',
       coverImageURL:
         'https://sportshub.cbsistatic.com/i/r/2019/09/26/f81faf11-54b5-4c2f-9d7f-d129b9e45803/thumbnail/640x360/9848805b319ccb9c8891ee149e020ce7/college-football-general.jpg',
       body:

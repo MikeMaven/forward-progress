@@ -2,15 +2,10 @@
   <div>
     <h4>Title</h4>
     <input
-      id="titleEntry"
-      v-model="title"
-      type="text"
-      tabindex="1"
-    >
+id="titleEntry" v-model="title" type="text" tabindex="1" />
     <div
-      v-if="this.type === 'blog'" 
-      id="blogFields"
-    >
+v-if="this.type === 'blog'" id="blogFields"
+>
       <h4>Subtitle</h4>
       <input
         id="titleEntry"
@@ -18,13 +13,10 @@
         type="text"
         tabindex="2"
         @keydown="focusEditor"
-      />
+      >
       <h4>Paywall?</h4>
       <input
-        id="paywallCheckBox"
-        v-model="isPaid"
-        type="checkbox"
-      >
+id="paywallCheckBox" v-model="isPaid" type="checkbox" />
       <h4>Upload Cover Image</h4>
       <input
         id="coverImageUpload"
@@ -32,16 +24,12 @@
         type="file"
         accept="image/*"
         @change="uploadCoverImage($event)"
-      />
-      <div
-        v-if="this.coverImageURL"
-        id="coverImage"
       >
+      <div
+v-if="this.coverImageURL" id="coverImage"
+>
         <img
-          v-bind:src="this.coverImageURL"
-          width="50"
-          height="50"
-        >
+:src="this.coverImageURL" width="50" height="50" />
       </div>
       <h4>Upload to Photo Gallery</h4>
       <Uploader />
@@ -50,15 +38,13 @@
     <vue-editor
       ref="editor"
       v-model="content"
-      useCustomImageHandler
+      use-custom-image-handler
       @image-added="handleImageAdded"
       @selection-change="getSelectionText"
-    >
-    </vue-editor>
+    />
     <div
-      v-if="this.type === 'note'"
-      class="tagDiv"
-    >
+v-if="this.type === 'note'" class="tagDiv"
+>
       <h4>Add Tags</h4>
       <p class="small text-secondary">
         Press shift + ctrl + t to tag highlighted text.
@@ -78,43 +64,37 @@
     </div>
     <div class="buttonRow">
       <router-link
-        v-if="this.editNoteID"
-        to="/notes"
-        tag="button"
-      >
+v-if="this.editNoteID" to="/notes"
+tag="button"
+>
         Cancel
       </router-link>
       <button
-        v-if="!this.editNoteID"
-        @click="clearEditor"
-      >
+v-if="!this.editNoteID" @click="clearEditor"
+>
         Clear
       </button>
-      <button 
-        v-if="this.type === 'note'"
-        @click="saveNote"
-      >
+      <button
+v-if="this.type === 'note'" @click="saveNote"
+>
         Save Note
       </button>
-      <button 
-        v-if="this.type === 'note'"
-        @click="saveAndShareNote"
-      >
+      <button
+v-if="this.type === 'note'" @click="saveAndShareNote"
+>
         Save and Share
       </button>
-      <button 
-        v-if="this.type === 'blog'"
-        @click="saveNote"
-      >
+      <button
+v-if="this.type === 'blog'" @click="saveNote"
+>
         Save Blog
       </button>
-      <button 
-        v-if="this.editNoteID"
-        @click="deleteNote"
-      >
+      <button
+v-if="this.editNoteID" @click="deleteNote"
+>
         Delete Note
       </button>
-      <span v-hotkey="keymap"></span>
+      <span v-hotkey="keymap" />
     </div>
     <b-modal
       id="share-modal"
@@ -137,10 +117,9 @@
         @tag="addUserToSelected"
       />
       <b-button
-        class="mt-3"
-        @click="submitShares"
-        block
-      >
+class="mt-3" block
+@click="submitShares"
+>
         Share Now
       </b-button>
     </b-modal>
