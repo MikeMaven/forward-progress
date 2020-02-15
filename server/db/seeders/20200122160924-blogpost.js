@@ -12,6 +12,7 @@ module.exports = {
         subTitle: 'Who drinks tea anymore?',
         isPaid: false,
         photoGallery: null,
+        tags: ['News', 'Opinion'],
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -23,6 +24,7 @@ module.exports = {
         subTitle: 'From the most knowledgeable source',
         isPaid: true,
         photoGallery: null,
+        tags: ['News', 'Opinion'],
         createdAt: new Date(),
         updatedAt: new Date()
       }
