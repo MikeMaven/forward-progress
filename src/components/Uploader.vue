@@ -1,10 +1,10 @@
 <template>
   <div>
     <dropzone
+      id="uploader"
       ref="uploader"
-      id="dropzone"
-      duplicateCheck="true"
       :options="uploaderOptions"
+      @vdropzone-complete="captureResponse"
     >
     </dropzone>
   </div>
@@ -22,11 +22,17 @@ export default {
       uploaderOptions: {
         url: '/api/fileupload',
         paramName: 'image',
-        thumbnailWidth: 100,
-        thumbnailHeight: 100,
+        thumbnailWidth: 80,
+        thumbnailHeight: 80,
         maxFilesize: 10
       }
     };
+  },
+  methods: {
+    captureResponse(res) {
+      this.$emit('image-uploaded', JSON.parse(res.xhr.response).imageUrl);
+      this.$refs.uploader.removeAllFiles();
+    }
   }
 };
 </script>

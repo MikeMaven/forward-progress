@@ -32,7 +32,7 @@ router
   .get('/content/:locale', content.get)
   .put('/content/:locale', content.put)
 
-  .post('/fileupload', upload.single('image'), fileUpload.uploadPhoto)
+  .post('/fileupload', fileUpload.uploadPhoto)
 
   .get('/auth/reset/:token', users.validateResetToken)
   .post('/auth/reset/:token', users.reset)
