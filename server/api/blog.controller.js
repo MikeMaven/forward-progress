@@ -20,6 +20,12 @@ exports.getBlogPosts = async (req, res) => {
 
 exports.indexBlogPosts = async (req, res) => {
   const blogPosts = await BlogPost.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ['firstName', 'lastName']
+      }
+    ],
     attributes: [
       'title',
       'subTitle',
