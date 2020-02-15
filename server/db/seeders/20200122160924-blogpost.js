@@ -8,7 +8,7 @@ module.exports = {
         title: 'Best Coffee Shops',
         body: 'Top 3 Best Coffee Shops \nStarbucks \nDunkin\' Donuts \nPeet\'s Coffee \n',
         Author: 1,
-        coverImageURL: null,
+        coverImageURL: 'https://static01.nyt.com/images/2017/05/11/t-magazine/bookstore-slide-2MCD/bookstore-slide-2MCD-superJumbo.jpg?quality=90',
         subTitle: 'Who drinks tea anymore?',
         isPaid: false,
         photoGallery: null,
