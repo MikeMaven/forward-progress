@@ -10,7 +10,7 @@
     <div class="blogFields">
       <h4>Subtitle</h4>
       <input
-        v-model="subTitle"
+        v-model="subtitle"
         class="titleEntry"
         type="text"
         tabindex="2"
@@ -75,7 +75,6 @@
       Press shift + ctrl + t to tag highlighted text.
     </p>
     <multiselect
-      ref="tagSelect"
       v-model="selected"
       tag-placeholder="Add this as a new tag"
       placeholder="Search or add a tag"
@@ -98,6 +97,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import Multiselect from 'vue-multiselect';
 import PhotoGallerySingle from './PhotoGallerySingle.vue';
 import Uploader from './Uploader.vue';
@@ -108,7 +108,7 @@ export default {
   data() {
     return {
       title: null,
-      subTitle: null,
+      subtitle: null,
       isPaid: true,
       photoGallery: [],
       content: null,
@@ -206,7 +206,29 @@ export default {
       this.currentPhoto = null;
     },
     save() {
-      console.log(currentUser);
+      const blog = {
+        title: this.title,
+        content: this.content,
+        Author: this.currentUser,
+        coverImageURL: this.coverImageURL,
+        subTitle: this.subTitle,
+        isPaid: this.isPaid,
+        photoGallery: this.photoGallery.map(el => JSON.stringify(el)),
+        tags: this.selected.map(el => JSON.stringify(el))
+      };
+
+      axios({
+        url: '/api/blog/new',
+        method: 'POST',
+        data: blog
+      }).then(res => {
+        if (res.status === 200) {
+          this.clear();
+          alert('Blog saved successfully');
+        } else {
+          alert('Error. Couldn\'t save blog.');
+        }
+      });
     }
   }
 };
