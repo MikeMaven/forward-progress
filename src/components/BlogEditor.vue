@@ -70,24 +70,41 @@
       @image-added="handleImageAdded"
     >
     </vue-editor>
+    <h4>Add Tags</h4>
+    <p class="small text-secondary">
+      Press shift + ctrl + t to tag highlighted text.
+    </p>
+    <multiselect
+      ref="tagSelect"
+      v-model="selected"
+      tag-placeholder="Add this as a new tag"
+      placeholder="Search or add a tag"
+      label="name"
+      track-by="code"
+      :options="options"
+      :taggable="true"
+      :multiple="true"
+      @tag="addTag"
+    />
     <div class="buttonRow">
       <button @click="clear">
         Clear
       </button>
-      <button>
-        Save Blog
+      <button @click="save">
+        Save
       </button>
     </div>
   </div>
 </template>
 
 <script>
+import Multiselect from 'vue-multiselect';
 import PhotoGallerySingle from './PhotoGallerySingle.vue';
 import Uploader from './Uploader.vue';
 
 export default {
   name: 'BlogEditor',
-  components: { PhotoGallerySingle, Uploader },
+  components: { PhotoGallerySingle, Uploader, Multiselect },
   data() {
     return {
       title: null,
@@ -105,6 +122,17 @@ export default {
     },
     coverImageURL() {
       return this.$store.getters['blog/coverImageURL'];
+    },
+    options() {
+      return this.$store.getters['blog/getAllTags'];
+    },
+    selected: {
+      get: function() {
+        return this.$store.getters['blog/getSelectedTags'];
+      },
+      set: function(updatedTags) {
+        this.$store.dispatch('blog/updateTagSelection', updatedTags);
+      }
     }
   },
   methods: {
@@ -160,6 +188,14 @@ export default {
       this.photoGalleryIdx.splice(urlIdx, 1);
       this.photoGallery.splice(urlIdx, 1);
     },
+    addTag(newTag) {
+      const tag = {
+        name: newTag,
+        code: newTag.substring(0, 2) + Math.floor(Math.random() * 100000000),
+        new: true
+      };
+      this.$store.dispatch('blog/createNewTag', tag);
+    },
     clear() {
       this.title = null;
       this.subTitle = null;
@@ -168,6 +204,9 @@ export default {
       this.content = null;
       this.photoGalleryIdx = [];
       this.currentPhoto = null;
+    },
+    save() {
+      console.log(currentUser);
     }
   }
 };
