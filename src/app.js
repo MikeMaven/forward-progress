@@ -21,7 +21,8 @@ import {
   faItalic,
   faStrikethrough,
   faUnderline,
-  faImages
+  faImages,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -34,7 +35,8 @@ library.add(
   faItalic,
   faStrikethrough,
   faUnderline,
-  faImages
+  faImages,
+  faTimes
 );
 
 if (process.browser) {
