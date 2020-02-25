@@ -14,7 +14,6 @@ exports.getBlogPosts = async (req, res) => {
   //   return res.status(401).send('Unauthorized User');
   // }
   const blogPosts = await BlogPost.findAll({});
-
   res.json(blogPosts);
 };
 

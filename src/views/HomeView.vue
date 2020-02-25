@@ -24,7 +24,8 @@ lg="4" md="12">
               :img-src="post.coverImageURL"
             />
           </b-carousel>
-          <div class="slider-article-description">
+          <div
+v-if="currentSlidePost" class="slider-article-description">
             <div class="slider-description-content">
               <div class="slider-title">
                 {{ currentSlidePost.title }}
@@ -53,7 +54,8 @@ lg="4" md="12">
                 <div class="post-subtitle">
                   {{ truncate(post.subTitle, 'subtitle') }}
                 </div>
-                <div v-if="!isLastLatestPost(post)" class="divider" />
+                <div v-if="!isLastLatestPost(post)"
+class="divider" />
               </div>
             </div>
           </div>
@@ -62,17 +64,17 @@ lg="4" md="12">
     </div>
     <div class="featureSpotlight">
       <div class="featureColumn">
-        <img src="~public/images/Icon1.png" >
+        <img src="~public/images/Icon1.png">
         <h2>Articles</h2>
         <p>Dedicated analysis from top NFL insiders.</p>
       </div>
       <div class="featureColumn">
-        <img src="~public/images/Icon2.png" >
+        <img src="~public/images/Icon2.png">
         <h2>Data Visualization</h2>
         <p>Leaders in NFL stats analysis and visualiztion.</p>
       </div>
       <div class="featureColumn">
-        <img src="~public/images/Icon3.png" >
+        <img src="~public/images/Icon3.png">
         <h2>Live Updates</h2>
         <p>Live updates and insights that only NFL insiders can provide.</p>
       </div>
@@ -104,6 +106,9 @@ export default {
     return {
       currentSlide: 0
     };
+  },
+  mounted() {
+    this.$store.dispatch('blog/getBlogPosts');
   },
   methods: {
     isLastLatestPost(post) {

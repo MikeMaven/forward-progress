@@ -42,39 +42,39 @@ router
   .post('/auth/signup', users.signup)
   .get('/auth/signout', users.signout)
 
-  .get('/auth/facebook',
-    users.oauthCall('facebook',
-      {
-        session: false,
-        scope: ['email']
-      })
+  .get(
+    '/auth/facebook',
+    users.oauthCall('facebook', {
+      session: false,
+      scope: ['email']
+    })
   )
   .get('/auth/facebook/callback', users.oauthCallback('facebook'))
 
-  .get('/auth/windowslive',
-    users.oauthCall('windowslive',
-      {
-        session: false,
-        scope: ['wl.signin', 'wl.basic']
-      })
+  .get(
+    '/auth/windowslive',
+    users.oauthCall('windowslive', {
+      session: false,
+      scope: ['wl.signin', 'wl.basic']
+    })
   )
   .get('/auth/windowslive/callback', users.oauthCallback('windowslive'))
 
-  .get('/auth/google',
-    users.oauthCall('google',
-      {
-        session: false,
-        scope: ['openid', 'profile', 'email']
-      })
+  .get(
+    '/auth/google',
+    users.oauthCall('google', {
+      session: false,
+      scope: ['openid', 'profile', 'email']
+    })
   )
   .get('/auth/google/callback', users.oauthCallback('google'))
 
-  .get('/auth/linkedin',
-    users.oauthCall('linkedin',
-      {
-        session: false,
-        scope: ['r_basicprofile', 'r_emailaddress']
-      })
+  .get(
+    '/auth/linkedin',
+    users.oauthCall('linkedin', {
+      session: false,
+      scope: ['r_basicprofile', 'r_emailaddress']
+    })
   )
 
   .get('/auth/linkedin/callback', users.oauthCallback('linkedin'))
@@ -93,7 +93,8 @@ router
   .put('/profile', users.updateProfile)
   .delete('/users/accounts', users.removeOAuthProvider)
   .post('/users/password', users.changePassword)
-  .post('/users/picture',
+  .post(
+    '/users/picture',
     upload.single('newProfilePicture'),
     users.changeProfilePicture
   )
