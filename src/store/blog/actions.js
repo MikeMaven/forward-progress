@@ -18,10 +18,14 @@ export default {
 
   getBlogPosts(context) {
     return new Promise(resolve => {
-      BlogApi.getBlogPosts().then(posts => {
-        console.log(posts);
+      if (context.loaded) {
         resolve();
-      });
+      } else {
+        BlogApi.getBlogPosts().then(posts => {
+          context.commit('setBlogPosts', posts);
+          resolve();
+        });
+      }
     });
   },
 
@@ -54,5 +58,5 @@ export default {
       context.commit('setSelected', selections);
       resolve();
     });
-  },
+  }
 };

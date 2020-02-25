@@ -2,11 +2,7 @@
   <div>
     <h4>Title</h4>
     <input
-      v-model="title"
-      class="titleEntry"
-      type="text"
-      tabindex="1"
-    >
+v-model="title" class="titleEntry" type="text" tabindex="1" />
     <div class="blogFields">
       <h4>Subtitle</h4>
       <input
@@ -15,30 +11,23 @@
         type="text"
         tabindex="2"
         @keydown="focusEditor"
-      />
-      <h4>Paywall?</h4>
-      <input
-        class="paywallCheckBox"
-        v-model="isPaid"
-        type="checkbox"
       >
+      <h4>Paywall?</h4>
+      <input v-model="isPaid"
+class="paywallCheckBox" type="checkbox"
+/>
       <h4>Upload Cover Image</h4>
       <input
-        class="coverImageUpload"
         ref="fileInput"
+        class="coverImageUpload"
         type="file"
         accept="image/*"
         @change="uploadCoverImage($event)"
-      />
-      <div
-        v-if="coverImageURL"
-        class="coverImage"
       >
+      <div v-if="coverImageURL"
+class="coverImage">
         <img
-          v-bind:src="coverImageURL"
-          width="50"
-          height="50"
-        >
+:src="coverImageURL" width="50" height="50" />
       </div>
       <h4>Upload to Photo Gallery</h4>
       <uploader @image-uploaded="addToGallery" />
@@ -50,7 +39,7 @@
             :url="photo.url"
             @select="changeSelectPhoto"
             @delete="deleteSelectPhoto"
-          ></photo-gallery-single>
+          />
         </div>
         <div v-if="currentPhoto">
           <h4>Caption</h4>
@@ -58,7 +47,7 @@
             v-model="currentPhoto.caption"
             type="text"
             placeholder="Click to edit caption!"
-          >
+          />
         </div>
       </div>
     </div>
@@ -66,10 +55,9 @@
     <vue-editor
       ref="editor"
       v-model="content"
-      useCustomImageHandler
+      use-custom-image-handler
       @image-added="handleImageAdded"
-    >
-    </vue-editor>
+    />
     <h4>Add Tags</h4>
     <p class="small text-secondary">
       Press shift + ctrl + t to tag highlighted text.
@@ -206,7 +194,7 @@ export default {
       this.currentPhoto = null;
     },
     save() {
-      console.log(currentUser);
+      debugger;
     }
   }
 };

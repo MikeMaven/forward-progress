@@ -2,50 +2,55 @@
   <div>
     <div class="featured-section">
       <div class="featured-image">
-        <img :src="featuredPost.coverImageURL">
+        <img :src="featuredPost.coverImageURL" >
       </div>
       <div class="featured-content">
         <div class="tags-container">
-          <div v-for="tag in featuredPost.tags" class="tag">
-            {{tag}}
+          <div
+v-for="tag in featuredPost.tags" class="tag"
+>
+            {{ tag }}
           </div>
         </div>
-        <div class="title">
-          Featured: {{featuredPost.title}}
-        </div>
-        <div class="half-divider"/>
+        <div class="title">Featured: {{ featuredPost.title }}</div>
+        <div class="half-divider" />
         <div class="sub-title">
-          {{featuredPost.subTitle}}
+          {{ featuredPost.subTitle }}
         </div>
         <div class="author-info">
-          {{featuredPost.author.firstName}} {{featuredPost.author.lastName}} {{featuredPost.createdAt}}
+          {{ featuredPost.author.firstName }}
+          {{ featuredPost.author.lastName }} {{ featuredPost.createdAt }}
         </div>
         <div class="sample-description">
-          {{truncateFeature(featuredPost.body)}}
+          {{ truncateFeature(featuredPost.body) }}
         </div>
       </div>
     </div>
-    <div :class="getClassName(post)" v-for="post in otherPosts" v-bind:key="post.id">
+    <div
+v-for="post in otherPosts" :class="getClassName(post)"
+:key="post.id"
+>
       <div class="post-image-small">
-        <img :src="post.coverImageURL">
+        <img :src="post.coverImageURL" >
       </div>
       <div class="post-content">
         <div class="tags-container">
-          <div v-for="tag in post.tags" class="tag">
-            {{tag}}
+          <div
+v-for="tag in post.tags" class="tag"
+>
+            {{ tag }}
           </div>
         </div>
-        <div class="title-small">
-          Featured: {{post.title}}
-        </div>
+        <div class="title-small">Featured: {{ post.title }}</div>
         <div class="sub-title">
-          {{post.subTitle}}
+          {{ post.subTitle }}
         </div>
         <div class="author-info">
-          {{post.author.firstName}} {{post.author.lastName}} {{post.createdAt}}
+          {{ post.author.firstName }} {{ post.author.lastName }}
+          {{ post.createdAt }}
         </div>
         <div class="sample-description">
-          {{truncateSmall(post.body)}}
+          {{ truncateSmall(post.body) }}
         </div>
       </div>
     </div>
@@ -53,38 +58,38 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { mapGetters } from 'vuex'
+import _ from 'lodash';
+import { mapGetters } from 'vuex';
 
 export default {
   computed: {
     ...mapGetters({
       latestPosts: 'blog/getLatestPosts'
     }),
-    featuredPost () {
-      return this.latestPosts[0]
+    featuredPost() {
+      return this.latestPosts[0];
     },
-    otherPosts () {
-      return this.latestPosts.slice(1, 99) // Will eventually be getting this information from the API in pages of 10 posts each. Eventually will not need to be sliced and will just start with 10
+    otherPosts() {
+      return this.latestPosts.slice(1, 99); // Will eventually be getting this information from the API in pages of 10 posts each. Eventually will not need to be sliced and will just start with 10
     }
   },
   methods: {
-    truncateFeature (postBody) {
-      const strippedBody = postBody.replace(/<\/?[^>]+(>|$)/g, " ")
-      return strippedBody.slice(0, 109) + '...'
+    truncateFeature(postBody) {
+      const strippedBody = postBody.replace(/<\/?[^>]+(>|$)/g, ' ');
+      return strippedBody.slice(0, 109) + '...';
     },
-    truncateSmall (postBody) {
-      const strippedBody = postBody.replace(/<\/?[^>]+(>|$)/g, " ")
-      return strippedBody.slice(0, 69) + '...'
+    truncateSmall(postBody) {
+      const strippedBody = postBody.replace(/<\/?[^>]+(>|$)/g, ' ');
+      return strippedBody.slice(0, 69) + '...';
     },
-    isLastPost (post) {
-      return _.last(this.latestPosts) === post
+    isLastPost(post) {
+      return _.last(this.latestPosts) === post;
     },
-    getClassName (smallPost) {
+    getClassName(smallPost) {
       if (!this.isLastPost(smallPost)) {
-        return 'post-section-small'
+        return 'post-section-small';
       } else {
-        return 'end-post-section-small'
+        return 'end-post-section-small';
       }
     }
   }
@@ -137,7 +142,7 @@ export default {
   width: 300px;
 }
 
-.featured-image{
+.featured-image {
   overflow: hidden;
   height: 300px;
   width: 500px;
@@ -153,8 +158,8 @@ export default {
   padding: 5px 10px;
   margin-right: 5px;
   border-radius: 4px;
-  background-color: #28A744;
-  color: #FFFFFF;
+  background-color: #28a744;
+  color: #ffffff;
 }
 
 .title {

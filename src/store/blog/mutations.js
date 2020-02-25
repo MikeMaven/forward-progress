@@ -19,5 +19,9 @@ export default {
   setNumberOfPages(state, blogPostCount) {
     const pageCount = Math.ceil(blogPostCount / 10);
     state.numberOfPages = pageCount;
+  },
+
+  setBlogPosts(state, blogPosts) {
+    state.blogPosts = blogPosts;
   }
 };
