@@ -40,5 +40,19 @@ export default {
       context.commit('setCoverImage', imageURL);
       resolve();
     });
-  }
+  },
+
+  createNewTag(context, newTag) {
+    return new Promise(function(resolve) {
+      context.commit('addNewTag', newTag);
+      resolve();
+    });
+  },
+
+  updateTagSelection(context, selections) {
+    return new Promise(function(resolve) {
+      context.commit('setSelected', selections);
+      resolve();
+    });
+  },
 };

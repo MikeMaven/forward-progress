@@ -139,5 +139,7 @@ export default {
       },
       createdAt: new Date().toLocaleDateString()
     }
-  ]
+  ],
+  allTags: [],
+  selectedTags: []
 };

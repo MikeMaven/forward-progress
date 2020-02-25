@@ -3,6 +3,14 @@ export default {
     return state.coverImageURL;
   },
 
+  getAllTags: (state, getters) => {
+    return state.allTags;
+  },
+
+  getSelectedTags: (state, getters) => {
+    return state.selectedTags;
+  },
+
   getPageOfPosts: (state, getters) => {
     return state.pageOfBlogPosts;
   },
