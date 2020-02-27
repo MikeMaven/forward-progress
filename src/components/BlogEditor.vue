@@ -7,6 +7,7 @@
       type="text"
       tabindex="1"
     />
+
     <div class="blogFields">
       <h4>Subtitle</h4>
       <input
@@ -22,6 +23,7 @@
         class="paywallCheckBox"
         type="checkbox"
       />
+
       <h4>Upload Cover Image</h4>
       <input
         ref="fileInput"
@@ -33,12 +35,12 @@
       <div
         v-if="coverImageURL"
         class="coverImage"
-      >
         <img
           :src="coverImageURL"
           width="50"
           height="50"
         />
+
       </div>
       <h4>Upload to Photo Gallery</h4>
       <uploader @image-uploaded="addToGallery" />
