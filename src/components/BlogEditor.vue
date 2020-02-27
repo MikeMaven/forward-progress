@@ -2,7 +2,11 @@
   <div>
     <h4>Title</h4>
     <input
-v-model="title" class="titleEntry" type="text" tabindex="1" />
+      v-model="title"
+      class="titleEntry"
+      type="text"
+      tabindex="1"
+    />
     <div class="blogFields">
       <h4>Subtitle</h4>
       <input
@@ -13,9 +17,11 @@ v-model="title" class="titleEntry" type="text" tabindex="1" />
         @keydown="focusEditor"
       >
       <h4>Paywall?</h4>
-      <input v-model="isPaid"
-class="paywallCheckBox" type="checkbox"
-/>
+      <input
+        v-model="isPaid"
+        class="paywallCheckBox"
+        type="checkbox"
+      />
       <h4>Upload Cover Image</h4>
       <input
         ref="fileInput"
@@ -24,10 +30,15 @@ class="paywallCheckBox" type="checkbox"
         accept="image/*"
         @change="uploadCoverImage($event)"
       >
-      <div v-if="coverImageURL"
-class="coverImage">
+      <div
+        v-if="coverImageURL"
+        class="coverImage"
+      >
         <img
-:src="coverImageURL" width="50" height="50" />
+          :src="coverImageURL"
+          width="50"
+          height="50"
+        />
       </div>
       <h4>Upload to Photo Gallery</h4>
       <uploader @image-uploaded="addToGallery" />
