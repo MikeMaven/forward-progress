@@ -2,20 +2,28 @@
   <div>
     <h4>Title</h4>
     <input
-v-model="title" class="titleEntry" type="text" tabindex="1" />
+      v-model="title"
+      class="titleEntry"
+      type="text"
+      tabindex="1"
+    />
+
     <div class="blogFields">
       <h4>Subtitle</h4>
       <input
-        v-model="subTitle"
+        v-model="subtitle"
         class="titleEntry"
         type="text"
         tabindex="2"
         @keydown="focusEditor"
       >
       <h4>Paywall?</h4>
-      <input v-model="isPaid"
-class="paywallCheckBox" type="checkbox"
-/>
+      <input
+        v-model="isPaid"
+        class="paywallCheckBox"
+        type="checkbox"
+      />
+
       <h4>Upload Cover Image</h4>
       <input
         ref="fileInput"
@@ -24,10 +32,15 @@ class="paywallCheckBox" type="checkbox"
         accept="image/*"
         @change="uploadCoverImage($event)"
       >
-      <div v-if="coverImageURL"
-class="coverImage">
+      <div
+        v-if="coverImageURL"
+        class="coverImage"
         <img
-:src="coverImageURL" width="50" height="50" />
+          :src="coverImageURL"
+          width="50"
+          height="50"
+        />
+
       </div>
       <h4>Upload to Photo Gallery</h4>
       <uploader @image-uploaded="addToGallery" />
@@ -63,7 +76,6 @@ class="coverImage">
       Press shift + ctrl + t to tag highlighted text.
     </p>
     <multiselect
-      ref="tagSelect"
       v-model="selected"
       tag-placeholder="Add this as a new tag"
       placeholder="Search or add a tag"
@@ -86,6 +98,7 @@ class="coverImage">
 </template>
 
 <script>
+import axios from 'axios';
 import Multiselect from 'vue-multiselect';
 import PhotoGallerySingle from './PhotoGallerySingle.vue';
 import Uploader from './Uploader.vue';
@@ -96,7 +109,7 @@ export default {
   data() {
     return {
       title: null,
-      subTitle: null,
+      subtitle: null,
       isPaid: true,
       photoGallery: [],
       content: null,
@@ -194,7 +207,29 @@ export default {
       this.currentPhoto = null;
     },
     save() {
-      debugger;
+      const blog = {
+        title: this.title,
+        content: this.content,
+        Author: this.currentUser,
+        coverImageURL: this.coverImageURL,
+        subTitle: this.subTitle,
+        isPaid: this.isPaid,
+        photoGallery: this.photoGallery.map(el => JSON.stringify(el)),
+        tags: this.selected.map(el => JSON.stringify(el))
+      };
+
+      axios({
+        url: '/api/blog/new',
+        method: 'POST',
+        data: blog
+      }).then(res => {
+        if (res.status === 200) {
+          this.clear();
+          alert('Blog saved successfully');
+        } else {
+          alert('Error. Couldn\'t save blog.');
+        }
+      });
     }
   }
 };

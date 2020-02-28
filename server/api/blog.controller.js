@@ -64,23 +64,24 @@ exports.deleteBlog = async (req, res) => {
 };
 
 exports.newBlog = async (req, res) => {
-  const { title, body } = req.body;
-  if (!title || !body) {
+  if (!req.body) {
     res.status(401).send('Cannot create new blog post');
   }
+  const { body } = req;
 
   const newBlog = {
-    title,
-    body,
-    subTitle: req.body.subTitle,
-    coverImageURL: req.body.imageURL,
-    isPaid: req.body.isPaid,
-    Author: req.user.dataValues.id,
-    photoGallery: req.body.photoGallery
+    title: body.title,
+    body: body.content,
+    Author: body.Author.id,
+    coverImageURL: body.imageURL,
+    subTitle: body.subTitle,
+    isPaid: body.isPaid,
+    photoGallery: body.photoGallery,
+    tags: body.tags
   };
 
   const blog = await BlogPost.create(newBlog);
-  res.json(blog);
+  return res.json(blog);
 };
 
 exports.getPageOfBlogPosts = (req, res) => {
