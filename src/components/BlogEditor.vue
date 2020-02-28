@@ -1,6 +1,7 @@
 <template>
   <div>
-    <h4>Title</h4>
+    <p><span style="color:red;">*</span> = required field</p>
+    <h4>Title <span style="color:red;">*</span></h4>
     <input
       v-model="title"
       class="titleEntry"
@@ -9,7 +10,7 @@
     />
 
     <div class="blogFields">
-      <h4>Subtitle</h4>
+      <h4>Subtitle <span style="color:red;">*</span></h4>
       <input
         v-model="subtitle"
         class="titleEntry"
@@ -17,14 +18,14 @@
         tabindex="2"
         @keydown="focusEditor"
       >
-      <h4>Paywall?</h4>
+      <h4>Paywall? <span style="color:red;">*</span></h4>
       <input
         v-model="isPaid"
         class="paywallCheckBox"
         type="checkbox"
       />
 
-      <h4>Upload Cover Image</h4>
+      <h4>Upload Cover Image <span style="color:red;">*</span></h4>
       <input
         ref="fileInput"
         class="coverImageUpload"
@@ -41,7 +42,6 @@
           width="50"
           height="50"
         />
-
       </div>
       <h4>Upload to Photo Gallery</h4>
       <uploader @image-uploaded="addToGallery" />
@@ -72,20 +72,21 @@
       use-custom-image-handler
       @image-added="handleImageAdded"
     />
-    <h4>Add Tags</h4>
+    <h4>Add Category</h4>
     <p class="small text-secondary">
       Press shift + ctrl + t to tag highlighted text.
     </p>
     <multiselect
+    ref="categorySelect"
       v-model="selected"
-      tag-placeholder="Add this as a new tag"
-      placeholder="Search or add a tag"
+      tag-placeholder="Add this as a new Category"
+      placeholder="Search or add a Category"
       label="name"
       track-by="code"
       :options="options"
       :taggable="true"
       :multiple="true"
-      @tag="addTag"
+      @tag="addCategory"
     />
     <div class="buttonRow">
       <button @click="clear">
@@ -115,27 +116,28 @@ export default {
       photoGallery: [],
       content: null,
       photoGalleryIdx: [],
-      currentPhoto: null
+      currentPhoto: null,
+      coverImageURL: null
     };
   },
   computed: {
     currentUser() {
       return this.$store.state.user;
     },
-    coverImageURL() {
-      return this.$store.getters['blog/coverImageURL'];
-    },
     options() {
-      return this.$store.getters['blog/getAllTags'];
+      return this.$store.getters['blog/getAllCategories'];
     },
     selected: {
       get: function() {
-        return this.$store.getters['blog/getSelectedTags'];
+        return this.$store.getters['blog/getSelectedCategories'];
       },
-      set: function(updatedTags) {
-        this.$store.dispatch('blog/updateTagSelection', updatedTags);
+      set: function(updatedCategories) {
+        this.$store.dispatch('blog/updateCategorySelection', updatedCategories);
       }
     }
+  },
+  mounted(){
+    this.$store.dispatch('blog/getAllCategories');
   },
   methods: {
     focusEditor(event) {
@@ -163,12 +165,18 @@ export default {
       });
     },
     uploadCoverImage($event) {
-      const resetUploader = function() {
-        var uploader = document.getElementById('coverImageUpload');
-        // uploader.value = "";
-      };
       let file = $event.target.files[0];
-      this.handleImageAdded(file, null, null, resetUploader);
+      var formData = new FormData();
+      formData.append('image', file);
+      axios({
+        url: '/api/fileupload',
+        method: 'POST',
+        data: formData,
+        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+      }).then(response => {
+        let url = response.data.imageUrl;
+        this.coverImageURL = url;
+      });
     },
     addToGallery(url) {
       this.photoGallery.push({
@@ -190,13 +198,13 @@ export default {
       this.photoGalleryIdx.splice(urlIdx, 1);
       this.photoGallery.splice(urlIdx, 1);
     },
-    addTag(newTag) {
-      const tag = {
-        name: newTag,
-        code: newTag.substring(0, 2) + Math.floor(Math.random() * 100000000),
+    addCategory(newCategory) {
+      const category = {
+        name: newCategory,
+        code: newCategory.substring(0, 2) + Math.floor(Math.random() * 100000000),
         new: true
       };
-      this.$store.dispatch('blog/createNewTag', tag);
+      this.$store.dispatch('blog/createNewCategory', category);
     },
     clear() {
       this.title = null;
@@ -211,26 +219,18 @@ export default {
       const blog = {
         title: this.title,
         content: this.content,
-        Author: this.currentUser,
         coverImageURL: this.coverImageURL,
         subtitle: this.subtitle,
         isPaid: this.isPaid,
         photoGallery: this.photoGallery.map(el => JSON.stringify(el)),
-        tags: this.selected.map(el => JSON.stringify(el))
+        categories: this.selected,
+        allCategories: this.options
       };
-
-      axios({
-        url: '/api/blog/new',
-        method: 'POST',
-        data: blog
-      }).then(res => {
-        if (res.status === 200) {
-          alert('Blog saved successfully');
-          window.location.reload();
-        } else {
-          alert('Error. Couldn\'t save blog.');
-        }
-      });
+      if (this.coverImageURL) {
+        this.$store.dispatch('blog/saveBlog', blog);
+      } else {
+        alert("Please fill out all required fields.")
+      }
     }
   }
 };

@@ -3,13 +3,13 @@ export default {
     state.coverImageURL = imageURL;
   },
 
-  addNewTag(state, newTag) {
-    state.allTags.push(newTag);
-    state.selectedTags.push(newTag);
+  addNewCategory(state, newCategory) {
+    state.allCategories.push(newCategory);
+    state.selectedCategories.push(newCategory);
   },
 
   setSelected(state, newSelections) {
-    state.selectedTags = newSelections;
+    state.selectedCategories = newSelections;
   },
 
   setPageOfBlogPosts(state, blogPosts) {
@@ -23,5 +23,18 @@ export default {
 
   setBlogPosts(state, blogPosts) {
     state.blogPosts = blogPosts;
+  },
+
+  setSelectedPost(state, post) {
+    state.selectedPost = post;
+  },
+
+  loadAllCategories(state, categories) {
+    let categoriesWithCodes = categories.map(category => {
+      category.code = category.id.toString();
+      category.new = false;
+      return category;
+    })
+    state.allCategories = categoriesWithCodes;
   }
 };

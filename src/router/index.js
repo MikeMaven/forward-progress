@@ -25,6 +25,7 @@ import NewNote from '../views/notes/NewNote.vue';
 import EditNote from '../views/notes/EditNote.vue';
 // Blog views
 import BlogIndex from '../views/blog/BlogIndex.vue';
+import BlogShow from '../views/blog/BlogShow.vue';
 import NewBlogPost from '../views/blog/NewBlogPost.vue';
 // Admin views
 const AdminShow = () => import('../views/AdminDash.vue');
@@ -55,6 +56,7 @@ function createRouter() {
         ]
       },
       { path: '/blogs', component: BlogIndex },
+      { path: '/blogs/:id', component: BlogShow },
       { path: '/blog/new', component: NewBlogPost },
       { path: '/users', component: UsersView },
       { path: '/users/:id', component: UserShow },
