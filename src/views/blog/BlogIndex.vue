@@ -2,13 +2,14 @@
   <div>
     <div class="featured-section">
       <div class="featured-image">
-        <img :src="featuredPost.coverImageURL" >
+        <img :src="featuredPost.coverImageURL" />
       </div>
       <div class="featured-content">
         <div class="tags-container">
           <div
-v-for="tag in featuredPost.tags" class="tag"
->
+            v-for="tag in featuredPost.tags"
+            class="tag"
+          >
             {{ tag }}
           </div>
         </div>
@@ -27,17 +28,18 @@ v-for="tag in featuredPost.tags" class="tag"
       </div>
     </div>
     <div
-v-for="post in otherPosts" :class="getClassName(post)"
-:key="post.id"
->
+      v-for="post in otherPosts"
+      :class="getClassName(post)"
+      :key="post.id"
+    >
       <div class="post-image-small">
-        <img :src="post.coverImageURL" >
+        <img :src="post.coverImageURL">
       </div>
       <div class="post-content">
         <div class="tags-container">
           <div
-v-for="tag in post.tags" class="tag"
->
+            v-for="tag in post.tags" class="tag"
+          >
             {{ tag }}
           </div>
         </div>

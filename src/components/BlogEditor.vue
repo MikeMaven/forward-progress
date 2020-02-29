@@ -31,16 +31,16 @@
         type="file"
         accept="image/*"
         @change="uploadCoverImage($event)"
-      >
+      />
       <div
         v-if="coverImageURL"
         class="coverImage"
+      >
         <img
           :src="coverImageURL"
           width="50"
           height="50"
         />
-
       </div>
       <h4>Upload to Photo Gallery</h4>
       <uploader @image-uploaded="addToGallery" />
@@ -205,6 +205,7 @@ export default {
       this.content = null;
       this.photoGalleryIdx = [];
       this.currentPhoto = null;
+      debugger;
     },
     save() {
       const blog = {

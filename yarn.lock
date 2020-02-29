@@ -9894,6 +9894,11 @@ querystring@0.2.0, querystring@^0.2.0:
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
   integrity sha1-sgmEkgO7Jd+CDadW50cAWHhSFiA=
 
+quill-better-table@^1.2.8:
+  version "1.2.8"
+  resolved "https://registry.yarnpkg.com/quill-better-table/-/quill-better-table-1.2.8.tgz#28a4ac5e20dd70a2d17a20237f25150aa0774e50"
+  integrity sha512-0JZhG6hb5fM1kDchWtMKFFvXmbo2y/T7LeSWHtrWEBbkPcTzr9b4dZwuKKOLr7Oad7wpPFmuk9atYDeBGRO9Ww==
+
 quill-delta@^3.6.2:
   version "3.6.3"
   resolved "https://registry.yarnpkg.com/quill-delta/-/quill-delta-3.6.3.tgz#b19fd2b89412301c60e1ff213d8d860eac0f1032"

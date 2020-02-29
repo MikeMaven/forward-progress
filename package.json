@@ -88,6 +88,7 @@
     "pg-hstore": "^2.3.3",
     "pluralize": "^8.0.0",
     "popper.js": "^1.15.0",
+    "quill-better-table": "^1.2.8",
     "route-cache": "0.4.4",
     "sanitize.css": "10.0.0",
     "sequelize": "5.9.4",
