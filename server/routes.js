@@ -24,7 +24,6 @@ router
   .get('/blog/:id', blog.getBlog)
   .delete('/blog/:id', blog.deleteBlog)
   .post('/blog/new', blog.newBlog)
-
   .get('/blogs', blog.getPageOfBlogPosts)
 
   .get('/content/list', content.list)

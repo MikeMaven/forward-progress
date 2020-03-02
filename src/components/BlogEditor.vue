@@ -35,6 +35,7 @@
       <div
         v-if="coverImageURL"
         class="coverImage"
+      >
         <img
           :src="coverImageURL"
           width="50"
@@ -199,7 +200,7 @@ export default {
     },
     clear() {
       this.title = null;
-      this.subTitle = null;
+      this.subtitle = null;
       this.isPaid = true;
       this.photoGallery = [];
       this.content = null;
@@ -212,7 +213,7 @@ export default {
         content: this.content,
         Author: this.currentUser,
         coverImageURL: this.coverImageURL,
-        subTitle: this.subTitle,
+        subtitle: this.subtitle,
         isPaid: this.isPaid,
         photoGallery: this.photoGallery.map(el => JSON.stringify(el)),
         tags: this.selected.map(el => JSON.stringify(el))
@@ -224,8 +225,8 @@ export default {
         data: blog
       }).then(res => {
         if (res.status === 200) {
-          this.clear();
           alert('Blog saved successfully');
+          window.location.reload();
         } else {
           alert('Error. Couldn\'t save blog.');
         }
