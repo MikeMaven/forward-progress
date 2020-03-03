@@ -73,8 +73,8 @@ exports.newBlog = async (req, res) => {
     title: body.title,
     body: body.content,
     Author: body.Author.id,
-    coverImageURL: body.imageURL,
-    subTitle: body.subTitle,
+    coverImageURL: body.coverImageURL,
+    subTitle: body.subtitle,
     isPaid: body.isPaid,
     photoGallery: body.photoGallery,
     tags: body.tags
