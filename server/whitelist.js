@@ -9,7 +9,7 @@ module.exports = {
   'belsner@umass.edu': 1,
   'jmhammond@umass.edu': 1,
   'allenjgaudetiv@gmail.com': 1,
-  'stwise@email.sc.edu': 1,
+  'stepwise11@gmail.com': 1,
   'jansenpetagna@gmail.com': 1,
   'nrothstein@gmail.com': 1,
   'lancesun22@gmail.com': 1,
