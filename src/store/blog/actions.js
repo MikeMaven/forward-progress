@@ -6,10 +6,12 @@ export default {
     return new Promise(resolve => {
       BlogApi.saveBlog(
         payload.title,
-        payload.body,
-        payload.imageURL,
-        payload.subTitle,
-        payload.isPaid
+        payload.content,
+        payload.coverImageURL,
+        payload.subtitle,
+        payload.isPaid,
+        payload.photoGallery,
+        payload.categories
       ).then(blog => {
         resolve();
       });
@@ -46,17 +48,30 @@ export default {
     });
   },
 
-  createNewTag(context, newTag) {
+  createNewCategory(context, newCategory) {
     return new Promise(function(resolve) {
-      context.commit('addNewTag', newTag);
+      context.commit('addNewCategory', newCategory);
       resolve();
     });
   },
 
-  updateTagSelection(context, selections) {
+  updateCategorySelection(context, selections) {
     return new Promise(function(resolve) {
       context.commit('setSelected', selections);
       resolve();
     });
+  },
+
+  setSelectedPost(context, post) {
+    context.commit('setSelectedPost', post);
+  },
+
+  getAllCategories(context) {
+    return new Promise(resolve => {
+      BlogApi.getAllCategories().then(categories => {
+        context.commit('loadAllCategories', categories);
+        resolve();
+      })
+    })
   }
 };

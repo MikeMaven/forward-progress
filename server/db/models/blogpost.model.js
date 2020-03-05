@@ -17,13 +17,18 @@ module.exports = (sequelize, DataTypes) => {
       coverImageURL: DataTypes.STRING,
       subTitle: DataTypes.STRING,
       isPaid: DataTypes.BOOLEAN,
-      photoGallery: DataTypes.ARRAY(DataTypes.STRING),
-      tags: DataTypes.ARRAY(DataTypes.STRING)
+      photoGallery: DataTypes.ARRAY(DataTypes.STRING)
     },
     {}
   );
   BlogPost.associate = function(models) {
-    BlogPost.belongsTo(models.User, { foreignKey: 'Author' });
+    BlogPost.belongsTo(models.User, { as: 'author', foreignKey: 'Author' });
+    BlogPost.belongsToMany(models.Category, {
+      through: 'BlogPostCategories',
+      as: 'categories',
+      foreignKey: 'BlogPostId',
+      otherKey: 'CategoryId'
+    });
   };
   return BlogPost;
 };

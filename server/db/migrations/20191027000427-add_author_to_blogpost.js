@@ -12,6 +12,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('UserSharedNotes', 'CreatorId');
+    return queryInterface.removeColumn('BlogPosts', 'Author');
   }
 };

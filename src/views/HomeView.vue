@@ -6,7 +6,8 @@
       </div>
       <b-row align-h="center">
         <b-col
-lg="4" md="12">
+          lg="4" md="12"
+        >
           <b-carousel
             id="landing-page-article-carousel"
             v-model="currentSlide"
@@ -18,14 +19,19 @@ lg="4" md="12">
             img-width="100%"
             img-height="400px"
           >
-            <b-carousel-slide
+            <router-link
               v-for="post in carouselSlides"
               :key="post.id"
-              :img-src="post.coverImageURL"
-            />
+              :to="'/blogs/' + post.id"
+            >
+              <span @click="setSelectedPost(post)">
+                <b-carousel-slide :img-src="post.coverImageURL" />
+                </span>
+            </router-link>
           </b-carousel>
           <div
-v-if="currentSlidePost" class="slider-article-description">
+            v-if="currentSlidePost" class="slider-article-description"
+          >
             <div class="slider-description-content">
               <div class="slider-title">
                 {{ currentSlidePost.title }}
@@ -37,26 +43,32 @@ v-if="currentSlidePost" class="slider-article-description">
           </div>
         </b-col>
         <b-col
-lg="4" md="12">
+          lg="4" md="12"
+        >
           <div class="latest-container">
             <div class="red-title">
               LATEST
             </div>
-            <div>
-              <div
+            <div class="latest-grouping">
+              <router-link
                 v-for="post in otherLatestPosts"
                 :key="post.id"
                 class="latest-post"
+                :to="'/blogs/' + post.id"
               >
-                <div class="post-title">
-                  {{ truncate(post.title, 'title') }}
-                </div>
-                <div class="post-subtitle">
-                  {{ truncate(post.subTitle, 'subtitle') }}
-                </div>
-                <div v-if="!isLastLatestPost(post)"
-class="divider" />
-              </div>
+                <span @click="setSelectedPost(post)">
+                  <div class="post-title">
+                    {{ truncate(post.title, 'title') }}
+                  </div>
+                  <div class="post-subtitle">
+                    {{ truncate(post.subTitle, 'subtitle') }}
+                  </div>
+                </span>
+                <div 
+                  v-if="!isLastLatestPost(post)"
+                  class="divider"
+                />            
+              </router-link>
             </div>
           </div>
         </b-col>
@@ -96,7 +108,7 @@ export default {
       return this.latestPosts.slice(0, 3);
     },
     otherLatestPosts() {
-      return this.latestPosts.slice(3, 6);
+      return this.latestPosts.slice(3, 7);
     },
     currentSlidePost() {
       return this.carouselSlides[this.currentSlide];
@@ -122,6 +134,9 @@ export default {
       } else {
         return text;
       }
+    },
+    setSelectedPost(post) {
+      this.$store.dispatch('blog/setSelectedPost', post);
     }
   }
 };
@@ -193,6 +208,12 @@ export default {
 
 .latest-post {
   padding: 5px 0px;
+}
+
+.latest-grouping {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .row {

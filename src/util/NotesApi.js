@@ -132,9 +132,9 @@ export function getAllTags() {
     responseType: 'json'
   });
 
-  return axios(options).then(response =>
-    CodeApi.unrollApiResponse(response.data)
-  );
+  return axios(options).then(response => {
+    return response.data;
+  });
 }
 
 export function getUsersToShareWith() {
@@ -161,7 +161,7 @@ export function submitShares(payload) {
     data: payload
   });
 
-  return axios(options).then(response => {
-    CodeApi.unrollApiResponse(response.data);
-  });
+  return axios(options).then(response =>
+    CodeApi.unrollApiResponse(response.data)
+  );
 }

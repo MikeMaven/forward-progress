@@ -1,14 +1,10 @@
 export default {
-  coverImageURL: (state, getters) => {
-    return state.coverImageURL;
+  getAllCategories: (state, getters) => {
+    return state.allCategories;
   },
 
-  getAllTags: (state, getters) => {
-    return state.allTags;
-  },
-
-  getSelectedTags: (state, getters) => {
-    return state.selectedTags;
+  getSelectedCategories: (state, getters) => {
+    return state.selectedCategories;
   },
 
   getPageOfPosts: (state, getters) => {
@@ -21,5 +17,9 @@ export default {
 
   getLatestPosts: (state, getters) => {
     return state.blogPosts;
+  },
+
+  selectedPost: (state, getters) => {
+    return state.selectedPost;
   }
 };

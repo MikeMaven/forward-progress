@@ -1,19 +1,20 @@
 <template>
   <div>
-    <div class="featured-section">
+    <div v-if="featuredPost" class="featured-section">
       <div class="featured-image">
-        <img :src="featuredPost.coverImageURL" >
+        <router-link :to="'/blogs/' + featuredPost.id">
+          <img @click="setSelectedPost(featuredPost)" :src="featuredPost.coverImageURL">
+        </router-link>
       </div>
       <div class="featured-content">
         <div class="tags-container">
-          <div
-v-for="tag in featuredPost.tags" class="tag"
->
+          <div v-for="tag in featuredPost.tags" :key="tag.id" class="tag">
             {{ tag }}
           </div>
         </div>
-        <div class="title">Featured: {{ featuredPost.title }}</div>
-        <div class="half-divider" />
+        <div class="title">Featured: {{ featuredPost.title }}
+        </div>
+        <div class="half-divider"/>
         <div class="sub-title">
           {{ featuredPost.subTitle }}
         </div>
@@ -26,22 +27,21 @@ v-for="tag in featuredPost.tags" class="tag"
         </div>
       </div>
     </div>
-    <div
-v-for="post in otherPosts" :class="getClassName(post)"
-:key="post.id"
->
+    <div v-for="post in otherPosts" :key="post.id" :class="getClassName(post)">
       <div class="post-image-small">
-        <img :src="post.coverImageURL" >
+        <router-link :to="'/blogs/' + post.id">
+          <img @click="setSelectedPost(post)" :src="post.coverImageURL">
+        </router-link>
       </div>
       <div class="post-content">
         <div class="tags-container">
-          <div
-v-for="tag in post.tags" class="tag"
->
-            {{ tag }}
+          <div v-for="category in post.categories" :key="category.id" class="tag">
+            {{ category.name }}
           </div>
         </div>
-        <div class="title-small">Featured: {{ post.title }}</div>
+        <div class="title-small">
+          {{ post.title }}
+        </div>
         <div class="sub-title">
           {{ post.subTitle }}
         </div>
@@ -73,6 +73,9 @@ export default {
       return this.latestPosts.slice(1, 99); // Will eventually be getting this information from the API in pages of 10 posts each. Eventually will not need to be sliced and will just start with 10
     }
   },
+  mounted() {
+    this.$store.dispatch('blog/getBlogPosts');
+  },
   methods: {
     truncateFeature(postBody) {
       const strippedBody = postBody.replace(/<\/?[^>]+(>|$)/g, ' ');
@@ -91,6 +94,9 @@ export default {
       } else {
         return 'end-post-section-small';
       }
+    },
+    setSelectedPost(post) {
+      this.$store.dispatch('blog/setSelectedPost', post);
     }
   }
 };
@@ -169,15 +175,22 @@ export default {
   color: #013369;
 }
 
+.title-small {
+  font-family: paralucent, sans-serif;
+  font-size: 18px;
+  font-weight: demibold;
+  color: #013369;
+}
+
 .sub-title {
   font-family: paralucent, sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: medium;
   color: #013369;
 }
 
 .half-divider {
-  width: 40%;
+  width: 80%;
   margin: 10px auto;
   border-bottom: 2px dotted;
 }

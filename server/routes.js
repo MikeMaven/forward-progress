@@ -22,9 +22,8 @@ router
   .get('/blog', blog.getBlogPosts)
   .get('/blog/index', blog.indexBlogPosts)
   .get('/blog/:id', blog.getBlog)
-  .delete('/blog/:id', blog.deleteBlog)
-  .post('/blog/new', blog.newBlog)
   .get('/blogs', blog.getPageOfBlogPosts)
+  .get('/blogs/categories', blog.getAllCategories)
 
   .get('/content/list', content.list)
   .all('/content/:locale', contentPolicy.isAllowed)
@@ -108,6 +107,9 @@ router
   .get('/users/:userId', adminUsers.read)
   .put('/users/:userId', adminUsers.update)
   .delete('/users/:userId', adminUsers.delete)
+
+  .delete('/blog/:id', blog.deleteBlog)
+  .post('/blog/new', blog.newBlog)
 
   .get('/allNotes', notes.allNotes)
   .get('/sharedNotes', notes.sharedNotes)
