@@ -64,37 +64,34 @@ v-if="this.type === 'note'" class="tagDiv"
     </div>
     <div class="buttonRow">
       <router-link
-        v-if="this.editNoteID" to="/notes"
-        tag="button"
-      >
+v-if="this.editNoteID" to="/notes"
+tag="button"
+>
         Cancel
       </router-link>
       <button
-        v-if="!this.editNoteID"
-        @click="clearEditor"
-      >
+v-if="!this.editNoteID" @click="clearEditor"
+>
         Clear
       </button>
       <button
-        v-if="this.type === 'note'" 
-        @click="saveNote"
-      >
+v-if="this.type === 'note'" @click="saveNote"
+>
         Save Note
       </button>
       <button
-        v-if="this.type === 'note'" 
-        @click="saveAndShareNote"
-      >
+v-if="this.type === 'note'" @click="saveAndShareNote"
+>
         Save and Share
       </button>
       <button
-        v-if="this.type === 'blog'" @click="saveNote"
-      >
+v-if="this.type === 'blog'" @click="saveNote"
+>
         Save Blog
       </button>
       <button
-        v-if="this.editNoteID" @click="deleteNote"
-      >
+v-if="this.editNoteID" @click="deleteNote"
+>
         Delete Note
       </button>
       <span v-hotkey="keymap" />
@@ -120,9 +117,9 @@ v-if="this.type === 'note'" class="tagDiv"
         @tag="addUserToSelected"
       />
       <b-button
-        class="mt-3" block
-        @click="submitShares"
-      >
+class="mt-3" block
+@click="submitShares"
+>
         Share Now
       </b-button>
     </b-modal>
