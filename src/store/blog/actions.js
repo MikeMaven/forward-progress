@@ -18,6 +18,19 @@ export default {
     });
   },
 
+  getSingleBlogPost(context, id) {
+    return new Promise(resolve => {
+      if (context.loaded) {
+        resolve();
+      } else {
+        BlogApi.getSingleBlogPost(id).then(post => {
+          context.commit('setSelectedPost', post);
+          resolve();
+        });
+      }
+    });
+  },
+
   getBlogPosts(context) {
     return new Promise(resolve => {
       if (context.loaded) {

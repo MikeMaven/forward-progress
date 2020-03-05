@@ -60,7 +60,7 @@ export default {
   },
 
   mounted() {
-    // Invoked when the component loads, good place to fetch data from the API
+    this.$store.dispatch('blog/getSingleBlogPost', this.$route.params.id)
   },
 }
 </script>

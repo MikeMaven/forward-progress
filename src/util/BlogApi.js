@@ -30,6 +30,20 @@ export function getBlogPosts() {
   );
 }
 
+export function getSingleBlogPost(id) {
+  const url = `/api/blog/${id}`
+
+  const options = Object.assign({}, CodeApi.config.axiosDefaults, {
+    method: 'get',
+    url: url,
+    responseType: 'json'
+  });
+
+  return axios(options).then(response => {
+    return response.data
+  });
+}
+
 export function getPageOfBlogPosts(currentPage) {
   const url = `/api/getPageOfBlogPosts/${currentPage}`;
 
