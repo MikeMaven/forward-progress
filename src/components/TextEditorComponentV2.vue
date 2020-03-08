@@ -35,7 +35,7 @@ v-if="this.coverImageURL" id="coverImage"
       <Uploader />
     </div>
     <h4>Body</h4>
-    <vue-editor
+    <text-editor
       ref="editor"
       v-model="content"
       use-custom-image-handler

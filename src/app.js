@@ -40,15 +40,8 @@ library.add(
 );
 
 if (process.browser) {
-  const { VueEditor, Quill } = require('vue2-editor');
-  const QuillBetterTable = require('quill-better-table');
-
-  Quill.register('modules/better-table', QuillBetterTable);
-
-  debugger;
-  
-  Vue.use(VueEditor);
-  Vue.component('vue-editor', VueEditor);
+  const TextEditor = require('./components/TextEditor.vue').default;
+  Vue.component('text-editor', TextEditor);
 }
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
