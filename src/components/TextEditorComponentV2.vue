@@ -34,35 +34,22 @@
       />
     </div>
     <div class="buttonRow">
-      <router-link
-v-if="this.editNoteID" to="/notes"
-tag="button"
->
+      <router-link v-if="this.editNoteID" to="/notes" tag="button">
         Cancel
       </router-link>
-      <button
-v-if="!this.editNoteID" @click="clearEditor"
->
+      <button v-if="!this.editNoteID" @click="clearEditor">
         Clear
       </button>
-      <button
-v-if="this.type === 'note'" @click="saveNote"
->
+      <button id="saveNoteButton" v-if="this.type === 'note'" @click="saveNote">
         Save Note
       </button>
-      <button
-v-if="this.type === 'note'" @click="saveAndShareNote"
->
+      <button v-if="this.type === 'note'" @click="saveAndShareNote">
         Save and Share
       </button>
-      <button
-v-if="this.type === 'blog'" @click="saveNote"
->
+      <button v-if="this.type === 'blog'" @click="saveNote">
         Save Blog
       </button>
-      <button
-v-if="this.editNoteID" @click="deleteNote"
->
+      <button v-if="this.editNoteID" @click="deleteNote">
         Delete Note
       </button>
       <span v-hotkey="keymap" />
@@ -87,10 +74,7 @@ v-if="this.editNoteID" @click="deleteNote"
         :multiple="true"
         @tag="addUserToSelected"
       />
-      <b-button
-class="mt-3" block
-@click="submitShares"
->
+      <b-button class="mt-3" block @click="submitShares">
         Share Now
       </b-button>
     </b-modal>
