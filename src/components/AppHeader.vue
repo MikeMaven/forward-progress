@@ -1,47 +1,32 @@
 <template>
-  <b-navbar
-fixed="top" sticky
-toggleable="lg" type="dark" variant="info"
->
-    <b-navbar-brand to="/" exact
->
+  <b-navbar fixed="top" sticky toggleable="lg" type="dark" variant="info">
+    <b-navbar-brand to="/" exact>
       <h1 id="navBarTitle">
         Forward<br ><span id="navBarTitleLineTwo">Progress</span>
       </h1>
     </b-navbar-brand>
     <b-navbar-toggle target="nav-collapse" />
 
-    <b-collapse
-id="nav-collapse" is-nav
->
+    <b-collapse id="nav-collapse" is-nav>
       <b-navbar-nav>
-        <b-nav-item exact to="/"
->
+        <b-nav-item exact to="/" >
           Home
         </b-nav-item>
-        <b-nav-item-dropdown
-v-if="isAuthenticated" text="Notes"
->
-          <b-dropdown-item v-if="isAuthenticated" to="/newnote"
->
+        <b-nav-item-dropdown id="navNotesDropdown" v-if="isAuthenticated" text="Notes">
+          <b-dropdown-item id="navNewNote" v-if="isAuthenticated" to="/newnote">
             New Note
           </b-dropdown-item>
           <b-dropdown-item v-if="isAuthenticated" to="/notes">
             My Notes
           </b-dropdown-item>
-          <b-dropdown-item v-if="isAuthenticated" to="/sharednotes"
->
+          <b-dropdown-item v-if="isAuthenticated" to="/sharednotes">
             Shared With Me
           </b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item v-if="isAdmin" exact
-to="/admin"
->
+        <b-nav-item v-if="isAdmin" exactto="/admin">
           Admin
         </b-nav-item>
-        <b-nav-item-dropdown
-v-if="isAdmin" text="Blog"
->
+        <b-nav-item-dropdown v-if="isAdmin" text="Blog">
           <b-dropdown-item to="/blog/new">
             New Blog Post
           </b-dropdown-item>
@@ -55,8 +40,7 @@ v-if="isAdmin" text="Blog"
         <b-nav-item exact to="/about">
           About Us
         </b-nav-item>
-        <b-nav-item exact to="/games"
->
+        <b-nav-item exact to="/games">
           Upcoming Games
         </b-nav-item>
       </b-navbar-nav>
@@ -65,6 +49,7 @@ v-if="isAdmin" text="Blog"
           {{ user.displayName }}
         </b-nav-item>
         <b-nav-item
+          id="logoutButton"
           v-if="isAuthenticated"
           href="javascript:void(0)"
           class="logButton"
@@ -72,7 +57,7 @@ v-if="isAdmin" text="Blog"
         >
           {{ appData.content.app_nav_logout }}
         </b-nav-item>
-        <b-nav-item v-if="!isAuthenticated" class="logButton" to="/login">
+        <b-nav-item v-if="!isAuthenticated" id="loginButton" class="logButton" to="/login">
           {{ appData.content.app_nav_login }}
         </b-nav-item>
       </b-navbar-nav>

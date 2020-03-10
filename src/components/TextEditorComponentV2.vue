@@ -2,38 +2,11 @@
   <div>
     <h4>Title</h4>
     <input
-id="titleEntry" v-model="title" type="text" tabindex="1" />
-    <div
-v-if="this.type === 'blog'" id="blogFields"
->
-      <h4>Subtitle</h4>
-      <input
-        id="titleEntry"
-        v-model="subTitle"
-        type="text"
-        tabindex="2"
-        @keydown="focusEditor"
-      >
-      <h4>Paywall?</h4>
-      <input
-id="paywallCheckBox" v-model="isPaid" type="checkbox" />
-      <h4>Upload Cover Image</h4>
-      <input
-        id="coverImageUpload"
-        ref="fileInput"
-        type="file"
-        accept="image/*"
-        @change="uploadCoverImage($event)"
-      >
-      <div
-v-if="this.coverImageURL" id="coverImage"
->
-        <img
-:src="this.coverImageURL" width="50" height="50" />
-      </div>
-      <h4>Upload to Photo Gallery</h4>
-      <Uploader />
-    </div>
+      id="titleEntry" 
+      v-model="title" 
+      type="text" 
+      tabindex="1" 
+    />
     <h4>Body</h4>
     <vue-editor
       ref="editor"
@@ -42,9 +15,7 @@ v-if="this.coverImageURL" id="coverImage"
       @image-added="handleImageAdded"
       @selection-change="getSelectionText"
     />
-    <div
-v-if="this.type === 'note'" class="tagDiv"
->
+    <div v-if="this.type === 'note'" class="tagDiv">
       <h4>Add Tags</h4>
       <p class="small text-secondary">
         Press shift + ctrl + t to tag highlighted text.
@@ -370,6 +341,11 @@ h4 {
 }
 
 #titleEntry {
+  margin-top: 3px;
+  font-size: 25px;
+}
+
+#subTitleEntry {
   margin-top: 3px;
   font-size: 25px;
 }
