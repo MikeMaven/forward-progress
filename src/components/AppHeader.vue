@@ -23,7 +23,7 @@
             Shared With Me
           </b-dropdown-item>
         </b-nav-item-dropdown>
-        <b-nav-item v-if="isAdmin" exactto="/admin">
+        <b-nav-item v-if="isAdmin" exact to="/admin">
           Admin
         </b-nav-item>
         <b-nav-item-dropdown v-if="isAdmin" text="Blog">
