@@ -18,8 +18,7 @@
       <h1 :class="{ tinyNoteView: this.isSidebarHidden }">
         {{ selectedNote.title }}
       </h1>
-      <ul
-v-if="!isShared" :class="{ tinyNoteView: this.isSidebarHidden }">
+      <ul :class="{ tinyNoteView: this.isSidebarHidden }">
         <a :href="'/EditNote/' + selectedNote.id"
           ><li :class="{ tinyNoteView: this.isSidebarHidden }">
             Edit
