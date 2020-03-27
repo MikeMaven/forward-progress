@@ -13,5 +13,6 @@ module.exports = {
   'jansenpetagna@gmail.com': 1,
   'nrothstein@gmail.com': 1,
   'lancesun22@gmail.com': 1,
-  'jtrocchi1@gmail.com': 1
+  'jtrocchi1@gmail.com': 1,
+  'jwolov1@gmail.com': 1
 };

@@ -18,7 +18,7 @@
       <h1 :class="{ tinyNoteView: this.isSidebarHidden }">
         {{ selectedNote.title }}
       </h1>
-      <ul :class="{ tinyNoteView: this.isSidebarHidden }">
+      <ul v-if="isAdmin" :class="{ tinyNoteView: this.isSidebarHidden }">
         <a :href="'/EditNote/' + selectedNote.id"
           ><li :class="{ tinyNoteView: this.isSidebarHidden }">
             Edit
@@ -116,6 +116,9 @@ export default {
       get: function() {
         return this.$store.getters['notes/getWindowSize'];
       }
+    },
+    isAdmin() {
+      return this.$store.getters['isAdmin'];
     }
   },
   mounted() {},
