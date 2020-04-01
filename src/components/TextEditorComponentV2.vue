@@ -199,6 +199,7 @@ export default {
     },
     saveAndShareNote() {
       if (this.editNoteID) {
+        this.$store.dispatch('notes/getUsersToShareWith');
         this.$store
           .dispatch('notes/editNote', {
             title: this.title,
