@@ -173,21 +173,14 @@ export default {
               id: this.editNoteID,
               tags: this.selected,
               allTags: this.options
-            })
-            .then(response => {
-              router.push('/notes');
             });
         } else {
-          this.$store
-            .dispatch('notes/saveNote', {
-              title: this.title,
-              body: this.content,
-              tags: this.selected,
-              allTags: this.options
-            })
-            .then(response => {
-              router.push('/notes');
-            });
+          this.$store.dispatch('notes/saveNote', {
+            title: this.title,
+            body: this.content,
+            tags: this.selected,
+            allTags: this.options
+          });
         }
       } else if (this.type === 'blog') {
         this.$store.dispatch('blog/saveBlog', {

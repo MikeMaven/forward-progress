@@ -6,7 +6,6 @@ export default {
     const sortedNotes = starSort(notes);
     state.notes = sortedNotes;
     state.allNotes = sortedNotes;
-    state.notesIndexNavigation.selectedNote = sortedNotes[0];
   },
 
   setAdminNotesTest(state, notes) {

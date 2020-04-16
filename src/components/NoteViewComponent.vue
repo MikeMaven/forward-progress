@@ -1,5 +1,6 @@
 <template>
   <div
+    v-if="selectedNote.id"
     id="noteViewComponent"
     :class="{
       noteIndexVisibleSideBar: this.isSidebarHidden || this.windowWidth > 1256,
