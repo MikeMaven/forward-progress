@@ -1,5 +1,8 @@
 <template>
   <div>
+    <button id="saveNoteButton" v-if="this.type === 'note'" @click="saveNote">
+      Save Note
+    </button>
     <h4>Title</h4>
     <input
       id="titleEntry" 

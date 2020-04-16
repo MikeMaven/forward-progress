@@ -20,6 +20,9 @@ exports.sharedNotes = (req, res) => {
         }
       ]
     }).then(notes => {
+      notes.sharednotes.forEach((note) => {
+        console.log(note.tags)
+      })
       res.json(notes);
     });
   } else {
