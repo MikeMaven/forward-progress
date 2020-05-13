@@ -24,7 +24,7 @@
     "e2e:ci": "testcafe all e2e/**/*.e2e-spec.js --app \"yarn dev\" --app-init-delay 4000"
   },
   "engines": {
-    "node": ">=8.0",
+    "node": "12.0.0",
     "npm": ">=5.0"
   },
   "jest": {
