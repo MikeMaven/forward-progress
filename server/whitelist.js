@@ -16,7 +16,5 @@ module.exports = {
   'jtrocchi1@gmail.com': 1,
   'jwolov1@gmail.com': 1,
   'mikeandshannonmusic@gmail.com' : 1,
-  'allenjgaudetiv@gmail.com' : 1,
-  'robertmartinez1992@gmail.com' : 1,
-  'maryeliseselep@gmail.com' : 1
+  'allenjgaudetiv@gmail.com' : 1
 };
