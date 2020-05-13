@@ -1,3 +1,4 @@
+const timeout = require('connect-timeout');
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
@@ -84,6 +85,7 @@ const serve = (path, cache) =>
     maxAge: cache && isProd ? 1000 * 60 * 60 * 24 * 30 : 0
   });
 
+app.use(timeout('20s'));
 app.use('*', cors());
 app.use(helmet());
 app.use(bodyParser.json()); // handle json data
