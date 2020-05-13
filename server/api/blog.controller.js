@@ -93,7 +93,6 @@ exports.newBlog = async (req, res) => {
 
   BlogPost.create(blogData)
     .then(newBlog => {
-      console.log(newBlog);
       newBlogScoped = newBlog;
       let promises = [];
       let newCategories = body.categories.filter(category => category.new);
