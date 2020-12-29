@@ -18,5 +18,6 @@ module.exports = {
   'mikeandshannonmusic@gmail.com' : 1,
   'allenjgaudetiv@gmail.com' : 1,
   'robertmartinez1992@gmail.com' : 1,
-  'maryeliseselep@gmail.com' : 1
+  'maryeliseselep@gmail.com' : 1,
+  'awford7@gmail.com': 1
 };
