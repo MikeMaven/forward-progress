@@ -8,7 +8,7 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(process.env[config.use_env_variable], {
     dialect: 'postgres',
     protocol: 'postgres',
-    dialectOptions = {
+    dialectOptions: {
       ssl: true,
     },
   });
