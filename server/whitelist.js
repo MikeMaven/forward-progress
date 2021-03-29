@@ -19,5 +19,9 @@ module.exports = {
   'allenjgaudetiv@gmail.com' : 1,
   'robertmartinez1992@gmail.com' : 1,
   'maryeliseselep@gmail.com' : 1,
-  'awford7@gmail.com': 1
+  'awford7@gmail.com': 1,
+  'bfriedland@umass.edu': 1,
+  'zapengler@gmail.com': 1,
+  'rjsimpson@umass.edu': 1,
+  'cpenn@umass.edu': 1
 };
